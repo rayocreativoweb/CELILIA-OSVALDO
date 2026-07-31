@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda Cecilia & Osvaldo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Variables de color */
+        :root {
+            --olive: #5b6b47;
+            --olive-dark: #3a472c;
+            --beige: #f5f3e9;
+            --beige-dark: #e3decd;
+            --text-dark: #2c2c2c;
+            --white: #ffffff;
+        }
+
+        /* Estilos Generales */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--beige); color: var(--text-dark); overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: normal; }
+        
+        /* Menú Hamburguesa */
+        .menu-btn { position: fixed; top: 20px; right: 20px; z-index: 1000; background: none; border: none; font-size: 30px; color: var(--white); cursor: pointer; mix-blend-mode: difference; }
+        .side-menu { position: fixed; top: 0; right: -300px; width: 250px; height: 100vh; background-color: var(--olive); transition: 0.3s; z-index: 999; padding-top: 80px; box-shadow: -2px 0 10px rgba(0,0,0,0.2); }
+        .side-menu.active { right: 0; }
+        .side-menu a { display: block; color: var(--white); padding: 15px 25px; text-decoration: none; font-size: 1.1em; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        /* Botón de Idioma */
+        .lang-btn { position: fixed; top: 25px; left: 20px; z-index: 998; background-color: rgba(255,255,255,0.2); border: 1px solid var(--white); color: var(--white); padding: 5px 15px; border-radius: 20px; cursor: pointer; mix-blend-mode: difference; font-size: 0.9em; }
+
+        /* Sección Hero */
+        .hero { position: relative; height: 100vh; width: 100vw; background-image: url('hero_vertical_bn.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: var(--white); width: 100%; }
+        .hero h1 { font-size: 4em; letter-spacing: 2px; margin-bottom: 20px; line-height: 1.2; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        
+        /* Reproductor de Música */
+        .music-player { margin-top: 30px; display: flex; align-items: center; justify-content: center; gap: 15px; background: rgba(255,255,255,0.15); backdrop-filter: blur(5px); padding: 10px 25px; border-radius: 30px; width: 80%; max-width: 300px; margin-left: auto; margin-right: auto; border: 1px solid rgba(255,255,255,0.3); }
+        .play-btn { background: none; border: none; color: var(--white); font-size: 20px; cursor: pointer; }
+        .progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; position: relative; }
+        .progress-bar { height: 100%; background: var(--white); width: 0%; border-radius: 2px; }
+        .time-display { font-size: 0.8em; font-family: monospace; }
+
+        /* Fecha y Contador */
+        .section { padding: 60px 20px; text-align: center; }
+        .fecha-boda { font-size: 1.8em; color: var(--olive); margin-bottom: 30px; }
+        .thin-line { border: 0; height: 1px; background: var(--olive); margin: 20px auto; width: 80%; max-width: 400px; opacity: 0.5; }
+        .countdown { display: flex; justify-content: center; gap: 15px; font-family: 'Playfair Display', serif; color: var(--olive-dark); font-size: 2em; }
+        .cd-item { display: flex; flex-direction: column; align-items: center; }
+        .cd-label { font-family: 'Montserrat', sans-serif; font-size: 0.35em; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; }
+
+        /* Itinerario */
+        .itinerario-card { background: var(--white); padding: 30px; margin: 20px auto; max-width: 500px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .itinerario-icon { font-size: 2.5em; margin-bottom: 10px; }
+        .map-btn { display: inline-block; margin-top: 15px; padding: 10px 20px; background: var(--olive); color: var(--white); text-decoration: none; border-radius: 5px; font-size: 0.9em; transition: 0.3s; }
+        
+        /* Separadores Visuales (Fotos Horizontales) */
+        .foto-horizontal { width: 100%; height: 40vh; object-fit: cover; display: block; }
+
+        /* Cuadrícula de Fotos Verticales */
+        .foto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .foto-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 5px; }
+
+        /* Libro de Firmas y Slider */
+        .form-container { background: var(--beige-dark); padding: 40px 20px; border-radius: 10px; max-width: 600px; margin: 0 auto 40px auto; }
+        input, textarea, select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; }
+        .btn-submit { background: var(--olive); color: var(--white); border: none; padding: 15px; width: 100%; border-radius: 5px; font-size: 1em; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .slider-mensajes { background: var(--olive-dark); color: var(--white); padding: 60px 20px; text-align: center; overflow: hidden; position: relative; }
+        .mensaje-slide { display: none; padding: 20px; max-width: 600px; margin: 0 auto; animation: fade 1s; }
+        .mensaje-slide.active { display: block; }
+        .mensaje-texto { font-size: 1.5em; font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 15px; }
+        .mensaje-autor { font-size: 0.9em; color: var(--beige); text-transform: uppercase; letter-spacing: 2px; }
+        @keyframes fade { from {opacity: 0;} to {opacity: 1;} }
+
+        /* Clima */
+        .clima-widget { max-width: 600px; margin: 0 auto; background: var(--white); padding: 30px; border-radius: 10px; border: 1px solid var(--beige-dark); }
+        .clima-hora { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--beige-dark); }
+
+        /* Botón Galería */
+        .galeria-btn-container { position: relative; height: 300px; display: flex; align-items: center; justify-content: center; background-image: url('galeria_btn.jpg'); background-size: cover; background-position: center; margin: 40px 0; cursor: pointer; }
+        .galeria-btn-overlay { position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(91, 107, 71, 0.7); transition: 0.3s; }
+        .galeria-btn-text { position: relative; z-index: 2; color: var(--white); font-size: 2em; font-family: 'Playfair Display', serif; border: 2px solid var(--white); padding: 15px 30px; }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="cancionfondo.mp3" loop></audio>
+
+    <button class="lang-btn" id="langToggle">ENG</button>
+    
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="side-menu" id="sideMenu">
+        <a href="#hero" class="nav-link" data-es="Inicio" data-en="Home">Inicio</a>
+        <a href="#fecha" class="nav-link" data-es="Fecha" data-en="Date">Fecha</a>
+        <a href="#itinerario" class="nav-link" data-es="Itinerario" data-en="Itinerary">Itinerario</a>
+        <a href="#mensajes" class="nav-link" data-es="Libro de Visitas" data-en="Guestbook">Libro de Visitas</a>
+        <a href="#rsvp" class="nav-link" data-es="Confirmación" data-en="RSVP">Confirmación</a>
+    </div>
+
+    <!-- INICIO -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Cecilia<br>&<br>Osvaldo</h1>
+            
+            <div class="music-player">
+                <button class="play-btn" id="playBtn">▶</button>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <span class="time-display" id="timeDisplay">0:00</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FECHA Y CONTADOR -->
+    <section class="section" id="fecha">
+        <h2 class="fecha-boda translatable" data-es="12 de Septiembre de 2026" data-en="September 12th, 2026">12 de Septiembre de 2026</h2>
+        <hr class="thin-line">
+        <div class="countdown" id="countdown">
+            <div class="cd-item"><span id="days">00</span><span class="cd-label translatable" data-es="Días" data-en="Days">Días</span></div>:
+            <div class="cd-item"><span id="hours">00</span><span class="cd-label translatable" data-es="Horas" data-en="Hours">Horas</span></div>:
+            <div class="cd-item"><span id="mins">00</span><span class="cd-label translatable" data-es="Min" data-en="Min">Min</span></div>:
+            <div class="cd-item"><span id="secs">00</span><span class="cd-label translatable" data-es="Seg" data-en="Sec">Seg</span></div>
+        </div>
+        <hr class="thin-line">
+    </section>
+
+    <!-- ITINERARIO -->
+    <section class="section" id="itinerario">
+        <h2 class="translatable" data-es="Itinerario" data-en="Itinerary" style="color: var(--olive); margin-bottom:30px;">Itinerario</h2>
+        
+        <div class="itinerario-card">
+            <div class="itinerario-icon">⛪</div>
+            <h3 class="translatable" data-es="Ceremonia Religiosa" data-en="Religious Ceremony">Ceremonia Religiosa</h3>
+            <p>Catedral de Campeche</p>
+            <p>5:00 p.m.</p>
+            <a href="https://maps.google.com/?q=Catedral+de+Campeche" target="_blank" class="map-btn translatable" data-es="Ver Mapa" data-en="View Map">Ver Mapa</a>
+        </div>
+
+        <div class="itinerario-card">
+            <div class="itinerario-icon">🥂</div>
+            <h3 class="translatable" data-es="Recepción" data-en="Reception">Recepción</h3>
+            <p>Hacienda Xtelchel</p>
+            <p>7:00 p.m.</p>
+            <a href="https://maps.google.com/?q=Hacienda+Xtelchel" target="_blank" class="map-btn translatable" data-es="Ver Mapa" data-en="View Map">Ver Mapa</a>
+        </div>
+    </section>
+
+    <!-- FOTO DESCANSO 1 -->
+    <img src="break_h1.jpg" class="foto-horizontal" alt="Novios">
+
+    <!-- FOTOS VERTICALES (CUADRÍCULA) -->
+    <section class="section">
+        <div class="foto-grid">
+            <img src="grid_v1.jpg" alt="Foto 1">
+            <img src="grid_v2.jpg" alt="Foto 2">
+            <img src="grid_v3.jpg" alt="Foto 3">
+            <img src="grid_v4.jpg" alt="Foto 4">
+            <img src="grid_v5.jpg" alt="Foto 5">
+            <img src="grid_v6.jpg" alt="Foto 6">
+        </div>
+    </section>
+
+    <!-- LIBRO DE VISITAS -->
+    <section class="section" id="mensajes">
+        <h2 class="translatable" data-es="Déjanos un Mensaje" data-en="Leave a Message" style="color: var(--olive); margin-bottom:20px;">Déjanos un Mensaje</h2>
+        <div class="form-container">
+            <textarea rows="4" placeholder="Escribe tus felicitaciones aquí..." class="translatable-ph" data-es="Escribe tus felicitaciones aquí..." data-en="Write your wishes here..."></textarea>
+            <input type="text" placeholder="Tu Nombre (o déjalo en blanco para anónimo)" class="translatable-ph" data-es="Tu Nombre (o déjalo en blanco para anónimo)" data-en="Your Name (or leave blank for anonymous)">
+            <button class="btn-submit translatable" data-es="Enviar Mensaje" data-en="Send Message">Enviar Mensaje</button>
+        </div>
+    </section>
+
+    <!-- SLIDER DE MENSAJES -->
+    <section class="slider-mensajes">
+        <div class="mensaje-slide active">
+            <div class="mensaje-texto">"Que el amor que sienten hoy crezca cada día más. ¡Felicidades doctores!"</div>
+            <div class="mensaje-autor">— Familia Pérez</div>
+        </div>
+        <div class="mensaje-slide">
+            <div class="mensaje-texto">"Una vida llena de salud, éxito y mucho amor para ambos."</div>
+            <div class="mensaje-autor">— Anónimo</div>
+        </div>
+        <div class="mensaje-slide">
+            <div class="mensaje-texto">"El mejor equipo dentro y fuera del hospital. ¡Los queremos!"</div>
+            <div class="mensaje-autor">— Dra. Ramírez</div>
+        </div>
+    </section>
+
+    <!-- PRONÓSTICO DEL CLIMA -->
+    <section class="section">
+        <h2 class="translatable" data-es="Pronóstico del Clima" data-en="Weather Forecast" style="color: var(--olive); margin-bottom:10px;">Pronóstico del Clima</h2>
+        <p style="margin-bottom: 20px; color: #666;">Campeche, Campeche | 12 de Sept.</p>
+        
+        <div class="clima-widget">
+            <div class="clima-hora"><span>14:00 hrs</span><span>☀️ 32°C</span></div>
+            <div class="clima-hora"><span>15:00 hrs</span><span>🌤️ 31°C</span></div>
+            <div class="clima-hora"><span>16:00 hrs</span><span>🌤️ 30°C</span></div>
+            <div class="clima-hora"><span>17:00 hrs (Misa)</span><span>🌥️ 28°C</span></div>
+            <div class="clima-hora" style="border:none;"><span>19:00 hrs (Recepción)</span><span>🌙 26°C</span></div>
+        </div>
+    </section>
+
+    <!-- FOTO DESCANSO 2 -->
+    <img src="break_h2.jpg" class="foto-horizontal" alt="Novios">
+
+    <!-- BOTÓN GALERÍA -->
+    <div class="galeria-btn-container" onclick="alert('Aquí se abrirá la galería flotante con las fotos oficiales.')">
+        <div class="galeria-btn-overlay"></div>
+        <div class="galeria-btn-text translatable" data-es="Ver Galería Completa" data-en="View Full Gallery">Ver Galería Completa</div>
+    </div>
+
+    <!-- CONFIRMACIÓN (RSVP) -->
+    <section class="section" id="rsvp">
+        <h2 class="translatable" data-es="Confirmación de Asistencia" data-en="RSVP" style="color: var(--olive); margin-bottom:20px;">Confirmación de Asistencia</h2>
+        <div class="form-container">
+            <input type="text" placeholder="Nombre Completo" class="translatable-ph" data-es="Nombre Completo" data-en="Full Name">
+            <select>
+                <option value="" disabled selected class="translatable" data-es="¿Asistirás?" data-en="Will you attend?">¿Asistirás?</option>
+                <option value="si" class="translatable" data-es="Sí, asistiré" data-en="Yes, I will attend">Sí, asistiré</option>
+                <option value="no" class="translatable" data-es="No podré asistir" data-en="Regretfully decline">No podré asistir</option>
+            </select>
+            <input type="number" placeholder="Número de personas confirmadas" min="1" max="5" class="translatable-ph" data-es="Número de personas confirmadas" data-en="Number of guests">
+            <input type="tel" placeholder="Número de contacto" class="translatable-ph" data-es="Número de contacto" data-en="Contact Number">
+            <textarea rows="3" placeholder="Mensaje para los novios (Opcional)" class="translatable-ph" data-es="Mensaje para los novios (Opcional)" data-en="Message for the couple (Optional)"></textarea>
+            <button class="btn-submit translatable" data-es="Confirmar" data-en="Confirm">Confirmar</button>
+        </div>
+    </section>
+
+    <script>
+        // --- MENÚ HAMBURGUESA ---
+        function toggleMenu() {
+            document.getElementById("sideMenu").classList.toggle("active");
+        }
+
+        // Cierra el menú al hacer clic en un enlace
+        document.querySelectorAll('.side-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById("sideMenu").classList.remove("active");
+            });
+        });
+
+        // --- REPRODUCTOR DE MÚSICA ---
+        const audio = document.getElementById('bg-music');
+        const playBtn = document.getElementById('playBtn');
+        const progressBar = document.getElementById('progressBar');
+        const timeDisplay = document.getElementById('timeDisplay');
+
+        // Intento de auto-play al cargar (los navegadores pueden bloquearlo hasta que el usuario interactúe)
+        window.addEventListener('click', () => {
+            if (audio.paused && audio.currentTime === 0) {
+                audio.play();
+                playBtn.innerText = '⏸';
+            }
+        }, { once: true });
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerText = '⏸';
+            } else {
+                audio.pause();
+                playBtn.innerText = '▶';
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = progress + '%';
+            
+            let minutes = Math.floor(audio.currentTime / 60);
+            let seconds = Math.floor(audio.currentTime % 60);
+            if (seconds < 10) seconds = '0' + seconds;
+            timeDisplay.innerText = minutes + ':' + seconds;
+        });
+
+        // --- CONTADOR ---
+        const countDownDate = new Date("Sep 12, 2026 17:00:00").getTime();
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 6Aquí tienes el código completo en un solo archivo, ideal para copiar y pegar directamente en tu bloc de notas y guardarlo como `index.html`. 
+
+Este código incluye el HTML (estructura), CSS (diseño y colores verde oliva/beige) y JavaScript (funcionalidad del menú, reproductor de música, contador, slider de mensajes y galería modal).
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda Cecilia & Osvaldo</title>
+    <!-- Fuentes elegantes de Google Fonts -->
+    <link href="[https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap](https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap)" rel="stylesheet">
+    <style>
+        /* Variables de Color - Estilo Oliva y Beige */
+        :root {
+            --oliva: #6b705c;
+            --oliva-oscuro: #505545;
+            --beige: #f3ebd8;
+            --beige-claro: #fbf9f4;
+            --blanco: #ffffff;
+            --oscuro: #2c2c2c;
+            --dorado: #b59a5c;
+        }
+
+        /* Estilos Generales */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--beige-claro);
+            color: var(--oscuro);
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Menú Hamburguesa Lateral */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            background: rgba(255,255,255,0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .menu-btn div {
+            width: 30px;
+            height: 2px;
+            background-color: var(--oliva);
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 250px;
+            height: 100vh;
+            background-color: var(--oliva);
+            color: var(--beige);
+            z-index: 999;
+            transition: right 0.4s ease;
+            padding-top: 80px;
+            text-align: left;
+        }
+        .sidebar.active {
+            right: 0;
+        }
+        .sidebar a {
+            display: block;
+            color: var(--beige);
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-bottom: 1px solid rgba(243, 235, 216, 0.2);
+        }
+
+        /* Reproductor de Música Minimalista */
+        .music-player {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 15px;
+            border-radius: 30px;
+            color: var(--blanco);
+        }
+        .play-btn {
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+        .progress-bar-container {
+            width: 100px;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            position: relative;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--blanco);
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background-image: url('hero_vertical_bn.jpg'); /* FOTO 1 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--blanco);
+        }
+        .hero-names {
+            font-size: 4em;
+            font-style: italic;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Botón de Idioma */
+        .lang-btn {
+            margin: 20px auto;
+            padding: 8px 20px;
+            border: 1px solid var(--oliva);
+            background: transparent;
+            color: var(--oliva);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .lang-btn:hover {
+            background: var(--oliva);
+            color: var(--blanco);
+        }
+
+        /* Fecha y Contador */
+        .fecha-seccion {
+            font-size: 1.5em;
+            color: var(--oliva);
+            margin-bottom: 20px;
+        }
+        .fecha-seccion span { display: block; }
+        .mes { font-size: 1.2em; text-transform: uppercase; letter-spacing: 2px; }
+        .dia { font-size: 3em; font-weight: 300; line-height: 1; }
+        .anio { font-size: 1.2em; }
+        
+        .contador-wrapper {
+            border-top: 1px solid var(--oliva);
+            border-bottom: 1px solid var(--oliva);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 0 auto;
+            max-width: 400px;
+        }
+        .time-box { text-align: center; color: var(--oliva); }
+        .time-box .num { font-size: 2em; font-family: 'Playfair Display', serif; }
+        .time-box .label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Itinerario */
+        .itinerario-item {
+            margin: 40px 0;
+            padding: 30px;
+            background: var(--blanco);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .icon { font-size: 2.5em; margin-bottom: 15px; }
+        .lugar-titulo { font-size: 1.8em; color: var(--oliva); margin-bottom: 5px; }
+        .hora { font-weight: 500; margin-bottom: 15px; color: var(--dorado); }
+        .btn-mapa {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--oliva);
+            color: var(--blanco);
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Fotos */
+        .foto-horizontal {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            margin: 40px 0;
+        }
+        .grid-fotos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 40px 0;
+        }
+        .grid-fotos img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        /* Mensajes (Guestbook) */
+        .guestbook-seccion {
+            background: var(--beige);
+            padding: 50px 20px;
+        }
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        .btn-submit {
+            background: var(--oliva);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+        }
+
+        /* Slider de Mensajes */
+        .mensajes-slider {
+            background: var(--oscuro);
+            color: var(--beige);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .mensaje-slide {
+            display: none;
+            animation: fade 1s ease-in-out;
+        }
+        .mensaje-slide.active { display: block; }
+        .mensaje-texto { font-size: 1.5em; font-style: italic; margin-bottom: 20px; }
+        .mensaje-autor { color: var(--dorado); font-size: 1.1em; letter-spacing: 1px; }
+        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Clima */
+        .clima-widget {
+            margin: 40px 0;
+            padding: 30px;
+            border: 2px solid var(--beige);
+            border-radius: 10px;
+        }
+        .clima-hora-grid {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        .clima-hora { text-align: center; min-width: 60px; }
+
+        /* Galería Botón y Modal */
+        .btn-galeria {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 200px;
+            background-image: url('galeria_btn.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            margin: 40px 0;
+        }
+        .btn-galeria-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(107, 112, 92, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--blanco);
+            font-size: 1.8em;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+        
+        /* Ocultar elementos para el modal temporalmente (se activan con JS) */
+        #galeria-modal {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            overflow-y: scroll;
+            padding: 50px 20px;
+        }
+        .cerrar-modal {
+            color: white; font-size: 30px; position: absolute; top: 20px; right: 30px; cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Menú Hamburguesa -->
+    <div class="menu-btn" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <a href="#inicio" onclick="toggleMenu()">Inicio</a>
+        <a href="#detalles" onclick="toggleMenu()">Detalles</a>
+        <a href="#itinerario" onclick="toggleMenu()">Itinerario</a>
+        <a href="#mensajes" onclick="toggleMenu()">Libro de Visitas</a>
+        <a href="#rsvp" onclick="toggleMenu()">Confirmar Asistencia</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <!-- Audio en loop oculto pero funcional -->
+        <audio id="audioFondo" loop>
+            <source src="cancionfondo.mp3" type="audio/mpeg">
+        </audio>
+        
+        <!-- Reproductor de Música -->
+        <div class="music-player">
+            <div class="play-btn" id="playBtn" onclick="toggleAudio()">▶</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-names">Cecilia<br>&<br>Osvaldo</h1>
+        </div>
+    </section>
+
+    <div class="container" id="detalles">
+        
+        <!-- Botón de Idioma -->
+        <button class="lang-btn" onclick="cambiarIdioma()">ES / EN</button>
+
+        <!-- Fecha -->
+        <div class="fecha-seccion serif">
+            <span class="mes" id="txt-mes">Septiembre</span>
+            <span class="dia">12</span>
+            <span class="anio">2026</span>
+        </div>
+
+        <!-- Contador -->
+        <div class="contador-wrapper">
+            <div class="time-box"><div class="num" id="dias">00</div><div class="label" id="lbl-dias">Días</div></div>
+            <div class="time-box"><div class="num" id="horas">00</div><div class="label" id="lbl-horas">Hrs</div></div>
+            <div class="time-box"><div class="num" id="mins">00</div><div class="label" id="lbl-mins">Min</div></div>
+            <div class="time-box"><div class="num" id="segs">00</div><div class="label" id="lbl-segs">Seg</div></div>
+        </div>
+
+        <!-- Itinerario -->
+        <div id="itinerario">
+            <h2 class="serif" style="color: var(--oliva); margin-top: 50px; font-size: 2.5em;">Itinerario</h2>
+            
+            <div class="itinerario-item">
+                <div class="icon">⛪</div>
+                <h3 class="lugar-titulo">Ceremonia Religiosa</h3>
+                <p class="hora">5:00 p.m.</p>
+                <p style="margin-bottom: 20px;">Catedral de Campeche</p>
+                <a href="[https://maps.app.goo.gl/placeholderCatedral](https://maps.app.goo.gl/placeholderCatedral)" target="_blank" class="btn-mapa">Ver Mapa</a>
+            </div>
+
+            <div class="itinerario-item">
+                <div class="icon">🥂</div>
+                <h3 class="lugar-titulo">Recepción</h3>
+                <p class="hora">7:00 p.m.</p>
+                <p style="margin-bottom: 20px;">Hacienda Xtelchel</p>
+                <a href="[https://maps.app.goo.gl/placeholderHacienda](https://maps.app.goo.gl/placeholderHacienda)" target="_blank" class="btn-mapa">Ver Mapa</a>
+            </div>
+        </div>
+
+        <!-- Foto Horizontal 1 -->
+        <img src="break_h1.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
+
+        <!-- Grid de Fotos Verticales (6 fotos) -->
+        <div class="grid-fotos">
+            <img src="grid_v1.jpg" alt="Grid 1">
+            <img src="grid_v2.jpg" alt="Grid 2">
+            <img src="grid_v3.jpg" alt="Grid 3">
+            <img src="grid_v4.jpg" alt="Grid 4">
+            <img src="grid_v5.jpg" alt="Grid 5">
+            <img src="grid_v6.jpg" alt="Grid 6">
+        </div>
+
+    </div>
+
+    <!-- Sección de Mensajes Formulario -->
+    <section class="guestbook-seccion" id="mensajes">
+        <div class="container">
+            <h2 class="serif" style="color: var(--oliva); margin-bottom: 20px;">Libro de Visitas</h2>
+            <p style="margin-bottom: 30px;">Déjanos tus mejores deseos para esta nueva etapa.</p>
+            <form id="formMensaje" onsubmit="enviarMensaje(event)">
+                <textarea placeholder="Escribe tu mensaje aquí..." rows="4" required></textarea>
+                <input type="text" placeholder="Tu Nombre (o déjalo en blanco para anónimo)">
+                <button type="submit" class="btn-submit" style="width: 100%;">Dejar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Slider Automático de Mensajes -->
+    <section class="mensajes-slider">
+        <div class="mensaje-slide active">
+            <p class="mensaje-texto serif">"Que esta nueva etapa esté llena de amor y bendiciones eternas. ¡Felicidades!"</p>
+            <p class="mensaje-autor">— Familia Martínez</p>
+        </div>
+        <div class="mensaje-slide">
+            <p class="mensaje-texto serif">"Es un honor acompañarlos en este día tan especial. ¡Vivan los novios!"</p>
+            <p class="mensaje-autor">— Anónimo</p>
+        </div>
+        <div class="mensaje-slide">
+            <p class="mensaje-texto serif">"Su amor es una inspiración para todos nosotros. Disfruten su noche mágica."</p>
+            <p class="mensaje-autor">— Carlos y Ana</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Pronóstico del Tiempo -->
+        <div class="clima-widget">
+            <h3 class="serif" style="color: var(--oliva); font-size: 1.8em;">Pronóstico del Día</h3>
+            <p style="font-weight: bold; margin-top: 10px;">Campeche, Campeche</p>
+            <div style="font-size: 3em; color: var(--oscuro); margin: 10px 0;">28°C ☀️</div>
+            
+            <div class="clima-hora-grid">
+                <div class="clima-hora">
+                    <p>12 PM</p><span>🌤️</span><p>30°</p>
+                </div>
+                <div class="clima-hora">
+                    <p>2 PM</p><span>☀️</span><p>31°</p>
+                </div>
+                <div class="clima-hora">
+                    <p>4 PM</p><span>🌤️</span><p>29°</p>
+                </div>
+                <div class="clima-hora">
+                    <p>6 PM</p><span>⛅</span><p>27°</p>
+                </div>
+                <div class="clima-hora">
+                    <p>8 PM</p><span>🌙</span><p>25°</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foto Horizontal 2 -->
+        <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
+
+        <!-- Botón para Galería Completa -->
+        <div class="btn-galeria" onclick="abrirGaleria()">
+            <div class="btn-galeria-overlay">
+                VER GALERÍA
+            </div>
+        </div>
+
+        <!-- Sección de RSVP -->
+        <div id="rsvp" style="margin-top: 60px; text-align: left; background: var(--blanco); padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <h2 class="serif" style="color: var(--oliva); text-align: center; margin-bottom: 30px; font-size: 2.2em;">Confirmación de Asistencia</h2>
+            <form onsubmit="confirmarAsistencia(event)">
+                <div style="margin-bottom: 20px;">
+                    <label><input type="radio" name="asistencia" value="si" required> ¡Sí, asistiré!</label><br><br>
+                    <label><input type="radio" name="asistencia" value="no"> Lo siento, no podré asistir</label>
+                </div>
+                <input type="text" placeholder="Nombre completo" required>
+                <select required>
+                    <option value="" disabled selected>Número de personas confirmadas</option>
+                    <option value="1">1 Persona</option>
+                    <option value="2">2 Personas</option>
+                    <option value="3">3 Personas</option>
+                    <option value="4">4 Personas</option>
+                </select>
+                <input type="tel" placeholder="Número de contacto" required>
+                <textarea placeholder="¿Algún mensaje adicional o restricción alimenticia?" rows="3"></textarea>
+                <button type="submit" class="btn-submit" style="width: 100%;">ENVIAR CONFIRMACIÓN</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Modal de Galería Oculta -->
+    <div id="galeria-modal">
+        <span class="cerrar-modal" onclick="cerrarGaleria()">&times;</span>
+        <h2 class="serif" style="color: var(--beige); text-align: center; margin-bottom: 30px;">Nuestra Historia</h2>
+        <!-- Aquí puedes agregar las fotos genéricas oficiales luego -->
+        <div style="color: white; text-align: center;">(Espacio para cargar galería completa)</div>
+    </div>
+
+    <!-- SCRIPTS JAVASCRIPT -->
+    <script>
+        // 1. Funcionalidad del Menú
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // 2. Reproductor de Audio
+        const audio = document.getElementById('audioFondo');
+        const playBtn = document.getElementById('playBtn');
+        const progressBar = document.getElementById('progressBar');
+        
+        // Intentar reproducir automáticamente
+        window.addEventListener('click', () => {
+            if (audio.paused && audio.currentTime === 0) {
+                audio.play();
+                playBtn.innerHTML = '⏸';
+            }
+        }, { once: true });
+
+        function toggleAudio() {
+            if(audio.paused) {
+                audio.play();
+                playBtn.innerHTML = '⏸';
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '▶';
+            }
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = progress + '%';
+        });
+
+        // 3. Contador Regresivo (Fecha Ejemplo: 12 Sept 2026 17:00:00)
+        const fechaBoda = new Date("Sep 12, 2026 17:00:00").getTime();
+        
+        setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = fechaBoda - ahora;
+
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            document.getElementById("dias").innerHTML = dias < 10 ? '0'+dias : dias;
+            document.getElementById("horas").innerHTML = horas < 10 ? '0'+horas : horas;
+            document.getElementById("mins").innerHTML = minutos < 10 ? '0'+minutos : minutos;
+            document.getElementById("segs").innerHTML = segundos < 10 ? '0'+segundos : segundos;
+        }, 1000);
+
+        // 4. Slider de Mensajes (Cambia cada 5 segundos)
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.mensaje-slide');
+        
+        function mostrarSlides() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].classList.add('active');
+            setTimeout(mostrarSlides, 5000); // Cambia cada 5 segundos
+        }
+        mostrarSlides();
+
+        // 5. Simulación Formularios
+        function enviarMensaje(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu mensaje! Se añadirá al libro de visitas.');
+            e.target.reset();
+        }
+        function confirmarAsistencia(e) {
+            e.preventDefault();
+            alert('¡Gracias por confirmar! Tu respuesta ha sido enviada.');
+            e.target.reset();
+        }
+
+        // 6. Galería Modal
+        function abrirGaleria() {
+            document.getElementById('galeria-modal').style.display = 'block';
+        }
+        function cerrarGaleria() {
+            document.getElementById('galeria-modal').style.display = 'none';
+        }
+
+        // 7. Simulación Botón Idioma
+        let esIngles = false;
+        function cambiarIdioma() {
+            esIngles = !esIngles;
+            if(esIngles) {
+                document.getElementById('txt-mes').innerText = "September";
+                document.getElementById('lbl-dias').innerText = "Days";
+                // Aquí agregarías el resto de las traducciones apuntando a los IDs
+            } else {
+                document.getElementById('txt-mes').innerText = "Septiembre";
+                document.getElementById('lbl-dias').innerText = "Días";
+            }
+        }
+    </script>
+</body>
+</html>
