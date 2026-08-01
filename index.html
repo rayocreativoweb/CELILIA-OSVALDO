@@ -24,50 +24,53 @@
             color: var(--cafe-sutil);
             overflow-x: hidden;
             font-weight: 300;
-            
-            /* FONDO PERSONALIZADO AJUSTADO */
             background-image: url('fondo_invitacion.jpg');
-            background-size: 100% auto; /* 100% del ancho, altura automática */
-            background-repeat: repeat; /* Repite hacia abajo suavemente */
+            background-size: 100% auto;
+            background-repeat: repeat;
             background-attachment: fixed;
             background-color: var(--hueso);
         }
         
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
-        
-        /* Placeholder invisible si no hay imagen de monograma */
-        img[alt="Monograma de los novios"] {
-            color: transparent; position: relative; min-height: 150px;
+
+        /* Ocultar ícono de error de imagen y dar espacio al monograma */
+        .monograma-placeholder {
+            width: 150px;
+            min-height: 150px;
+            margin-bottom: 30px;
+            object-fit: contain;
         }
         
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
-        /* CLASES PARA ANIMACIONES (SCROLL) */
-        .animar {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        /* ANIMACIONES VIVAS (NUEVO) */
+        @keyframes flotar {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
         }
-        .animar.aparecer {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes respirar {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
         }
+        
+        .vivo-flotar { animation: flotar 6s ease-in-out infinite; }
+        .vivo-respirar { animation: respirar 8s ease-in-out infinite; }
+
+        .animar { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .animar.aparecer { opacity: 1; transform: translateY(0); }
 
         /* PANTALLA DE BIENVENIDA */
         #pantalla-bienvenida {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background-color: var(--negro-absoluto);
-            z-index: 10000; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--negro-absoluto);
+            z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s;
         }
-        .monograma-placeholder { width: 150px; margin-bottom: 30px; }
         .fecha-intro { color: var(--hueso); letter-spacing: 4px; font-weight: 200; font-size: 0.9em; margin-bottom: 40px; }
         .btn-entrar {
-            padding: 15px 40px; border: 1px solid var(--hueso);
-            background: transparent; color: var(--hueso); border-radius: 30px;
-            font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: 1em;
-            letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: 0.4s;
+            padding: 15px 40px; border: 1px solid var(--hueso); background: transparent; color: var(--hueso); border-radius: 30px;
+            font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: 1em; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: 0.4s;
         }
         .btn-entrar:hover { background: var(--hueso); color: var(--negro-absoluto); }
 
@@ -88,17 +91,12 @@
         .menu-btn.open div:nth-child(3) { transform: rotate(45deg) translate(-6px, -6px); }
 
         .sidebar {
-            position: fixed; top: 0; right: -50vw; width: 50vw; height: 100vh;
-            background-color: rgba(17, 26, 20, 0.98); 
-            z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            position: fixed; top: 0; right: -50vw; width: 50vw; height: 100vh; background-color: rgba(17, 26, 20, 0.98); 
+            z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5);
         }
         @media (max-width: 600px) { .sidebar { right: -70vw; width: 70vw; } }
         .sidebar.active { right: 0; }
-        .sidebar a {
-            color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2em;
-            text-decoration: none; margin: 15px 0; font-style: italic; opacity: 0; transform: translateY(20px); transition: 0.4s;
-        }
+        .sidebar a { color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2em; text-decoration: none; margin: 15px 0; font-style: italic; opacity: 0; transform: translateY(20px); transition: 0.4s; }
         .sidebar.active a { opacity: 1; transform: translateY(0); }
         .sidebar.active a:nth-child(1) { transition-delay: 0.1s; }
         .sidebar.active a:nth-child(2) { transition-delay: 0.2s; }
@@ -107,28 +105,19 @@
         .sidebar.active a:nth-child(5) { transition-delay: 0.5s; }
 
         /* HERO */
-        .hero {
-            position: relative; height: 100vh; background-image: url('hero_vertical_bn.jpg'); background-size: cover; background-position: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 80px 20px 40px 20px;
-        }
-        .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)); z-index: 0; }
+        .hero { position: relative; height: 100vh; background-image: url('hero_vertical_bn.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 80px 20px 40px 20px; overflow: hidden; }
+        .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6)); z-index: 0; }
         .hero-nombres { position: relative; z-index: 1; color: var(--blanco); font-size: 4.5em; font-weight: 300; font-style: italic; line-height: 1.1; margin-top: 10vh; text-align: center; }
         .hero-bottom { position: relative; z-index: 1; color: var(--blanco); width: 100%; text-align: center; }
         .fecha-minimalista { font-weight: 200; font-size: 1.2em; letter-spacing: 4px; margin-bottom: 20px; }
-        .contador-minimalista {
-            display: flex; justify-content: center; gap: 20px; font-weight: 200; border-top: 1px solid rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.4); padding: 15px 0; max-width: 300px; margin: 0 auto;
-        }
+        .contador-minimalista { display: flex; justify-content: center; gap: 20px; font-weight: 200; border-top: 1px solid rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.4); padding: 15px 0; max-width: 300px; margin: 0 auto; }
         .time-box .num { font-family: 'Cormorant Garamond', serif; font-size: 2em; line-height: 1; }
         .time-box .label { font-size: 0.6em; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; opacity: 0.8; }
 
         /* ITINERARIO */
-        .itinerario-item {
-            margin: 40px auto; padding: 40px 20px; max-width: 500px; background: rgba(232, 227, 213, 0.4); border: 1px solid rgba(255,255,255,0.4); border-radius: 15px;
-        }
+        .itinerario-item { margin: 40px auto; padding: 40px 20px; max-width: 500px; background: rgba(232, 227, 213, 0.4); border: 1px solid rgba(255,255,255,0.4); border-radius: 15px; backdrop-filter: blur(5px); }
         .lugar-titulo { font-size: 2em; font-weight: 300; color: var(--oliva); margin-bottom: 5px; }
-        .btn-linea {
-            display: inline-block; padding: 10px 30px; margin-top: 15px; border: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); text-decoration: none; border-radius: 30px; font-size: 0.8em; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; cursor: pointer; background: transparent;
-        }
+        .btn-linea { display: inline-block; padding: 10px 30px; margin-top: 15px; border: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); text-decoration: none; border-radius: 30px; font-size: 0.8em; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; cursor: pointer; background: transparent; }
 
         /* FOTOS */
         .foto-horizontal { width: 100%; height: 400px; object-fit: cover; margin: 60px 0; border-radius: 5px; }
@@ -137,73 +126,70 @@
 
         /* SECCIÓN MENSAJES */
         .seccion-mensajes-inmersiva { background-color: var(--verde-profundo); color: var(--hueso); padding: 80px 20px; text-align: center; margin: 60px 0; }
-        .form-fino-oscuro input, .form-fino-oscuro textarea {
-            width: 100%; padding: 15px; margin-bottom: 20px; background: transparent; border: none; border-bottom: 1px solid rgba(244, 241, 234, 0.3); color: var(--hueso); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none;
-        }
+        .form-fino-oscuro input, .form-fino-oscuro textarea { width: 100%; padding: 15px; margin-bottom: 20px; background: transparent; border: none; border-bottom: 1px solid rgba(244, 241, 234, 0.3); color: var(--hueso); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; }
         .form-fino-oscuro input::placeholder, .form-fino-oscuro textarea::placeholder { color: rgba(244, 241, 234, 0.5); }
-        .btn-dorado {
-            background: transparent; color: var(--hueso); border: 1px solid var(--hueso); padding: 15px 30px; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; width: 100%; max-width: 300px;
-        }
+        .btn-dorado { background: transparent; color: var(--hueso); border: 1px solid var(--hueso); padding: 15px 30px; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; width: 100%; max-width: 300px; }
         .btn-dorado:hover { background: var(--hueso); color: var(--verde-profundo); }
         .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 40px 0; scrollbar-width: none; }
         .slider-container::-webkit-scrollbar { display: none; }
         .mensaje-card-oscuro { min-width: 85%; scroll-snap-align: center; background: rgba(255,255,255,0.03); padding: 40px 30px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; justify-content: center; }
 
         /* CLIMA HORIZONTAL */
-        .clima-seccion { background: rgba(232, 227, 213, 0.5); padding: 40px 20px; border-radius: 15px; margin: 40px auto; max-width: 800px; border: 1px solid rgba(255,255,255,0.3); }
+        .clima-seccion { background: rgba(232, 227, 213, 0.5); padding: 40px 20px; border-radius: 15px; margin: 40px auto; max-width: 800px; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px); }
         .clima-scroll { display: flex; justify-content: space-between; gap: 20px; overflow-x: auto; padding-top: 20px; scrollbar-width: none; }
         .clima-item { min-width: 80px; text-align: center; display: flex; flex-direction: column; align-items: center; }
         .clima-item svg { width: 30px; height: 30px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.2; margin: 10px 0; }
         .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
         .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; }
 
-        /* SOBRE DE GALERÍA ANIMADO */
-        .sobre-container { position: relative; width: 280px; height: 180px; margin: 60px auto; cursor: pointer; perspective: 1000px; }
-        .sobre-cuerpo {
-            position: absolute; bottom: 0; width: 100%; height: 120px; background: #e8e3d5; border-radius: 5px 5px 10px 10px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); z-index: 3; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 20px;
-        }
-        .sobre-cuerpo::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 0; height: 0;
-            border-bottom: 120px solid #dfdad0; border-right: 140px solid transparent; border-left: 140px solid transparent; z-index: 4; pointer-events: none;
-        }
-        .sobre-solapa {
-            position: absolute; top: 0; left: 0; width: 100%; height: 95px; background: #d4cfc0;
-            clip-path: polygon(0 0, 100% 0, 50% 100%); z-index: 5; transform-origin: top; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .sobre-container:hover .sobre-solapa { transform: rotateX(180deg); z-index: 1; }
-        .polaroid-wrapper { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 100%; display: flex; justify-content: center; z-index: 2; }
-        .polaroid {
-            position: absolute; width: 70px; height: 85px; background: white; padding: 4px; padding-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .polaroid img { width: 100%; height: 60px; object-fit: cover; background: #ccc; }
-        .pol-1 { transform: rotate(-10deg) translate(-25px, 20px); }
-        .pol-2 { transform: rotate(15deg) translate(25px, 30px); }
-        .sobre-container:hover .pol-1 { transform: rotate(-20deg) translate(-40px, -60px); }
-        .sobre-container:hover .pol-2 { transform: rotate(25deg) translate(40px, -50px); }
+        /* SOBRE REALISTA Y COMPLETO */
+        .sobre-container { position: relative; width: 300px; height: 200px; margin: 80px auto; cursor: pointer; perspective: 1200px; }
+        .sobre-atras { position: absolute; bottom: 0; width: 100%; height: 140px; background: #cfcaba; border-radius: 5px; z-index: 1; }
+        .polaroid-wrapper { position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: center; z-index: 2; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .polaroid { position: absolute; width: 80px; height: 100px; background: white; padding: 5px; padding-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #eee; }
+        .polaroid img { width: 100%; height: 70px; object-fit: cover; background: #e0e0e0; }
+        .pol-1 { transform: rotate(-10deg) translate(-20px, 10px); }
+        .pol-2 { transform: rotate(5deg) translate(0px, 0px); }
+        .pol-3 { transform: rotate(15deg) translate(20px, 15px); }
+        /* Frente del sobre con clip-path para simular los dobleces */
+        .sobre-frente { position: absolute; bottom: 0; width: 100%; height: 140px; background: #e8e3d5; border-radius: 5px; z-index: 3; clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%); box-shadow: inset 0 0 15px rgba(0,0,0,0.05); }
+        .sobre-frente-abajo { position: absolute; bottom: 0; width: 100%; height: 70px; background: #dfdad0; z-index: 4; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+        /* Solapa semi-abierta por defecto */
+        .sobre-solapa { position: absolute; top: 18px; width: 100%; height: 100px; background: #d4cfc0; clip-path: polygon(0 0, 100% 0, 50% 100%); z-index: 5; transform-origin: top; transform: rotateX(130deg); transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        /* Hover Effects */
+        .sobre-container:hover .sobre-solapa { transform: rotateX(180deg); z-index: 0; }
+        .sobre-container:hover .polaroid-wrapper { transform: translateY(-40px); }
+        .sobre-container:hover .pol-1 { transform: rotate(-25deg) translate(-40px, 0); }
+        .sobre-container:hover .pol-2 { transform: rotate(0deg) translate(0px, -20px); }
+        .sobre-container:hover .pol-3 { transform: rotate(25deg) translate(40px, 0); }
 
-        /* FORMULARIO RSVP */
+        /* GALERÍA MODAL DE FOTOS OFICIALES */
+        #modal-galeria { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--negro-absoluto); z-index: 99999; display: none; overflow-y: auto; padding: 60px 20px; }
+        .grid-modal-oficial { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 800px; margin: 0 auto; }
+        .grid-modal-oficial img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; opacity: 0; animation: fadein 0.5s forwards; }
+        @keyframes fadein { to { opacity: 1; } }
+
+        /* RSVP */
         .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.4); border: none; border-bottom: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; }
         .btn-submit-fino { background: transparent; color: var(--cafe-sutil); border: 1px solid var(--cafe-sutil); padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
         .btn-submit-fino:hover { background: var(--cafe-sutil); color: var(--blanco); }
 
-        /* SUBIDA DE FOTOS */
-        .upload-section { padding: 60px 20px; background: rgba(232, 227, 213, 0.7); margin: 60px auto; border-radius: 15px; max-width: 800px; backdrop-filter: blur(5px); }
-
-        /* MODAL GALERÍA */
-        #modal-mensajes { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--verde-profundo); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; }
-        .btn-cerrar { position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em; background: none; border: none; cursor: pointer; z-index: 10000; }
-        .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; }
-        .masonry-item { background: var(--hueso); color: var(--verde-profundo); padding: 20px; margin-bottom: 15px; border-radius: 8px; break-inside: avoid; text-align: left; }
+        /* SUBIDA DE FOTOS (GLASSMORPHISM FLOTANTE) */
+        .glass-box-flotante {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 60px 30px; margin: 60px auto; max-width: 600px; text-align: center;
+        }
     </style>
 </head>
 <body>
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
-        <!-- Archivo de imagen asignado -->
-        <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder">
-        
+        <!-- Espacio del monograma (oculta el ícono si no se encuentra la imagen) -->
+        <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder" onerror="this.style.opacity='0';">
         <p class="fecha-intro">12 . 09 . 2026</p>
         <button class="btn-entrar" onclick="abrirInvitacion()">Descubrir</button>
     </div>
@@ -228,7 +214,7 @@
             <svg id="icon-play" viewBox="0 0 24 24" style="display:none;"><polygon points="5,3 19,12 5,21"/></svg>
         </div>
         <div class="hero-overlay"></div>
-        <h1 class="hero-nombres serif animar">Cecilia<br><span style="font-size: 0.6em;">&</span><br>Osvaldo</h1>
+        <h1 class="hero-nombres serif animar vivo-flotar">Cecilia<br><span style="font-size: 0.6em;">&</span><br>Osvaldo</h1>
         <div class="hero-bottom animar">
             <div class="fecha-minimalista">12 | SEPTIEMBRE | 2026</div>
             <div class="contador-minimalista">
@@ -244,14 +230,14 @@
     <div class="container animar" id="itinerario">
         <h2 class="serif" style="font-size: 2.5em; font-weight: 300;">Itinerario</h2>
         
-        <div class="itinerario-item animar">
+        <div class="itinerario-item animar vivo-flotar" style="animation-delay: 0.5s;">
             <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
             <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">5:00 P.M.</p>
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Catedral de Campeche</p>
             <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/4G8YKVWwb3EJixfZA')">Cómo llegar</button>
         </div>
 
-        <div class="itinerario-item animar">
+        <div class="itinerario-item animar vivo-flotar" style="animation-delay: 1s;">
             <h3 class="lugar-titulo serif">Recepción</h3>
             <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">7:00 P.M.</p>
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Hacienda Xtelchel</p>
@@ -261,17 +247,17 @@
 
     <!-- FOTO HORIZONTAL 1 -->
     <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
-        <img src="break_h1.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
+        <img src="break_h1.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal vivo-respirar">
     </div>
 
     <!-- GRID FOTOS -->
     <div class="grid-fotos animar">
         <img src="grid_v1.jpg" alt="Foto 1" class="animar">
-        <img src="grid_v2.jpg" alt="Foto 2" class="animar">
-        <img src="grid_v3.jpg" alt="Foto 3" class="animar">
-        <img src="grid_v4.jpg" alt="Foto 4" class="animar">
-        <img src="grid_v5.jpg" alt="Foto 5" class="animar">
-        <img src="grid_v6.jpg" alt="Foto 6" class="animar">
+        <img src="grid_v2.jpg" alt="Foto 2" class="animar" style="transition-delay: 0.1s;">
+        <img src="grid_v3.jpg" alt="Foto 3" class="animar" style="transition-delay: 0.2s;">
+        <img src="grid_v4.jpg" alt="Foto 4" class="animar" style="transition-delay: 0.3s;">
+        <img src="grid_v5.jpg" alt="Foto 5" class="animar" style="transition-delay: 0.4s;">
+        <img src="grid_v6.jpg" alt="Foto 6" class="animar" style="transition-delay: 0.5s;">
     </div>
 
     <!-- MENSAJES INMERSIVOS -->
@@ -293,11 +279,9 @@
 
     <!-- CLIMA -->
     <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
-        <div class="clima-seccion">
+        <div class="clima-seccion vivo-flotar">
             <h3 class="serif" style="font-size: 2em; font-weight: 300; margin-bottom: 5px;">Pronóstico</h3>
-            <!-- FECHA AGREGADA AQUÍ -->
             <p style="font-size: 0.8em; letter-spacing: 2px; font-weight: 200; text-transform: uppercase;">Campeche, Camp.<br><span style="font-size: 0.9em; font-weight: 400;">12 de Septiembre, 2026</span></p>
-            
             <div class="clima-scroll">
                 <div class="clima-item"><p class="clima-hora-txt">14:00</p><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><p class="clima-temp">32°</p></div>
                 <div class="clima-item"><p class="clima-hora-txt">15:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">31°</p></div>
@@ -309,20 +293,22 @@
 
     <!-- FOTO HORIZONTAL 2 -->
     <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
-        <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
+        <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal vivo-respirar">
     </div>
 
-    <!-- SOBRE DE GALERÍA (Diseño Polaroid) -->
+    <!-- SOBRE DE GALERÍA REALISTA -->
     <div class="container animar" id="galeria" style="padding-top: 0; padding-bottom: 0;">
-        <div class="sobre-container" onclick="alert('Aquí se cargará la galería oficial')">
+        <div class="sobre-container vivo-flotar" onclick="abrirGaleriaOficial()">
+            <div class="sobre-atras"></div>
             <div class="polaroid-wrapper">
-                <div class="polaroid pol-1"><img src="grid_v1.jpg" alt=""></div>
-                <div class="polaroid pol-2"><img src="grid_v2.jpg" alt=""></div>
+                <div class="polaroid pol-1"><img src="galeria_01.jpg" alt="" onerror="this.src='grid_v1.jpg'"></div>
+                <div class="polaroid pol-2"><img src="galeria_02.jpg" alt="" onerror="this.src='grid_v2.jpg'"></div>
+                <div class="polaroid pol-3"><img src="galeria_03.jpg" alt="" onerror="this.src='grid_v3.jpg'"></div>
             </div>
+            <div class="sobre-frente"></div>
+            <div class="sobre-frente-abajo"></div>
             <div class="sobre-solapa"></div>
-            <div class="sobre-cuerpo">
-                <h3 class="serif" style="color: var(--oliva); font-size: 1.5em; z-index: 5;">Nuestra Galería</h3>
-            </div>
+            <h3 class="serif" style="position: absolute; bottom: 20px; width: 100%; text-align: center; color: var(--oliva); font-size: 1.5em; z-index: 10;">Nuestra Galería</h3>
         </div>
     </div>
 
@@ -346,11 +332,13 @@
         </form>
     </div>
 
-    <!-- SUBIDA DE FOTOS (PERSPECTIVA) -->
-    <div class="upload-section animar" style="text-align: center;">
-        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 15px;">Su perspectiva</h2>
-        <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px;">Nos encantaría ver la boda a través de sus ojos. Después de la fiesta, compártanos las fotos y videos que capturaron.</p>
-        <a href="https://rayocreativo.pixieset.com/bodaceciliayosvaldo" class="btn-linea" style="border-color: var(--oliva); color: var(--oliva);">Subir mis fotos</a>
+    <!-- SUBIDA DE FOTOS (GLASSMORPHISM FLOTANTE) -->
+    <div class="container animar" style="padding-top: 0;">
+        <div class="glass-box-flotante vivo-flotar">
+            <h2 class="serif" style="font-size: 2.5em; color: var(--cafe-sutil); margin-bottom: 15px;">Su perspectiva</h2>
+            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí.</p>
+            <a href="TU_ENLACE_DE_GOOGLE_PHOTOS_AQUI" target="_blank" class="btn-linea" style="border-color: var(--cafe-sutil); color: var(--cafe-sutil); font-weight: 400;">Subir a Google Photos</a>
+        </div>
     </div>
 
     <!-- MODAL GALERÍA MENSAJES -->
@@ -358,6 +346,15 @@
         <button class="btn-cerrar" onclick="cerrarGaleriaMensajes()">×</button>
         <h2 class="serif" style="color: var(--hueso); text-align: center; font-size: 2.5em; margin-bottom: 30px;">Mensajes de Cariño</h2>
         <div class="masonry-mensajes" id="contenedor-masonry"></div>
+    </div>
+
+    <!-- MODAL GALERÍA DE FOTOS OFICIALES -->
+    <div id="modal-galeria">
+        <button class="btn-cerrar" style="z-index: 100000;" onclick="cerrarGaleriaOficial()">×</button>
+        <h2 class="serif" style="color: var(--hueso); text-align: center; font-size: 2.5em; margin-bottom: 30px;">Memorias Inolvidables</h2>
+        <div class="grid-modal-oficial" id="grid-oficial">
+            <!-- Las 30 fotos se cargarán aquí automáticamente -->
+        </div>
     </div>
 
     <!-- SCRIPTS -->
@@ -465,8 +462,30 @@
             document.getElementById('modal-mensajes').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+
+        // 8. GALERÍA DE FOTOS (Carga automática de 30 fotos)
+        function abrirGaleriaOficial() {
+            const modal = document.getElementById('modal-galeria');
+            const grid = document.getElementById('grid-oficial');
+            grid.innerHTML = ''; // Limpiar galería
+            
+            // Ciclo para crear hasta 30 fotos (galeria_01.jpg a galeria_30.jpg)
+            for(let i = 1; i <= 30; i++) {
+                let numStr = i < 10 ? '0' + i : i;
+                // onerror permite que si solo hay 10 fotos, no muestre las otras 20 rotas
+                grid.innerHTML += `<img src="galeria_${numStr}.jpg" alt="Memoria ${i}" style="animation-delay: ${i * 0.05}s;" onerror="this.style.display='none'">`;
+            }
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
         
-        // 8. RSVP
+        function cerrarGaleriaOficial() {
+            document.getElementById('modal-galeria').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // 9. RSVP
         function confirmar(e) {
             e.preventDefault();
             alert('¡Gracias por confirmar tu asistencia!');
