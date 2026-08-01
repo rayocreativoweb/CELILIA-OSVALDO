@@ -38,8 +38,14 @@
         
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
-        .monograma-placeholder { width: 150px; min-height: 150px; margin-bottom: 30px; object-fit: contain; }
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
+
+        /* EFECTO CRISTAL (GLASSMORPHISM) */
+        .glass-box-flotante {
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 40px 30px; margin: 40px auto; max-width: 600px; text-align: center;
+        }
 
         /* ANIMACIONES VIVAS */
         @keyframes flotar { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
@@ -51,17 +57,15 @@
         .animar { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .animar.aparecer { opacity: 1; transform: translateY(0); }
 
-        /* PANTALLA DE BIENVENIDA */
+        /* PANTALLA DE BIENVENIDA (Ahora con letras iniciales) */
         #pantalla-bienvenida { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--negro-absoluto); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s; }
         .fecha-intro { color: var(--hueso); letter-spacing: 4px; font-weight: 200; font-size: 0.9em; margin-bottom: 40px; }
         .btn-entrar { padding: 15px 40px; border: 1px solid var(--hueso); background: transparent; color: var(--hueso); border-radius: 30px; font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: 1em; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: 0.4s; }
         .btn-entrar:hover { background: var(--hueso); color: var(--negro-absoluto); }
 
-        /* REPRODUCTOR MINI */
+        /* REPRODUCTOR MINI & MENU */
         .music-player-mini { position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; color: var(--blanco); cursor: pointer; backdrop-filter: blur(5px); }
         .music-player-mini svg { width: 15px; height: 15px; fill: var(--blanco); }
-
-        /* MENÚ HAMBURGUESA */
         .menu-btn { position: fixed; top: 20px; right: 20px; z-index: 1000; cursor: pointer; padding: 10px; }
         .menu-btn div { width: 30px; height: 1px; background-color: var(--blanco); margin: 8px 0; transition: 0.3s; }
         .menu-btn.scrolled div { background-color: var(--cafe-sutil); }
@@ -69,17 +73,11 @@
         .menu-btn.open div:nth-child(1) { transform: rotate(-45deg) translate(-6px, 6px); }
         .menu-btn.open div:nth-child(2) { opacity: 0; }
         .menu-btn.open div:nth-child(3) { transform: rotate(45deg) translate(-6px, -6px); }
-
         .sidebar { position: fixed; top: 0; right: -50vw; width: 50vw; height: 100vh; background-color: rgba(17, 26, 20, 0.98); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
         @media (max-width: 600px) { .sidebar { right: -70vw; width: 70vw; } }
         .sidebar.active { right: 0; }
         .sidebar a { color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2em; text-decoration: none; margin: 15px 0; font-style: italic; opacity: 0; transform: translateY(20px); transition: 0.4s; }
         .sidebar.active a { opacity: 1; transform: translateY(0); }
-        .sidebar.active a:nth-child(1) { transition-delay: 0.1s; }
-        .sidebar.active a:nth-child(2) { transition-delay: 0.2s; }
-        .sidebar.active a:nth-child(3) { transition-delay: 0.3s; }
-        .sidebar.active a:nth-child(4) { transition-delay: 0.4s; }
-        .sidebar.active a:nth-child(5) { transition-delay: 0.5s; }
 
         /* HERO */
         .hero { position: relative; height: 100vh; background-image: url('hero_vertical_bn.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 80px 20px 40px 20px; overflow: hidden; }
@@ -98,16 +96,12 @@
         .btn-linea { display: inline-block; padding: 10px 30px; margin-top: 15px; border: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); text-decoration: none; border-radius: 30px; font-size: 0.8em; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; cursor: pointer; background: transparent; }
         .btn-linea:hover { background: var(--cafe-sutil); color: var(--hueso); }
 
-        /* TIMELINE (LÍNEA DE TIEMPO) */
         .timeline { position: relative; max-width: 300px; margin: 40px auto; padding-left: 30px; border-left: 1px solid var(--cafe-sutil); text-align: left; }
         .timeline-item { position: relative; margin-bottom: 40px; }
         .timeline-dot { position: absolute; left: -35px; top: 5px; width: 9px; height: 9px; background: var(--oliva); border-radius: 50%; border: 2px solid var(--hueso); }
         .timeline-icon { width: 22px; height: 22px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.5; margin-bottom: 5px; }
         .timeline-time { font-family: 'Montserrat', sans-serif; font-size: 0.85em; letter-spacing: 2px; font-weight: 400; margin-bottom: 3px; }
         .timeline-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; color: var(--oliva); line-height: 1.2; }
-
-        /* DRESS CODE */
-        .dress-code-icon { width: 45px; height: 45px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.5; margin-bottom: 10px; }
 
         /* FOTOS */
         .foto-horizontal { width: 100%; height: 400px; object-fit: cover; margin: 60px 0; border-radius: 5px; }
@@ -124,13 +118,6 @@
         .slider-container::-webkit-scrollbar { display: none; }
         .mensaje-card-oscuro { min-width: 85%; scroll-snap-align: center; background: rgba(255,255,255,0.03); padding: 40px 30px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; justify-content: center; }
 
-        /* MODALES */
-        .modal-pantalla-completa { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--verde-profundo); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; text-align: center;}
-        .btn-cerrar { position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em; background: none; border: none; cursor: pointer; z-index: 10000; }
-        
-        .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; text-align: center; }
-        .masonry-item { background: var(--hueso); color: var(--verde-profundo); padding: 20px; margin-bottom: 15px; border-radius: 8px; break-inside: avoid; text-align: left; }
-
         /* CLIMA HORIZONTAL */
         .clima-seccion { background: rgba(232, 227, 213, 0.5); padding: 40px 20px; border-radius: 15px; margin: 40px auto; max-width: 800px; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px); }
         .clima-scroll { display: flex; justify-content: space-between; gap: 20px; overflow-x: auto; padding-top: 20px; scrollbar-width: none; }
@@ -139,36 +126,40 @@
         .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
         .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; }
 
-        /* GALERÍA POLAROID ANIMADA */
+        /* GALERÍA POLAROID */
         .contenedor-polaroids { position: relative; height: 350px; width: 100%; max-width: 350px; margin: 40px auto; cursor: pointer; }
-        .polaroid-flotante { 
-            position: absolute; width: 110px; height: 130px; background: white; padding: 6px; padding-bottom: 25px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: all 0.3s;
-            animation: levitacion-marcada 3.5s infinite ease-in-out alternate;
-        }
+        .polaroid-flotante { position: absolute; width: 110px; height: 130px; background: white; padding: 6px; padding-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: all 0.3s; animation: levitacion-marcada 3.5s infinite ease-in-out alternate; }
         .polaroid-flotante img { width: 100%; height: 100%; object-fit: cover; background: #e0e0e0; }
-        .polaroid-flotante:hover { z-index: 10 !important; filter: brightness(1.1); }
         .pol-1 { top: 30px; left: 10%; --rotacion: -15deg; animation-delay: 0s; z-index: 1; }
         .pol-2 { top: 60px; left: 30%; --rotacion: -5deg; animation-delay: 0.5s; z-index: 2; }
         .pol-3 { top: 20px; left: 50%; --rotacion: 10deg; animation-delay: 1s; z-index: 3; }
         .pol-4 { top: 50px; left: 65%; --rotacion: 20deg; animation-delay: 1.5s; z-index: 4; }
 
+        /* CARRUSEL 3D (HOSPEDAJE Y RESTAURANTES) */
+        .carousel-3d-container { position: relative; height: 320px; perspective: 1000px; margin: 40px 0; display: flex; justify-content: center; align-items: center; cursor: pointer; }
+        .carousel-3d-card { position: absolute; width: 220px; height: 280px; background: var(--hueso); border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); overflow: hidden; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; opacity: 0; }
+        .carousel-3d-card img { width: 100%; height: 140px; object-fit: cover; }
+        .c-info { padding: 15px; text-align: center; }
+        .c-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; color: var(--oliva); margin-bottom: 5px; }
+        .c-info p { font-size: 0.75em; letter-spacing: 1px; line-height: 1.3; }
+        /* Posiciones del Carrusel */
+        .c-pos-0 { transform: translateX(0) scale(1) translateZ(0); z-index: 3; opacity: 1; pointer-events: auto; }
+        .c-pos-1 { transform: translateX(100px) scale(0.8) translateZ(-50px); z-index: 2; opacity: 0.7; filter: blur(1px); }
+        .c-pos-m1 { transform: translateX(-100px) scale(0.8) translateZ(-50px); z-index: 2; opacity: 0.7; filter: blur(1px); }
+
+        /* MODALES */
+        .modal-pantalla-completa { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--verde-profundo); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; text-align: center;}
+        .btn-cerrar { position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em; background: none; border: none; cursor: pointer; z-index: 10000; }
+        .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; text-align: center; }
+        .masonry-item { background: var(--hueso); color: var(--verde-profundo); padding: 20px; margin-bottom: 15px; border-radius: 8px; break-inside: avoid; text-align: left; }
+        
         .grid-modal-oficial { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 800px; margin: 0 auto; }
-        .grid-modal-oficial img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; opacity: 0; animation: fadein 0.5s forwards; }
-        @keyframes fadein { to { opacity: 1; } }
+        .grid-modal-oficial img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; cursor: pointer; }
 
-        /* SUBIDA DE FOTOS (GLASSMORPHISM FLOTANTE) */
-        .glass-box-flotante {
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            padding: 60px 30px; margin: 60px auto; max-width: 600px; text-align: center;
-        }
-
-        /* SUGERENCIAS DE HOSPEDAJE */
-        .hospedaje-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 20px 0; scrollbar-width: none; }
-        .hospedaje-card { min-width: 250px; scroll-snap-align: center; background: rgba(255, 255, 255, 0.5); border-radius: 10px; overflow: hidden; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: left; }
-        .hospedaje-card img { width: 100%; height: 160px; object-fit: cover; }
-        .hospedaje-info { padding: 15px; }
+        /* LIGHTBOX PARA FOTOS */
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.95); z-index: 100000; display: none; justify-content: center; align-items: center; flex-direction: column; }
+        #lightbox img { max-width: 95%; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain; }
+        .btn-cerrar-lightbox { position: absolute; top: 20px; right: 20px; font-size: 2.5em; color: white; background: none; border: none; cursor: pointer; padding: 10px; }
 
         /* RSVP */
         .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.4); border: none; border-bottom: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; }
@@ -181,7 +172,8 @@
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
-        <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder" onerror="this.style.opacity='0';">
+        <!-- Iniciales de Texto -->
+        <h2 class="serif" style="font-size: 4.5em; margin-bottom: 10px; font-weight: 300; color: var(--hueso);">C & O</h2>
         <p class="fecha-intro">19 . 12 . 2026</p>
         <button class="btn-entrar" onclick="abrirInvitacion()">Descubrir</button>
     </div>
@@ -196,7 +188,7 @@
         <a href="#itinerario" onclick="toggleMenu()">Itinerario</a>
         <a href="#mensajes" onclick="toggleMenu()">Mensajes</a>
         <a href="#galeria" onclick="toggleMenu()">Galería</a>
-        <a href="#hospedaje" onclick="toggleMenu()">Hospedaje</a>
+        <a href="#sugerencias" onclick="toggleMenu()">Recomendaciones</a>
         <a href="#rsvp" onclick="toggleMenu()">Asistencia</a>
     </div>
 
@@ -239,23 +231,19 @@
             <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/BvgqM2gukJVb9C5L9')">Cómo llegar</button>
         </div>
 
-        <!-- LÍNEA DE TIEMPO INTERNA -->
         <div class="timeline animar vivo-flotar" style="animation-delay: 0.8s;">
-            <!-- Cóctel -->
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M8 22h8m-4-2v-7m7-10L12 11 5 3z"/></svg>
                 <div class="timeline-time">6:00 P.M.</div>
                 <div class="timeline-title">Cóctel de Bienvenida</div>
             </div>
-            <!-- Ceremonia Civil -->
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <svg class="timeline-icon" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
                 <div class="timeline-time">7:00 P.M.</div>
                 <div class="timeline-title">Ceremonia Civil</div>
             </div>
-            <!-- Cena -->
             <div class="timeline-item" style="margin-bottom: 0;">
                 <div class="timeline-dot"></div>
                 <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M12 22a9 9 0 100-18 9 9 0 000 18zM8 12h8m-8-4h8m-8 8h8"/></svg>
@@ -265,44 +253,21 @@
         </div>
     </div>
 
-    <!-- DRESS CODE -->
-    <div class="container animar vivo-flotar">
-        <svg class="dress-code-icon" viewBox="0 0 24 24">
-            <!-- Icono de gancho de ropa elegante -->
-            <path d="M12 7c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0 0l-9 8v4h18v-4l-9-8z"/>
-        </svg>
-        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 5px;">Dress Code</h2>
-        <p style="font-size: 1.1em; letter-spacing: 2px; font-weight: 300;">Por Definir</p>
+    <!-- DRESS CODE (GLASSMORPHISM) -->
+    <div class="container animar" style="padding-top: 0;">
+        <div class="glass-box-flotante vivo-flotar">
+            <svg style="width: 45px; height: 45px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.5; margin-bottom: 10px;" viewBox="0 0 24 24">
+                <path d="M12 7c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0 0l-9 8v4h18v-4l-9-8z"/>
+            </svg>
+            <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 5px;">Dress Code</h2>
+            <p style="font-size: 1.1em; letter-spacing: 2px; font-weight: 300;">Por Definir</p>
+        </div>
     </div>
 
     <!-- FOTO HORIZONTAL 1 -->
     <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
         <img src="break_h1.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal vivo-respirar">
     </div>
-
-    <!-- GRID FOTOS -->
-    <div class="grid-fotos animar">
-        <img src="grid_v1.jpg" alt="Foto 1" class="animar">
-        <img src="grid_v2.jpg" alt="Foto 2" class="animar" style="transition-delay: 0.1s;">
-        <img src="grid_v3.jpg" alt="Foto 3" class="animar" style="transition-delay: 0.2s;">
-        <img src="grid_v4.jpg" alt="Foto 4" class="animar" style="transition-delay: 0.3s;">
-        <img src="grid_v5.jpg" alt="Foto 5" class="animar" style="transition-delay: 0.4s;">
-        <img src="grid_v6.jpg" alt="Foto 6" class="animar" style="transition-delay: 0.5s;">
-    </div>
-
-    <!-- MENSAJES INMERSIVOS CON CONEXIÓN A FIREBASE -->
-    <section class="seccion-mensajes-inmersiva animar" id="mensajes">
-        <h2 class="serif animar" style="font-size: 2.5em; margin-bottom: 30px;">Libro de Visitas</h2>
-        <form class="form-fino-oscuro animar" id="form-visitas" onsubmit="guardarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
-            <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
-            <input type="text" id="txt-nombre" placeholder="Tu Nombre">
-            <button type="submit" class="btn-dorado">Dejar Mensaje</button>
-        </form>
-        
-        <div class="slider-container animar" id="galeria-mensajes"></div>
-        
-        <button class="btn-dorado animar" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
-    </section>
 
     <!-- CLIMA -->
     <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
@@ -318,11 +283,6 @@
         </div>
     </div>
 
-    <!-- FOTO HORIZONTAL 2 -->
-    <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
-        <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal vivo-respirar">
-    </div>
-
     <!-- GALERÍA POLAROID ANIMADA FLOTANTE -->
     <div class="container animar" id="galeria" style="padding-top: 0; padding-bottom: 0;">
         <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 20px;">Nuestra Galería</h2>
@@ -334,28 +294,83 @@
         </div>
     </div>
 
-    <!-- SUBIDA DE FOTOS (DROPBOX - GLASSMORPHISM) -->
+    <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES (CARRUSELES 3D) -->
+    <div class="container animar" id="sugerencias">
+        <!-- Hospedaje -->
+        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 10px;">Hospedaje</h2>
+        <p style="font-size: 0.8em; margin-bottom: 20px;">Desliza para ver más opciones</p>
+        <div class="carousel-3d-container vivo-flotar" id="car-hospedaje">
+            <div class="carousel-3d-card" onclick="abrirModalHospedaje('Holiday Inn')">
+                <img src="https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop" alt="Holiday Inn">
+                <div class="c-info">
+                    <h3>Holiday Inn</h3>
+                    <p>Comodidad y excelencia. Toca para ver detalles.</p>
+                </div>
+            </div>
+            <div class="carousel-3d-card" onclick="abrirModalHospedaje('Ocean View Campeche')">
+                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=400&h=300&fit=crop" alt="Ocean View">
+                <div class="c-info">
+                    <h3>Ocean View</h3>
+                    <p>Hermosas vistas frente al mar. Toca para ver detalles.</p>
+                </div>
+            </div>
+            <div class="carousel-3d-card" onclick="abrirModalHospedaje('City Express')">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="City Express">
+                <div class="c-info">
+                    <h3>City Express</h3>
+                    <p>Práctico y excelente ubicación. Toca para ver detalles.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restaurantes -->
+        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-top: 60px; margin-bottom: 10px;">Gastronomía</h2>
+        <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
+            <div class="carousel-3d-card">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop" alt="Marganzo">
+                <div class="c-info">
+                    <h3>Marganzo</h3>
+                    <p>Tradición y sabor campechano en cada platillo.</p>
+                </div>
+            </div>
+            <div class="carousel-3d-card">
+                <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400&h=300&fit=crop" alt="La Pigua">
+                <div class="c-info">
+                    <h3>La Pigua</h3>
+                    <p>Exquisita comida del mar, un clásico imperdible.</p>
+                </div>
+            </div>
+            <div class="carousel-3d-card">
+                <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400&h=300&fit=crop" alt="Calle 59">
+                <div class="c-info">
+                    <h3>Calle 59</h3>
+                    <p style="color: var(--oliva); font-weight: 400;">¡Gran variedad de Snacks, Cafés y vibrantes Bares!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENSAJES INMERSIVOS CON CONEXIÓN A FIREBASE -->
+    <section class="seccion-mensajes-inmersiva animar" id="mensajes">
+        <h2 class="serif animar" style="font-size: 2.5em; margin-bottom: 10px;">Libro de Visitas</h2>
+        <p style="font-size: 0.85em; font-weight: 300; margin-bottom: 30px; opacity: 0.8; max-width: 400px; margin-left: auto; margin-right: auto;">Déjanos tus mejores deseos. Si prefieres no escribir tu nombre, déjalo en blanco y el mensaje aparecerá como Anónimo.</p>
+        
+        <form class="form-fino-oscuro animar" id="form-visitas" onsubmit="guardarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
+            <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
+            <input type="text" id="txt-nombre" placeholder="Tu Nombre">
+            <button type="submit" class="btn-dorado">Dejar Mensaje</button>
+        </form>
+        
+        <div class="slider-container animar" id="galeria-mensajes"></div>
+        <button class="btn-dorado animar" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
+    </section>
+
+    <!-- SUBIDA DE FOTOS (GLASSMORPHISM FLOTANTE) -->
     <div class="container animar" style="padding-top: 0;">
         <div class="glass-box-flotante vivo-flotar">
             <h2 class="serif" style="font-size: 2.5em; color: var(--cafe-sutil); margin-bottom: 15px;">Su perspectiva</h2>
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí de forma totalmente privada y segura.</p>
-            <!-- Sustituye aquí el enlace generado por tu "Solicitud de Archivos" de Dropbox -->
             <a href="TU_ENLACE_DE_DROPBOX_FILE_REQUEST_AQUI" target="_blank" class="btn-linea" style="border-color: var(--cafe-sutil); color: var(--cafe-sutil); font-weight: 400;">Subir mis fotos</a>
-        </div>
-    </div>
-
-    <!-- SUGERENCIAS DE HOSPEDAJE -->
-    <div class="container animar" id="hospedaje" style="padding-top: 0;">
-        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 20px;">Sugerencias de Hospedaje</h2>
-        <div class="hospedaje-slider vivo-flotar">
-            <div class="hospedaje-card" onclick="abrirModalHospedaje('holiday-inn')">
-                <img src="https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop" alt="Hotel Holiday Inn">
-                <div class="hospedaje-info">
-                    <h3 class="serif" style="font-size: 1.5em; color: var(--oliva);">Hotel Holiday Inn</h3>
-                    <p style="font-size: 0.8em; letter-spacing: 1px;">Toca para ver detalles</p>
-                </div>
-            </div>
-            <!-- Puedes añadir más tarjetas duplicando el div 'hospedaje-card' -->
         </div>
     </div>
 
@@ -379,7 +394,7 @@
         </form>
     </div>
 
-    <!-- MODALES OCULTOS -->
+    <!-- ================== MODALES ================== -->
 
     <!-- MODAL GALERÍA MENSAJES -->
     <div id="modal-mensajes" class="modal-pantalla-completa">
@@ -388,28 +403,35 @@
         <div class="masonry-mensajes" id="contenedor-masonry"></div>
     </div>
 
-    <!-- MODAL GALERÍA DE FOTOS OFICIALES -->
+    <!-- MODAL GALERÍA OFICIAL DE FOTOS -->
     <div id="modal-galeria" class="modal-pantalla-completa">
-        <button class="btn-cerrar" onclick="cerrarGaleriaOficial()">×</button>
+        <button class="btn-cerrar" style="z-index: 100000;" onclick="cerrarGaleriaOficial()">×</button>
         <h2 class="serif" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 30px;">Memorias Inolvidables</h2>
+        <p style="color: var(--hueso); font-size: 0.8em; margin-bottom: 20px;">Toca cualquier foto para ampliarla</p>
         <div class="grid-modal-oficial" id="grid-oficial"></div>
     </div>
 
-    <!-- MODAL HOSPEDAJE -->
+    <!-- LIGHTBOX (PARA AMPLIAR FOTOS INDIVIDUALES) -->
+    <div id="lightbox">
+        <button class="btn-cerrar-lightbox" onclick="cerrarLightbox()">×</button>
+        <img id="lightbox-img" src="" alt="Ampliación">
+    </div>
+
+    <!-- MODAL HOSPEDAJE DETALLES -->
     <div id="modal-hospedaje" class="modal-pantalla-completa">
         <button class="btn-cerrar" onclick="cerrarModalHospedaje()">×</button>
-        <div class="modal-hospedaje-content" style="max-width: 600px; margin: 0 auto; text-align: center;">
-            <h2 class="serif" id="hospedaje-titulo" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 20px;">Holiday Inn</h2>
+        <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <h2 class="serif" id="hospedaje-titulo" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 20px;">Hotel</h2>
             <div class="grid-modal-oficial">
-                <img src="https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop" alt="Foto 1">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Foto 2">
+                <!-- Se inyectarán fotos de muestra por JS dependiendo del hotel -->
+                <img id="hosp-img-1" src="" alt="Instalaciones">
+                <img id="hosp-img-2" src="" alt="Habitación">
             </div>
             <div style="color: var(--hueso); margin-top: 30px; font-weight: 300; text-align: left; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
-                <h3 class="serif" style="font-size: 1.5em; margin-bottom: 10px;">Amenidades</h3>
-                <p>✓ Wi-Fi de alta velocidad gratuito</p>
-                <p>✓ Piscina exterior</p>
-                <p>✓ Desayuno buffet disponible</p>
-                <p>✓ A 15 min de la recepción</p>
+                <h3 class="serif" style="font-size: 1.5em; margin-bottom: 10px;">Amenidades sugeridas</h3>
+                <p>✓ Excelente ubicación</p>
+                <p>✓ Confort y servicio de calidad</p>
+                <p>✓ Cercano a la ruta de la boda</p>
             </div>
             <button class="btn-dorado" style="margin-top: 30px;" onclick="window.open('https://maps.google.com', '_blank')">Ver Ubicación en Mapa</button>
         </div>
@@ -419,30 +441,34 @@
     <script>
         // ======= CONFIGURACIÓN DE FIREBASE =======
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "TU_PROYECTO.firebaseapp.com",
-            databaseURL: "https://TU_PROYECTO-default-rtdb.firebaseio.com",
-            projectId: "TU_PROYECTO",
-            storageBucket: "TU_PROYECTO.appspot.com",
-            messagingSenderId: "TU_SENDER_ID",
-            appId: "TU_APP_ID"
+            apiKey: "AIzaSyCCfXcBINqAJa0yGfkUtlXuImtMJA7DkAM",
+            authDomain: "boda-cecilia-osvaldo.firebaseapp.com",
+            databaseURL: "https://boda-cecilia-osvaldo-default-rtdb.firebaseio.com",
+            projectId: "boda-cecilia-osvaldo",
+            storageBucket: "boda-cecilia-osvaldo.firebasestorage.app",
+            messagingSenderId: "155630119202",
+            appId: "1:155630119202:web:e315c300c4579f9b31dd7b",
+            measurementId: "G-6ST8SD5X7F"
         };
         
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         const mensajesRef = db.ref('mensajes_boda');
 
+        // Escuchar Firebase
         mensajesRef.on('child_added', (snapshot) => {
             const data = snapshot.val();
             const texto = data.texto;
             const nombre = data.nombre;
 
+            // Slider horizontal
             const sliderMensajes = document.getElementById('galeria-mensajes');
             const tarjetaSlider = document.createElement('div');
             tarjetaSlider.className = 'mensaje-card-oscuro';
             tarjetaSlider.innerHTML = `<p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"${texto}"</p><p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">${nombre}</p>`;
             sliderMensajes.prepend(tarjetaSlider);
 
+            // Galería Modal
             const masonryMensajes = document.getElementById('contenedor-masonry');
             const tarjetaMasonry = document.createElement('div');
             tarjetaMasonry.className = 'masonry-item';
@@ -459,29 +485,54 @@
             alert("¡Mensaje guardado con éxito!");
         }
 
+        // ====== CARRUSELES 3D ======
+        function initCarousel3D(carouselId) {
+            const container = document.getElementById(carouselId);
+            if(!container) return;
+            const cards = Array.from(container.querySelectorAll('.carousel-3d-card'));
+            let currentIndex = 0;
+
+            function updateCards() {
+                cards.forEach((card, i) => {
+                    card.classList.remove('c-pos-0', 'c-pos-1', 'c-pos-m1');
+                    let diff = i - currentIndex;
+                    if(diff < -1) diff += cards.length;
+                    if(diff > 1) diff -= cards.length;
+
+                    if(diff === 0) card.classList.add('c-pos-0');
+                    else if(diff === 1) card.classList.add('c-pos-1');
+                    else if(diff === -1) card.classList.add('c-pos-m1');
+                });
+            }
+            container.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % cards.length;
+                updateCards();
+            });
+            updateCards();
+        }
+        initCarousel3D('car-hospedaje');
+        initCarousel3D('car-restaurantes');
+
         // Animaciones Scroll
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('aparecer'); } });
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('aparecer'); });
         }, { threshold: 0.1 }); 
         document.querySelectorAll('.animar').forEach(el => observer.observe(el));
 
-        // Bienvenida
+        // Bienvenida y Música
         const audio = document.getElementById('audioFondo');
         function abrirInvitacion() {
-            const pantalla = document.getElementById('pantalla-bienvenida');
-            pantalla.style.opacity = '0';
-            setTimeout(() => { pantalla.style.visibility = 'hidden'; }, 1000);
+            document.getElementById('pantalla-bienvenida').style.opacity = '0';
+            setTimeout(() => { document.getElementById('pantalla-bienvenida').style.visibility = 'hidden'; }, 1000);
             audio.play().catch(e => console.log("Audio bloqueado"));
             document.querySelectorAll('#inicio .animar').forEach(el => el.classList.add('aparecer'));
         }
-
-        // Música
         function toggleAudio() {
             if(audio.paused) { audio.play(); document.getElementById('icon-play').style.display = 'none'; document.getElementById('icon-pausa').style.display = 'block'; }
             else { audio.pause(); document.getElementById('icon-play').style.display = 'block'; document.getElementById('icon-pausa').style.display = 'none'; }
         }
 
-        // Menú
+        // Menú Lateral
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('menuBtn').classList.toggle('open'); }
         window.addEventListener('scroll', () => {
             const btn = document.getElementById('menuBtn');
@@ -489,10 +540,9 @@
             else btn.classList.remove('scrolled');
         });
 
-        // Mapas
-        function abrirRuta(enlaceCorto) { window.open(enlaceCorto, '_blank'); }
+        function abrirRuta(link) { window.open(link, '_blank'); }
 
-        // Contador - ACTUALIZADO AL 19 DIC 2026
+        // Contador
         const fechaBoda = new Date("Dec 19, 2026 17:00:00").getTime();
         setInterval(function() {
             const ahora = new Date().getTime();
@@ -505,36 +555,57 @@
             }
         }, 1000);
 
-        // Modales - Utilidad de cierre y apertura
+        // Modales
         function bloquearFondo() { document.body.style.overflow = 'hidden'; }
         function desbloquearFondo() { document.body.style.overflow = 'auto'; }
 
         function abrirGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'block'; bloquearFondo(); }
         function cerrarGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'none'; desbloquearFondo(); }
 
+        function abrirModalHospedaje(hotel) {
+            // Detiene la propagación para que el carrusel no gire al abrir el modal si tocan el botón
+            event.stopPropagation();
+            document.getElementById('hospedaje-titulo').innerText = hotel;
+            
+            // Asignar fotos de muestra según el hotel
+            let img1 = "https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop";
+            let img2 = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop";
+            if(hotel === 'Ocean View Campeche') {
+                img1 = "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=400&h=300&fit=crop";
+            }
+            
+            document.getElementById('hosp-img-1').src = img1;
+            document.getElementById('hosp-img-2').src = img2;
+            
+            document.getElementById('modal-hospedaje').style.display = 'block';
+            bloquearFondo();
+        }
+        function cerrarModalHospedaje() { document.getElementById('modal-hospedaje').style.display = 'none'; desbloquearFondo(); }
+
+        // Galería y Lightbox
         function abrirGaleriaOficial() {
             const modal = document.getElementById('modal-galeria');
             const grid = document.getElementById('grid-oficial');
             grid.innerHTML = '';
             for(let i = 1; i <= 30; i++) {
                 let numStr = i < 10 ? '0' + i : i;
-                grid.innerHTML += `<img src="galeria_${numStr}.jpg" alt="Memoria ${i}" style="animation-delay: ${i * 0.05}s;" onerror="this.style.display='none'">`;
+                let src = `galeria_${numStr}.jpg`;
+                // Al hacer clic, abre el lightbox
+                grid.innerHTML += `<img src="${src}" onclick="abrirLightbox('${src}')" style="animation-delay: ${i * 0.05}s;" onerror="this.style.display='none'">`;
             }
             modal.style.display = 'block';
             bloquearFondo();
         }
         function cerrarGaleriaOficial() { document.getElementById('modal-galeria').style.display = 'none'; desbloquearFondo(); }
 
-        function abrirModalHospedaje(hotel) {
-            document.getElementById('modal-hospedaje').style.display = 'block';
-            bloquearFondo();
+        function abrirLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
         }
-        function cerrarModalHospedaje() {
-            document.getElementById('modal-hospedaje').style.display = 'none';
-            desbloquearFondo();
+        function cerrarLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
         }
-        
-        // RSVP
+
         function confirmar(e) { e.preventDefault(); alert('¡Gracias por confirmar tu asistencia!'); e.target.reset(); }
     </script>
 </body>
