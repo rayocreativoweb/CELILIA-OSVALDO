@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boda Cecilia & Osvaldo</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+    
+    <!-- CONECTORES DE FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <style>
         /* Variables */
         :root {
@@ -33,57 +38,26 @@
         
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
-
-        .monograma-placeholder {
-            width: 150px;
-            min-height: 150px;
-            margin-bottom: 30px;
-            object-fit: contain;
-        }
-        
+        .monograma-placeholder { width: 150px; min-height: 150px; margin-bottom: 30px; object-fit: contain; }
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
         /* ANIMACIONES VIVAS */
-        @keyframes flotar {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-            100% { transform: translateY(0px); }
-        }
-        @keyframes respirar {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-        /* Nueva animación levitación marcada para las Polaroids */
-        @keyframes levitacion-marcada {
-            0% { transform: translateY(0) rotate(var(--rotacion)); }
-            50% { transform: translateY(-25px) rotate(calc(var(--rotacion) + 5deg)) scale(1.05); }
-            100% { transform: translateY(0) rotate(var(--rotacion)); }
-        }
-        
+        @keyframes flotar { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
+        @keyframes respirar { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        @keyframes levitacion-marcada { 0% { transform: translateY(0) rotate(var(--rotacion)); } 50% { transform: translateY(-25px) rotate(calc(var(--rotacion) + 5deg)) scale(1.05); } 100% { transform: translateY(0) rotate(var(--rotacion)); } }
         .vivo-flotar { animation: flotar 6s ease-in-out infinite; }
         .vivo-respirar { animation: respirar 8s ease-in-out infinite; }
-
         .animar { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .animar.aparecer { opacity: 1; transform: translateY(0); }
 
         /* PANTALLA DE BIENVENIDA */
-        #pantalla-bienvenida {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--negro-absoluto);
-            z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s;
-        }
+        #pantalla-bienvenida { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--negro-absoluto); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s; }
         .fecha-intro { color: var(--hueso); letter-spacing: 4px; font-weight: 200; font-size: 0.9em; margin-bottom: 40px; }
-        .btn-entrar {
-            padding: 15px 40px; border: 1px solid var(--hueso); background: transparent; color: var(--hueso); border-radius: 30px;
-            font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: 1em; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: 0.4s;
-        }
+        .btn-entrar { padding: 15px 40px; border: 1px solid var(--hueso); background: transparent; color: var(--hueso); border-radius: 30px; font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: 1em; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: 0.4s; }
         .btn-entrar:hover { background: var(--hueso); color: var(--negro-absoluto); }
 
         /* REPRODUCTOR MINI */
-        .music-player-mini {
-            position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; align-items: center; justify-content: center;
-            width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; color: var(--blanco); cursor: pointer; backdrop-filter: blur(5px);
-        }
+        .music-player-mini { position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; color: var(--blanco); cursor: pointer; backdrop-filter: blur(5px); }
         .music-player-mini svg { width: 15px; height: 15px; fill: var(--blanco); }
 
         /* MENÚ HAMBURGUESA */
@@ -95,10 +69,7 @@
         .menu-btn.open div:nth-child(2) { opacity: 0; }
         .menu-btn.open div:nth-child(3) { transform: rotate(45deg) translate(-6px, -6px); }
 
-        .sidebar {
-            position: fixed; top: 0; right: -50vw; width: 50vw; height: 100vh; background-color: rgba(17, 26, 20, 0.98); 
-            z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-        }
+        .sidebar { position: fixed; top: 0; right: -50vw; width: 50vw; height: 100vh; background-color: rgba(17, 26, 20, 0.98); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
         @media (max-width: 600px) { .sidebar { right: -70vw; width: 70vw; } }
         .sidebar.active { right: 0; }
         .sidebar a { color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2em; text-decoration: none; margin: 15px 0; font-style: italic; opacity: 0; transform: translateY(20px); transition: 0.4s; }
@@ -155,7 +126,7 @@
         .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
         .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; }
 
-        /* GALERÍA POLAROID ANIMADA (NUEVO DISEÑO) */
+        /* GALERÍA POLAROID ANIMADA (SIN SOBRE) */
         .contenedor-polaroids { position: relative; height: 350px; width: 100%; max-width: 350px; margin: 40px auto; cursor: pointer; }
         .polaroid-flotante { 
             position: absolute; width: 110px; height: 130px; background: white; padding: 6px; padding-bottom: 25px; 
@@ -192,13 +163,11 @@
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
-        <!-- Espacio reservado para tu archivo de imagen monograma -->
-        <h2 class="serif" style="font-size: 4em; margin-bottom: 10px; font-weight: 300; color: var(--hueso);">C & O</h2>
+        <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder" onerror="this.style.opacity='0';">
         <p class="fecha-intro">12 . 09 . 2026</p>
         <button class="btn-entrar" onclick="abrirInvitacion()">Descubrir</button>
     </div>
 
-    <!-- AUDIO -->
     <audio id="audioFondo" loop><source src="cancionfondo.mp3" type="audio/mpeg"></audio>
 
     <!-- MENÚ -->
@@ -233,18 +202,14 @@
     <!-- ITINERARIO -->
     <div class="container animar" id="itinerario">
         <h2 class="serif" style="font-size: 2.5em; font-weight: 300;">Itinerario</h2>
-        
         <div class="itinerario-item animar vivo-flotar" style="animation-delay: 0.2s;">
-            <!-- Ícono de Iglesia -->
             <svg class="icon-vector" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 0v5m-2-2h4"/></svg>
             <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
             <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">5:00 P.M.</p>
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Catedral de Campeche</p>
             <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/4G8YKVWwb3EJixfZA')">Cómo llegar</button>
         </div>
-
         <div class="itinerario-item animar vivo-flotar" style="animation-delay: 0.6s;">
-            <!-- Ícono de Copas -->
             <svg class="icon-vector" viewBox="0 0 24 24"><path d="M7 2l2 10 3 10m5-20l-2 10-3 10M4 12h16"/></svg>
             <h3 class="lugar-titulo serif">Recepción</h3>
             <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">7:00 P.M.</p>
@@ -268,20 +233,18 @@
         <img src="grid_v6.jpg" alt="Foto 6" class="animar" style="transition-delay: 0.5s;">
     </div>
 
-    <!-- MENSAJES INMERSIVOS -->
+    <!-- MENSAJES INMERSIVOS CON CONEXIÓN A FIREBASE -->
     <section class="seccion-mensajes-inmersiva animar" id="mensajes">
         <h2 class="serif animar" style="font-size: 2.5em; margin-bottom: 30px;">Libro de Visitas</h2>
-        <form class="form-fino-oscuro animar" onsubmit="agregarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
+        <form class="form-fino-oscuro animar" id="form-visitas" onsubmit="guardarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
             <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
             <input type="text" id="txt-nombre" placeholder="Tu Nombre">
             <button type="submit" class="btn-dorado">Dejar Mensaje</button>
         </form>
-        <div class="slider-container animar" id="galeria-mensajes">
-            <div class="mensaje-card-oscuro">
-                <p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"Que esta nueva etapa esté llena de luz."</p>
-                <p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">Familia Martínez</p>
-            </div>
-        </div>
+        
+        <!-- Aquí se cargarán los mensajes desde Firebase automáticamente -->
+        <div class="slider-container animar" id="galeria-mensajes"></div>
+        
         <button class="btn-dorado animar" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
     </section>
 
@@ -340,8 +303,7 @@
         <div class="glass-box-flotante vivo-flotar">
             <h2 class="serif" style="font-size: 2.5em; color: var(--cafe-sutil); margin-bottom: 15px;">Su perspectiva</h2>
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí de forma totalmente privada y segura.</p>
-            <!-- Sustituye aquí el enlace generado por tu "Solicitud de Archivos" de Dropbox -->
-            <a href="https://www.dropbox.com/request/dyl16jib6v5zpfozt7o2" target="_blank" class="btn-linea" style="border-color: var(--cafe-sutil); color: var(--cafe-sutil); font-weight: 400;">Subir mis fotos</a>
+            <a href="TU_ENLACE_DE_DROPBOX_FILE_REQUEST_AQUI" target="_blank" class="btn-linea" style="border-color: var(--cafe-sutil); color: var(--cafe-sutil); font-weight: 400;">Subir mis fotos</a>
         </div>
     </div>
 
@@ -349,6 +311,8 @@
     <div id="modal-mensajes">
         <button class="btn-cerrar" onclick="cerrarGaleriaMensajes()">×</button>
         <h2 class="serif" style="color: var(--hueso); text-align: center; font-size: 2.5em; margin-bottom: 30px;">Mensajes de Cariño</h2>
+        
+        <!-- Los mensajes de Firebase caerán aquí -->
         <div class="masonry-mensajes" id="contenedor-masonry"></div>
     </div>
 
@@ -356,67 +320,101 @@
     <div id="modal-galeria">
         <button class="btn-cerrar" style="z-index: 100000;" onclick="cerrarGaleriaOficial()">×</button>
         <h2 class="serif" style="color: var(--hueso); text-align: center; font-size: 2.5em; margin-bottom: 30px;">Memorias Inolvidables</h2>
-        <div class="grid-modal-oficial" id="grid-oficial">
-            <!-- Las 30 fotos se cargarán aquí automáticamente -->
-        </div>
+        <div class="grid-modal-oficial" id="grid-oficial"></div>
     </div>
 
     <!-- SCRIPTS -->
     <script>
-        // 1. Motor de Animaciones (Scroll)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('aparecer');
-                }
-            });
-        }, { threshold: 0.1 }); 
+        // ======= CONFIGURACIÓN DE FIREBASE =======
+        // Reemplaza los datos de abajo con los que te dio Firebase al crear el proyecto
+       const firebaseConfig = {
+  apiKey: "AIzaSyCCfXcBINqAJa0yGfkUtlXuImtMJA7DkAM",
+  authDomain: "boda-cecilia-osvaldo.firebaseapp.com",
+  databaseURL: "https://boda-cecilia-osvaldo-default-rtdb.firebaseio.com",
+  projectId: "boda-cecilia-osvaldo",
+  storageBucket: "boda-cecilia-osvaldo.firebasestorage.app",
+  messagingSenderId: "155630119202",
+  appId: "1:155630119202:web:e315c300c4579f9b31dd7b",
+  measurementId: "G-6ST8SD5X7F"
+};
+        
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const mensajesRef = db.ref('mensajes_boda');
 
+        // Leer mensajes de la base de datos y mostrarlos en tiempo real
+        mensajesRef.on('child_added', (snapshot) => {
+            const data = snapshot.val();
+            const texto = data.texto;
+            const nombre = data.nombre;
+
+            // Inyectar al slider horizontal
+            const sliderMensajes = document.getElementById('galeria-mensajes');
+            const tarjetaSlider = document.createElement('div');
+            tarjetaSlider.className = 'mensaje-card-oscuro';
+            tarjetaSlider.innerHTML = `<p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"${texto}"</p><p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">${nombre}</p>`;
+            sliderMensajes.prepend(tarjetaSlider);
+
+            // Inyectar a la galería modal (botón ver todos)
+            const masonryMensajes = document.getElementById('contenedor-masonry');
+            const tarjetaMasonry = document.createElement('div');
+            tarjetaMasonry.className = 'masonry-item';
+            tarjetaMasonry.innerHTML = `<p class="serif" style="font-size: 1.2em; font-style: italic; margin-bottom: 10px;">"${texto}"</p><p style="font-size: 0.7em; font-weight: 400; text-transform: uppercase;">— ${nombre}</p>`;
+            masonryMensajes.prepend(tarjetaMasonry);
+        });
+
+        // Función para guardar mensaje nuevo en Firebase
+        function guardarMensaje(e) {
+            e.preventDefault();
+            const texto = document.getElementById('txt-mensaje').value;
+            let nombre = document.getElementById('txt-nombre').value || "Anónimo";
+
+            mensajesRef.push({
+                texto: texto,
+                nombre: nombre,
+                timestamp: Date.now()
+            });
+            
+            document.getElementById('form-visitas').reset();
+            alert("¡Mensaje guardado con éxito!");
+        }
+        // ======= FIN FIREBASE =======
+
+        // Animaciones Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if(entry.isIntersecting) { entry.target.classList.add('aparecer'); } });
+        }, { threshold: 0.1 }); 
         document.querySelectorAll('.animar').forEach(el => observer.observe(el));
 
-        // 2. Bienvenida y Música
+        // Bienvenida
         const audio = document.getElementById('audioFondo');
         function abrirInvitacion() {
             const pantalla = document.getElementById('pantalla-bienvenida');
             pantalla.style.opacity = '0';
             setTimeout(() => { pantalla.style.visibility = 'hidden'; }, 1000);
             audio.play().catch(e => console.log("Audio bloqueado"));
-            
             document.querySelectorAll('#inicio .animar').forEach(el => el.classList.add('aparecer'));
         }
 
-        // 3. Play/Pause
+        // Música
         function toggleAudio() {
-            if(audio.paused) {
-                audio.play();
-                document.getElementById('icon-play').style.display = 'none';
-                document.getElementById('icon-pausa').style.display = 'block';
-            } else {
-                audio.pause();
-                document.getElementById('icon-play').style.display = 'block';
-                document.getElementById('icon-pausa').style.display = 'none';
-            }
+            if(audio.paused) { audio.play(); document.getElementById('icon-play').style.display = 'none'; document.getElementById('icon-pausa').style.display = 'block'; }
+            else { audio.pause(); document.getElementById('icon-play').style.display = 'block'; document.getElementById('icon-pausa').style.display = 'none'; }
         }
 
-        // 4. Menú Lateral Deslizable
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('menuBtn').classList.toggle('open');
-        }
-
+        // Menú
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('menuBtn').classList.toggle('open'); }
         window.addEventListener('scroll', () => {
             const btn = document.getElementById('menuBtn');
-            if(window.scrollY > window.innerHeight - 50) {
-                btn.classList.add('scrolled');
-            } else {
-                btn.classList.remove('scrolled');
-            }
+            if(window.scrollY > window.innerHeight - 50) btn.classList.add('scrolled');
+            else btn.classList.remove('scrolled');
         });
 
-        // 5. Lógica de Mapas
+        // Mapas
         function abrirRuta(enlaceCorto) { window.open(enlaceCorto, '_blank'); }
 
-        // 6. Contador
+        // Contador
         const fechaBoda = new Date("Sep 12, 2026 17:00:00").getTime();
         setInterval(function() {
             const ahora = new Date().getTime();
@@ -429,70 +427,26 @@
             }
         }, 1000);
 
-        // 7. Mensajes Inmersivos
-        const sliderMensajes = document.getElementById('galeria-mensajes');
-        const masonryMensajes = document.getElementById('contenedor-masonry');
+        // Galería Mensajes Modal
+        function abrirGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'block'; document.body.style.overflow = 'hidden'; }
+        function cerrarGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
-        function agregarMensaje(e) {
-            e.preventDefault();
-            const texto = document.getElementById('txt-mensaje').value;
-            let nombre = document.getElementById('txt-nombre').value || "Anónimo";
-
-            const tarjetaSlider = document.createElement('div');
-            tarjetaSlider.className = 'mensaje-card-oscuro';
-            tarjetaSlider.innerHTML = `<p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"${texto}"</p><p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">${nombre}</p>`;
-            sliderMensajes.prepend(tarjetaSlider);
-            sliderMensajes.scrollTo({ left: 0, behavior: 'smooth' });
-
-            const tarjetaMasonry = document.createElement('div');
-            tarjetaMasonry.className = 'masonry-item';
-            tarjetaMasonry.innerHTML = `<p class="serif" style="font-size: 1.2em; font-style: italic; margin-bottom: 10px;">"${texto}"</p><p style="font-size: 0.7em; font-weight: 400; text-transform: uppercase;">— ${nombre}</p>`;
-            masonryMensajes.prepend(tarjetaMasonry);
-            e.target.reset();
-        }
-
-        window.onload = () => {
-            const initialCard = document.createElement('div');
-            initialCard.className = 'masonry-item';
-            initialCard.innerHTML = `<p class="serif" style="font-size: 1.2em; font-style: italic; margin-bottom: 10px;">"Que esta nueva etapa esté llena de luz."</p><p style="font-size: 0.7em; font-weight: 400; text-transform: uppercase;">— Familia Martínez</p>`;
-            masonryMensajes.appendChild(initialCard);
-        };
-
-        function abrirGaleriaMensajes() {
-            document.getElementById('modal-mensajes').style.display = 'block';
-            document.body.style.overflow = 'hidden'; 
-        }
-        function cerrarGaleriaMensajes() {
-            document.getElementById('modal-mensajes').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // 8. GALERÍA DE FOTOS (Carga automática de 30 fotos)
+        // Galería Oficial Modal (30 Fotos)
         function abrirGaleriaOficial() {
             const modal = document.getElementById('modal-galeria');
             const grid = document.getElementById('grid-oficial');
             grid.innerHTML = '';
-            
             for(let i = 1; i <= 30; i++) {
                 let numStr = i < 10 ? '0' + i : i;
                 grid.innerHTML += `<img src="galeria_${numStr}.jpg" alt="Memoria ${i}" style="animation-delay: ${i * 0.05}s;" onerror="this.style.display='none'">`;
             }
-
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
+        function cerrarGaleriaOficial() { document.getElementById('modal-galeria').style.display = 'none'; document.body.style.overflow = 'auto'; }
         
-        function cerrarGaleriaOficial() {
-            document.getElementById('modal-galeria').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        // 9. RSVP
-        function confirmar(e) {
-            e.preventDefault();
-            alert('¡Gracias por confirmar tu asistencia!');
-            e.target.reset();
-        }
+        // RSVP
+        function confirmar(e) { e.preventDefault(); alert('¡Gracias por confirmar tu asistencia!'); e.target.reset(); }
     </script>
 </body>
 </html>
