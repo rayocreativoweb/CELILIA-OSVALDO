@@ -24,18 +24,19 @@
             color: var(--cafe-sutil);
             overflow-x: hidden;
             font-weight: 300;
-            /* AQUÍ ESTÁ TU FONDO PERSONALIZADO */
+            
+            /* FONDO PERSONALIZADO AJUSTADO */
             background-image: url('fondo_invitacion.jpg');
-            background-size: cover;
-            background-position: center;
+            background-size: 100% auto; /* 100% del ancho, altura automática */
+            background-repeat: repeat; /* Repite hacia abajo suavemente */
             background-attachment: fixed;
-            background-color: var(--hueso); /* Color de respaldo */
+            background-color: var(--hueso);
         }
         
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
         
-        /* Ocultar ícono de imagen rota del monograma hasta que agregues el archivo */
+        /* Placeholder invisible si no hay imagen de monograma */
         img[alt="Monograma de los novios"] {
             color: transparent; position: relative; min-height: 150px;
         }
@@ -92,7 +93,7 @@
             z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5);
         }
-        @media (max-width: 600px) { .sidebar { right: -70vw; width: 70vw; } } /* Ajuste para celulares muy pequeños */
+        @media (max-width: 600px) { .sidebar { right: -70vw; width: 70vw; } }
         .sidebar.active { right: 0; }
         .sidebar a {
             color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2em;
@@ -200,7 +201,7 @@
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
-        <!-- Reemplaza el src con la ruta de tu monograma -->
+        <!-- Archivo de imagen asignado -->
         <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder">
         
         <p class="fecha-intro">12 . 09 . 2026</p>
@@ -311,11 +312,10 @@
         <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
     </div>
 
-    <!-- SOBRE DE GALERÍA (Nuevo Diseño Polaroid) -->
+    <!-- SOBRE DE GALERÍA (Diseño Polaroid) -->
     <div class="container animar" id="galeria" style="padding-top: 0; padding-bottom: 0;">
         <div class="sobre-container" onclick="alert('Aquí se cargará la galería oficial')">
             <div class="polaroid-wrapper">
-                <!-- Se usan imágenes genéricas para simular las polaroid -->
                 <div class="polaroid pol-1"><img src="grid_v1.jpg" alt=""></div>
                 <div class="polaroid pol-2"><img src="grid_v2.jpg" alt=""></div>
             </div>
@@ -350,7 +350,7 @@
     <div class="upload-section animar" style="text-align: center;">
         <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 15px;">Su perspectiva</h2>
         <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px;">Nos encantaría ver la boda a través de sus ojos. Después de la fiesta, compártanos las fotos y videos que capturaron.</p>
-        <a href="#" class="btn-linea" style="border-color: var(--oliva); color: var(--oliva);">Subir mis fotos</a>
+        <a href="https://rayocreativo.pixieset.com/bodaceciliayosvaldo" class="btn-linea" style="border-color: var(--oliva); color: var(--oliva);">Subir mis fotos</a>
     </div>
 
     <!-- MODAL GALERÍA MENSAJES -->
@@ -369,7 +369,7 @@
                     entry.target.classList.add('aparecer');
                 }
             });
-        }, { threshold: 0.1 }); // Se activa cuando el 10% del elemento es visible
+        }, { threshold: 0.1 }); 
 
         document.querySelectorAll('.animar').forEach(el => observer.observe(el));
 
@@ -381,7 +381,6 @@
             setTimeout(() => { pantalla.style.visibility = 'hidden'; }, 1000);
             audio.play().catch(e => console.log("Audio bloqueado"));
             
-            // Activar las animaciones del Hero al entrar
             document.querySelectorAll('#inicio .animar').forEach(el => el.classList.add('aparecer'));
         }
 
