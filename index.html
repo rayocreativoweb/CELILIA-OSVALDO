@@ -26,21 +26,23 @@
             color: var(--cafe-sutil);
             overflow-x: hidden;
             font-weight: 300;
+            position: relative;
         }
 
-        /* TEXTURA DE RUIDO DIGITAL GLOBAL */
-        body::after {
-            content: "";
+        /* TEXTURA DE RUIDO DIGITAL (Solo en el mero fondo y muy sutil) */
+        .fondo-ruido {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 9999; opacity: 0.5; mix-blend-mode: multiply;
+            z-index: -1; /* Detrás de absolutamente todo */
+            opacity: 0.03; /* Demasiado sutil */
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
         }
         
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
-        /* PANTALLA DE BIENVENIDA (Fondo Negro y Monograma Imagen) */
+        /* PANTALLA DE BIENVENIDA */
         #pantalla-bienvenida {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background-color: var(--negro-absoluto);
@@ -48,7 +50,7 @@
             justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s;
         }
         .monograma-placeholder {
-            width: 150px; /* Ajusta el tamaño de tu imagen aquí */
+            width: 150px; 
             margin-bottom: 30px;
         }
         .fecha-intro {
@@ -71,7 +73,7 @@
         }
         .music-player-mini svg { width: 15px; height: 15px; fill: var(--blanco); }
 
-        /* MENÚ HAMBURGUESA Y SIDEBAR */
+        /* MENÚ HAMBURGUESA Y SIDEBAR (A la mitad de la pantalla) */
         .menu-btn {
             position: fixed; top: 20px; right: 20px; z-index: 1000;
             cursor: pointer; padding: 10px;
@@ -84,20 +86,23 @@
         .menu-btn.open div:nth-child(3) { transform: rotate(45deg) translate(-6px, -6px); }
 
         .sidebar {
-            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-            background-color: rgba(17, 26, 20, 0.98); /* Verde profundo semi-transparente */
+            position: fixed; top: 0; right: -50vw; width: 50vw; height: 100vh;
+            background-color: rgba(17, 26, 20, 0.98); 
             z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
         }
         .sidebar.active { right: 0; }
         .sidebar a {
-            color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2.5em;
+            color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2em;
             text-decoration: none; margin: 15px 0; font-style: italic; opacity: 0; transform: translateY(20px); transition: 0.4s;
         }
         .sidebar.active a { opacity: 1; transform: translateY(0); }
-        .sidebar.active a:nth-child(1) { transition-delay: 0.2s; }
-        .sidebar.active a:nth-child(2) { transition-delay: 0.3s; }
-        .sidebar.active a:nth-child(3) { transition-delay: 0.4s; }
+        .sidebar.active a:nth-child(1) { transition-delay: 0.1s; }
+        .sidebar.active a:nth-child(2) { transition-delay: 0.2s; }
+        .sidebar.active a:nth-child(3) { transition-delay: 0.3s; }
+        .sidebar.active a:nth-child(4) { transition-delay: 0.4s; }
+        .sidebar.active a:nth-child(5) { transition-delay: 0.5s; }
 
         /* HERO */
         .hero {
@@ -137,6 +142,11 @@
             text-transform: uppercase; transition: 0.3s; cursor: pointer; background: transparent;
         }
 
+        /* FOTOS */
+        .foto-horizontal { width: 100%; height: 400px; object-fit: cover; margin: 60px 0; border-radius: 5px; }
+        .grid-fotos { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 40px auto; max-width: 800px; padding: 0 20px;}
+        .grid-fotos img { width: 100%; height: 300px; object-fit: cover; border-radius: 5px; }
+
         /* SECCIÓN MENSAJES (RADICAL E INMERSIVA) */
         .seccion-mensajes-inmersiva {
             background-color: var(--verde-profundo);
@@ -155,7 +165,6 @@
         }
         .btn-dorado:hover { background: var(--hueso); color: var(--verde-profundo); }
 
-        /* Slider oscuro */
         .slider-container {
             display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 40px 0; scrollbar-width: none;
         }
@@ -175,22 +184,63 @@
             position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em;
             background: none; border: none; cursor: pointer; z-index: 10000;
         }
-        .masonry-mensajes {
-            column-count: 2; column-gap: 15px; margin-top: 20px;
-        }
+        .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; }
         .masonry-item {
             background: var(--hueso); color: var(--verde-profundo); padding: 20px;
             margin-bottom: 15px; border-radius: 8px; break-inside: avoid; text-align: left;
         }
 
+        /* CLIMA HORIZONTAL */
+        .clima-seccion {
+            background: rgba(232, 227, 213, 0.5); padding: 40px 20px; border-radius: 15px;
+            margin: 40px auto; max-width: 800px; border: 1px solid rgba(255,255,255,0.3);
+        }
+        .clima-scroll {
+            display: flex; justify-content: space-between; gap: 20px;
+            overflow-x: auto; padding-top: 20px; scrollbar-width: none;
+        }
+        .clima-item { min-width: 80px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .clima-item svg { width: 30px; height: 30px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.2; margin: 10px 0; }
+        .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
+        .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; }
+
+        /* BOTÓN GALERÍA */
+        .btn-galeria {
+            position: relative; width: 100%; height: 250px; max-width: 800px; margin: 40px auto;
+            background-image: url('galeria_btn.jpg'); background-size: cover; background-position: center;
+            border-radius: 10px; overflow: hidden; cursor: pointer; 
+        }
+        .btn-galeria-overlay {
+            position: absolute; top:0; left:0; width:100%; height:100%;
+            background: rgba(107, 112, 92, 0.6); display: flex; justify-content: center; align-items: center;
+            color: var(--blanco); font-size: 1.5em; letter-spacing: 3px; font-weight: 300;
+        }
+
+        /* FORMULARIO RSVP FINO */
+        .form-fino input, .form-fino textarea, .form-fino select {
+            width: 100%; padding: 15px; margin-bottom: 20px;
+            background: transparent; border: none; border-bottom: 1px solid var(--cafe-sutil);
+            color: var(--cafe-sutil); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none;
+        }
+        .form-fino input::placeholder, .form-fino textarea::placeholder { color: rgba(122, 106, 94, 0.5); }
+        .btn-submit-fino {
+            background: transparent; color: var(--cafe-sutil); border: 1px solid var(--cafe-sutil);
+            padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        .btn-submit-fino:hover { background: var(--cafe-sutil); color: var(--blanco); }
+
         /* SUBIDA DE FOTOS (NUEVO) */
         .upload-section {
-            padding: 60px 20px; background: rgba(232, 227, 213, 0.4); margin: 60px 20px; border-radius: 15px;
+            padding: 60px 20px; background: rgba(232, 227, 213, 0.4); margin: 60px auto; border-radius: 15px; max-width: 800px;
         }
 
     </style>
 </head>
 <body>
+
+    <!-- CAPA DE TEXTURA DE RUIDO (Mero fondo) -->
+    <div class="fondo-ruido"></div>
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
@@ -216,7 +266,8 @@
         <a href="#inicio" onclick="toggleMenu()">Inicio</a>
         <a href="#itinerario" onclick="toggleMenu()">Itinerario</a>
         <a href="#mensajes" onclick="toggleMenu()">Mensajes</a>
-        <a href="#fotos" onclick="toggleMenu()">Compartir Fotos</a>
+        <a href="#galeria" onclick="toggleMenu()">Galería</a>
+        <a href="#rsvp" onclick="toggleMenu()">Asistencia</a>
     </div>
 
     <!-- HERO SECTION -->
@@ -257,7 +308,20 @@
         </div>
     </div>
 
-    <!-- SECCIÓN DE MENSAJES INMERSIVA (VERDE PROFUNDO) -->
+    <!-- FOTO DESCANSO HORIZONTAL 1 -->
+    <img src="break_h1.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
+
+    <!-- GRID DE 6 FOTOS -->
+    <div class="grid-fotos">
+        <img src="grid_v1.jpg" alt="Foto 1">
+        <img src="grid_v2.jpg" alt="Foto 2">
+        <img src="grid_v3.jpg" alt="Foto 3">
+        <img src="grid_v4.jpg" alt="Foto 4">
+        <img src="grid_v5.jpg" alt="Foto 5">
+        <img src="grid_v6.jpg" alt="Foto 6">
+    </div>
+
+    <!-- SECCIÓN DE MENSAJES INMERSIVA -->
     <section class="seccion-mensajes-inmersiva" id="mensajes">
         <h2 class="serif" style="font-size: 2.5em; margin-bottom: 30px;">Libro de Visitas</h2>
         
@@ -277,6 +341,74 @@
         <button class="btn-dorado" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
     </section>
 
+    <!-- CLIMA HORIZONTAL -->
+    <div class="container" style="padding-top: 0; padding-bottom: 0;">
+        <div class="clima-seccion">
+            <h3 class="serif" style="font-size: 2em; font-weight: 300; margin-bottom: 5px;">Pronóstico</h3>
+            <p style="font-size: 0.8em; letter-spacing: 2px; font-weight: 200; text-transform: uppercase;">Campeche, Camp.</p>
+            
+            <div class="clima-scroll">
+                <div class="clima-item">
+                    <p class="clima-hora-txt">14:00</p>
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
+                    <p class="clima-temp">32°</p>
+                </div>
+                <div class="clima-item">
+                    <p class="clima-hora-txt">15:00</p>
+                    <svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg>
+                    <p class="clima-temp">31°</p>
+                </div>
+                <div class="clima-item">
+                    <p class="clima-hora-txt">17:00</p>
+                    <svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg>
+                    <p class="clima-temp">28°</p>
+                </div>
+                <div class="clima-item">
+                    <p class="clima-hora-txt">19:00</p>
+                    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                    <p class="clima-temp">26°</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOTO DESCANSO HORIZONTAL 2 -->
+    <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
+
+    <!-- BOTÓN GALERÍA -->
+    <div class="container" style="padding-top: 0; padding-bottom: 0;" id="galeria">
+        <div class="btn-galeria" onclick="alert('Aquí se cargará la galería oficial')">
+            <div class="btn-galeria-overlay serif">NUESTRA GALERÍA</div>
+        </div>
+    </div>
+
+    <!-- RSVP FINO -->
+    <div class="container" id="rsvp">
+        <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 30px;">Asistencia</h2>
+        <form class="form-fino" style="text-align: left;" onsubmit="confirmar(event)">
+            <div style="margin-bottom: 25px; font-weight: 300;">
+                <label style="display: block; margin-bottom: 10px;"><input type="radio" name="asistencia" required> Sí, seré parte de este día</label>
+                <label style="display: block;"><input type="radio" name="asistencia"> Lo siento, no podré asistir</label>
+            </div>
+            <input type="text" placeholder="Nombre completo" required>
+            <select required>
+                <option value="" disabled selected>Número de lugares requeridos</option>
+                <option value="1">1 Lugar</option>
+                <option value="2">2 Lugares</option>
+                <option value="3">3 Lugares</option>
+            </select>
+            <input type="tel" placeholder="Teléfono de contacto" required>
+            <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
+        </form>
+    </div>
+
+    <!-- SUBIDA DE FOTOS (PIXIESET) -->
+    <div class="upload-section container" style="text-align: center;">
+        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 15px;">Su perspectiva</h2>
+        <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px;">Nos encantaría ver la boda a través de sus ojos. Después de la fiesta, compártanos las fotos y videos que capturaron.</p>
+        <a href="https://rayocreativo.pixieset.com/bodaceciliayosvaldo" target="_blank" class="btn-linea" style="border-color: var(--oliva); color: var(--oliva);">Subir mis fotos</a>
+    </div>
+
     <!-- MODAL GALERÍA DE MENSAJES (Mampostería) -->
     <div id="modal-mensajes">
         <button class="btn-cerrar" onclick="cerrarGaleriaMensajes()">×</button>
@@ -284,14 +416,6 @@
         <div class="masonry-mensajes" id="contenedor-masonry">
             <!-- Los mensajes se clonan aquí por JS -->
         </div>
-    </div>
-
-    <!-- NUEVO: SUBIDA DE FOTOS -->
-    <div class="upload-section container" id="fotos">
-        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 15px;">Su perspectiva</h2>
-        <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px;">Nos encantaría ver la boda a través de sus ojos. Después de la fiesta, compártanos las fotos y videos que capturaron.</p>
-        <!-- Aquí va el link de subida (Pixieset Guest Upload, WeTransfer, Drive, etc) -->
-        <a href="URL_DE_TU_CARPETA_COMPARTIDA" target="_blank" class="btn-linea" style="border-color: var(--oliva); color: var(--oliva);">Subir mis fotos</a>
     </div>
 
     <!-- SCRIPTS -->
@@ -318,13 +442,12 @@
             }
         }
 
-        // 3. Menú Lateral Deslizable (Reparado)
+        // 3. Menú Lateral Deslizable
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('menuBtn').classList.toggle('open');
         }
 
-        // Cambio de color del botón menú al hacer scroll
         window.addEventListener('scroll', () => {
             const btn = document.getElementById('menuBtn');
             if(window.scrollY > window.innerHeight - 50) {
@@ -334,16 +457,8 @@
             }
         });
 
-        // 4. Lógica Inteligente de Mapas (iOS vs Android)
+        // 4. Lógica de Mapas
         function abrirRuta(enlaceCorto) {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-            
-            // Si tuvieras coordenadas exactas, el código ideal para iOS sería:
-            // if(isIOS) { window.location.href = "maps://?q=19.8282,-90.5350"; return; }
-            
-            // Como usamos enlaces cortos de Google, forzamos abrir en pestaña nueva
-            // para que Safari maneje la redirección a la App de Google Maps.
             window.open(enlaceCorto, '_blank');
         }
 
@@ -360,7 +475,7 @@
             }
         }, 1000);
 
-        // 6. Mensajes Inmersivos y Galería Grid
+        // 6. Mensajes Inmersivos y Galería
         const sliderMensajes = document.getElementById('galeria-mensajes');
         const masonryMensajes = document.getElementById('contenedor-masonry');
 
@@ -369,14 +484,12 @@
             const texto = document.getElementById('txt-mensaje').value;
             let nombre = document.getElementById('txt-nombre').value || "Anónimo";
 
-            // Crear para el Slider
             const tarjetaSlider = document.createElement('div');
             tarjetaSlider.className = 'mensaje-card-oscuro';
             tarjetaSlider.innerHTML = `<p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"${texto}"</p><p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">${nombre}</p>`;
             sliderMensajes.prepend(tarjetaSlider);
             sliderMensajes.scrollTo({ left: 0, behavior: 'smooth' });
 
-            // Crear para el Modal (Masonry)
             const tarjetaMasonry = document.createElement('div');
             tarjetaMasonry.className = 'masonry-item';
             tarjetaMasonry.innerHTML = `<p class="serif" style="font-size: 1.2em; font-style: italic; margin-bottom: 10px;">"${texto}"</p><p style="font-size: 0.7em; font-weight: 400; text-transform: uppercase;">— ${nombre}</p>`;
@@ -385,7 +498,6 @@
             e.target.reset();
         }
 
-        // Duplicar el mensaje inicial al modal de albañilería (masonry) al cargar
         window.onload = () => {
             const initialCard = document.createElement('div');
             initialCard.className = 'masonry-item';
@@ -395,12 +507,19 @@
 
         function abrirGaleriaMensajes() {
             document.getElementById('modal-mensajes').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
+            document.body.style.overflow = 'hidden'; 
         }
         
         function cerrarGaleriaMensajes() {
             document.getElementById('modal-mensajes').style.display = 'none';
             document.body.style.overflow = 'auto';
+        }
+        
+        // 7. RSVP
+        function confirmar(e) {
+            e.preventDefault();
+            alert('¡Gracias por confirmar tu asistencia!');
+            e.target.reset();
         }
     </script>
 </body>
