@@ -38,6 +38,7 @@
         
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
+        .monograma-placeholder { width: 150px; min-height: 150px; margin-bottom: 30px; object-fit: contain; }
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
         /* EFECTO CRISTAL (GLASSMORPHISM) */
@@ -57,7 +58,7 @@
         .animar { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .animar.aparecer { opacity: 1; transform: translateY(0); }
 
-        /* PANTALLA DE BIENVENIDA (Ahora con letras iniciales) */
+        /* PANTALLA DE BIENVENIDA */
         #pantalla-bienvenida { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--negro-absoluto); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s; }
         .fecha-intro { color: var(--hueso); letter-spacing: 4px; font-weight: 200; font-size: 0.9em; margin-bottom: 40px; }
         .btn-entrar { padding: 15px 40px; border: 1px solid var(--hueso); background: transparent; color: var(--hueso); border-radius: 30px; font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: 1em; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: 0.4s; }
@@ -172,8 +173,8 @@
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
-        <!-- Iniciales de Texto -->
-        <h2 class="serif" style="font-size: 4.5em; margin-bottom: 10px; font-weight: 300; color: var(--hueso);">C & O</h2>
+        <!-- Monograma -->
+        <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder" onerror="this.style.opacity='0';">
         <p class="fecha-intro">19 . 12 . 2026</p>
         <button class="btn-entrar" onclick="abrirInvitacion()">Descubrir</button>
     </div>
@@ -300,22 +301,22 @@
         <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 10px;">Hospedaje</h2>
         <p style="font-size: 0.8em; margin-bottom: 20px;">Desliza para ver más opciones</p>
         <div class="carousel-3d-container vivo-flotar" id="car-hospedaje">
-            <div class="carousel-3d-card" onclick="abrirModalHospedaje('Holiday Inn')">
-                <img src="https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop" alt="Holiday Inn">
+            <div class="carousel-3d-card" onclick="abrirModalSugerencia('holiday-inn')">
+                <img src="hotel_holiday_portada.jpg" alt="Holiday Inn" onerror="this.src='https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop'">
                 <div class="c-info">
                     <h3>Holiday Inn</h3>
                     <p>Comodidad y excelencia. Toca para ver detalles.</p>
                 </div>
             </div>
-            <div class="carousel-3d-card" onclick="abrirModalHospedaje('Ocean View Campeche')">
-                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=400&h=300&fit=crop" alt="Ocean View">
+            <div class="carousel-3d-card" onclick="abrirModalSugerencia('ocean-view')">
+                <img src="hotel_ocean_portada.jpg" alt="Ocean View" onerror="this.src='https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=400&h=300&fit=crop'">
                 <div class="c-info">
                     <h3>Ocean View</h3>
                     <p>Hermosas vistas frente al mar. Toca para ver detalles.</p>
                 </div>
             </div>
-            <div class="carousel-3d-card" onclick="abrirModalHospedaje('City Express')">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="City Express">
+            <div class="carousel-3d-card" onclick="abrirModalSugerencia('city-express')">
+                <img src="hotel_city_portada.jpg" alt="City Express" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop'">
                 <div class="c-info">
                     <h3>City Express</h3>
                     <p>Práctico y excelente ubicación. Toca para ver detalles.</p>
@@ -325,23 +326,24 @@
 
         <!-- Restaurantes -->
         <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-top: 60px; margin-bottom: 10px;">Gastronomía</h2>
+        <p style="font-size: 0.8em; margin-bottom: 20px;">Desliza para ver más opciones</p>
         <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
-            <div class="carousel-3d-card">
-                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop" alt="Marganzo">
+            <div class="carousel-3d-card" onclick="abrirModalSugerencia('marganzo')">
+                <img src="rest_marganzo_portada.jpg" alt="Marganzo" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop'">
                 <div class="c-info">
                     <h3>Marganzo</h3>
                     <p>Tradición y sabor campechano en cada platillo.</p>
                 </div>
             </div>
-            <div class="carousel-3d-card">
-                <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400&h=300&fit=crop" alt="La Pigua">
+            <div class="carousel-3d-card" onclick="abrirModalSugerencia('la-pigua')">
+                <img src="rest_pigua_portada.jpg" alt="La Pigua" onerror="this.src='https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400&h=300&fit=crop'">
                 <div class="c-info">
                     <h3>La Pigua</h3>
                     <p>Exquisita comida del mar, un clásico imperdible.</p>
                 </div>
             </div>
-            <div class="carousel-3d-card">
-                <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400&h=300&fit=crop" alt="Calle 59">
+            <div class="carousel-3d-card" onclick="abrirModalSugerencia('calle-59')">
+                <img src="rest_calle59_portada.jpg" alt="Calle 59" onerror="this.src='https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400&h=300&fit=crop'">
                 <div class="c-info">
                     <h3>Calle 59</h3>
                     <p style="color: var(--oliva); font-weight: 400;">¡Gran variedad de Snacks, Cafés y vibrantes Bares!</p>
@@ -417,23 +419,28 @@
         <img id="lightbox-img" src="" alt="Ampliación">
     </div>
 
-    <!-- MODAL HOSPEDAJE DETALLES -->
-    <div id="modal-hospedaje" class="modal-pantalla-completa">
-        <button class="btn-cerrar" onclick="cerrarModalHospedaje()">×</button>
+    <!-- MODAL DINÁMICO DE SUGERENCIAS (Hoteles y Restaurantes) -->
+    <div id="modal-sugerencia" class="modal-pantalla-completa">
+        <button class="btn-cerrar" onclick="cerrarModalSugerencia()">×</button>
         <div style="max-width: 600px; margin: 0 auto; text-align: center;">
-            <h2 class="serif" id="hospedaje-titulo" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 20px;">Hotel</h2>
-            <div class="grid-modal-oficial">
-                <!-- Se inyectarán fotos de muestra por JS dependiendo del hotel -->
-                <img id="hosp-img-1" src="" alt="Instalaciones">
-                <img id="hosp-img-2" src="" alt="Habitación">
-            </div>
+            <h2 class="serif" id="sug-titulo" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 20px;">Título</h2>
+            
+            <!-- Aquí se inyectarán las fotos -->
+            <div class="grid-modal-oficial" id="sug-galeria"></div>
+            
             <div style="color: var(--hueso); margin-top: 30px; font-weight: 300; text-align: left; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
-                <h3 class="serif" style="font-size: 1.5em; margin-bottom: 10px;">Amenidades sugeridas</h3>
-                <p>✓ Excelente ubicación</p>
-                <p>✓ Confort y servicio de calidad</p>
-                <p>✓ Cercano a la ruta de la boda</p>
+                <p id="sug-desc" style="line-height: 1.6; font-size: 0.9em;"></p>
+                
+                <!-- Botón dinámico de Facebook -->
+                <div id="sug-fb-container" style="margin-top: 20px; display: none;">
+                    <a id="sug-fb" href="#" target="_blank" style="color: var(--hueso); text-decoration: none; display: flex; align-items: center; gap: 10px; border: 1px solid var(--hueso); padding: 10px 20px; border-radius: 30px; width: fit-content;">
+                        <svg style="width: 20px; height: 20px; fill: currentColor;" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                        Ver en Facebook
+                    </a>
+                </div>
             </div>
-            <button class="btn-dorado" style="margin-top: 30px;" onclick="window.open('https://maps.google.com', '_blank')">Ver Ubicación en Mapa</button>
+            
+            <button class="btn-dorado" style="margin-top: 30px; width: 100%;" id="sug-mapa">Ver Ubicación en Mapa</button>
         </div>
     </div>
 
@@ -483,6 +490,88 @@
             mensajesRef.push({ texto: texto, nombre: nombre, timestamp: Date.now() });
             document.getElementById('form-visitas').reset();
             alert("¡Mensaje guardado con éxito!");
+        }
+
+        // ====== BASE DE DATOS LOCAL DE SUGERENCIAS ======
+        const sugerenciasData = {
+            'holiday-inn': {
+                titulo: 'Holiday Inn Campeche',
+                imagenes: ['hotel_holiday_1.jpg', 'hotel_holiday_2.jpg'],
+                descripcion: 'Este hotel de Campeche se encuentra junto a la costa del golfo de México, cerca del Museo Arqueológico Maya Fuerte de San Miguel. Hay una piscina al aire libre abierta durante todo el año y un gimnasio. Las habitaciones tienen aire acondicionado, TV de pantalla plana vía satélite y colchones reforzados. Todas incluyen suelo de mármol y un cómodo sofá. El restaurante Antara sirve cocina mexicana y el bar Aqua ofrece cócteles.',
+                mapa: 'https://maps.app.goo.gl/1qRXLYceeRZ469yC8',
+                fb: ''
+            },
+            'ocean-view': {
+                titulo: 'Ocean View Campeche',
+                imagenes: ['hotel_ocean_1.jpg', 'hotel_ocean_2.jpg', 'hotel_ocean_3.jpg', 'hotel_ocean_4.jpg'],
+                descripcion: 'Hotel Ocean View está en Campeche, a 5 min a pie de Centro de Convenciones Campeche XXI. Este hotel de 4 estrellas tiene habitaciones con aire acondicionado, TV de pantalla plana y baño privado. Hay piscina al aire libre, wifi gratis y parking privado gratis. Se sirve un delicioso desayuno americano.',
+                mapa: 'https://maps.app.goo.gl/Yshk2Ni3jDgsuG2w7',
+                fb: ''
+            },
+            'city-express': {
+                titulo: 'City Express by Marriott',
+                imagenes: ['hotel_city_1.jpg', 'hotel_city_2.jpg'],
+                descripcion: 'A 7 kilómetros del Aeropuerto, un espacio ideal si quiere explorar las maravillas de la ciudad. A su llegada, descanse en este hotel con gimnasio, WiFi de alta velocidad, desayuno tipo Americano, café y té de cortesía. Durante su tiempo libre visite la Novia del Mar, conozca el Centro Histórico de Campeche y pruebe el pámpano en escabeche.',
+                mapa: 'https://maps.app.goo.gl/th9YTK3ciVVANg5m6',
+                fb: ''
+            },
+            'marganzo': {
+                titulo: 'Marganzo',
+                imagenes: ['rest_marganzo_1.jpg', 'rest_marganzo_2.jpg'],
+                descripcion: 'Restaurante de comida regional y mariscos en el corazón del centro histórico de la ciudad de Campeche. Un clásico para deleitarse con la auténtica sazón de la región.',
+                mapa: 'https://maps.app.goo.gl/Jp31C6sCEsHTXgSu5',
+                fb: 'https://www.facebook.com/marganzo'
+            },
+            'la-pigua': {
+                titulo: 'La Pigua',
+                imagenes: ['rest_pigua_1.jpg', 'rest_pigua_2.jpg'],
+                descripcion: 'Restaurante familiar que ofrece al cliente cocina tradicional campechana, especializados en pescados. Una verdadera joya gastronómica para los amantes del buen comer.',
+                mapa: 'https://maps.app.goo.gl/PaDB2fTPRz7y8KQE7',
+                fb: 'https://www.facebook.com/lapiguacam'
+            },
+            'calle-59': {
+                titulo: 'Calle 59',
+                imagenes: ['rest_calle59_1.jpg', 'rest_calle59_2.jpg'],
+                descripcion: 'El corazón vibrante de Campeche. Un hermoso corredor peatonal colonial lleno de vida y color. Mientras recorres sus emblemáticas calles, encontrarás una deliciosa variedad de cafés para una tarde tranquila, exquisitos snacks, y bares llamativos con excelente coctelería y buen ambiente para celebrar la noche. ¡El lugar perfecto para disfrutar de la ciudad!',
+                mapa: 'https://maps.app.goo.gl/MoVZ4qocE1KUzJHaA',
+                fb: ''
+            }
+        };
+
+        function abrirModalSugerencia(key) {
+            event.stopPropagation();
+            const data = sugerenciasData[key];
+            if(!data) return;
+
+            document.getElementById('sug-titulo').innerText = data.titulo;
+            document.getElementById('sug-desc').innerText = data.descripcion;
+            
+            // Cargar Galería
+            const galeria = document.getElementById('sug-galeria');
+            galeria.innerHTML = '';
+            data.imagenes.forEach(img => {
+                galeria.innerHTML += `<img src="${img}" alt="${data.titulo}" onerror="this.style.display='none'">`;
+            });
+
+            // Cargar Facebook
+            const fbContainer = document.getElementById('sug-fb-container');
+            if(data.fb) {
+                fbContainer.style.display = 'block';
+                document.getElementById('sug-fb').href = data.fb;
+            } else {
+                fbContainer.style.display = 'none';
+            }
+
+            // Cargar Mapa
+            document.getElementById('sug-mapa').onclick = function() { window.open(data.mapa, '_blank'); };
+
+            document.getElementById('modal-sugerencia').style.display = 'block';
+            bloquearFondo();
+        }
+
+        function cerrarModalSugerencia() {
+            document.getElementById('modal-sugerencia').style.display = 'none';
+            desbloquearFondo();
         }
 
         // ====== CARRUSELES 3D ======
@@ -562,26 +651,6 @@
         function abrirGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'block'; bloquearFondo(); }
         function cerrarGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'none'; desbloquearFondo(); }
 
-        function abrirModalHospedaje(hotel) {
-            // Detiene la propagación para que el carrusel no gire al abrir el modal si tocan el botón
-            event.stopPropagation();
-            document.getElementById('hospedaje-titulo').innerText = hotel;
-            
-            // Asignar fotos de muestra según el hotel
-            let img1 = "https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop";
-            let img2 = "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop";
-            if(hotel === 'Ocean View Campeche') {
-                img1 = "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=400&h=300&fit=crop";
-            }
-            
-            document.getElementById('hosp-img-1').src = img1;
-            document.getElementById('hosp-img-2').src = img2;
-            
-            document.getElementById('modal-hospedaje').style.display = 'block';
-            bloquearFondo();
-        }
-        function cerrarModalHospedaje() { document.getElementById('modal-hospedaje').style.display = 'none'; desbloquearFondo(); }
-
         // Galería y Lightbox
         function abrirGaleriaOficial() {
             const modal = document.getElementById('modal-galeria');
@@ -590,7 +659,6 @@
             for(let i = 1; i <= 30; i++) {
                 let numStr = i < 10 ? '0' + i : i;
                 let src = `galeria_${numStr}.jpg`;
-                // Al hacer clic, abre el lightbox
                 grid.innerHTML += `<img src="${src}" onclick="abrirLightbox('${src}')" style="animation-delay: ${i * 0.05}s;" onerror="this.style.display='none'">`;
             }
             modal.style.display = 'block';
