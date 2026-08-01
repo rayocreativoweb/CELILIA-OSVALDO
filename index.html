@@ -45,6 +45,7 @@
         @keyframes flotar { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
         @keyframes respirar { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
         @keyframes levitacion-marcada { 0% { transform: translateY(0) rotate(var(--rotacion)); } 50% { transform: translateY(-25px) rotate(calc(var(--rotacion) + 5deg)) scale(1.05); } 100% { transform: translateY(0) rotate(var(--rotacion)); } }
+        
         .vivo-flotar { animation: flotar 6s ease-in-out infinite; }
         .vivo-respirar { animation: respirar 8s ease-in-out infinite; }
         .animar { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); }
@@ -90,12 +91,23 @@
         .time-box .num { font-family: 'Cormorant Garamond', serif; font-size: 2em; line-height: 1; }
         .time-box .label { font-size: 0.6em; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; opacity: 0.8; }
 
-        /* ITINERARIO CON ICONOS */
+        /* ITINERARIO */
         .itinerario-item { margin: 40px auto; padding: 40px 20px; max-width: 500px; background: rgba(232, 227, 213, 0.4); border: 1px solid rgba(255,255,255,0.4); border-radius: 15px; backdrop-filter: blur(5px); }
-        .icon-vector { width: 40px; height: 40px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1; margin-bottom: 15px; }
+        .icon-vector { width: 40px; height: 40px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.5; margin-bottom: 15px; }
         .lugar-titulo { font-size: 2em; font-weight: 300; color: var(--oliva); margin-bottom: 5px; }
         .btn-linea { display: inline-block; padding: 10px 30px; margin-top: 15px; border: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); text-decoration: none; border-radius: 30px; font-size: 0.8em; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; cursor: pointer; background: transparent; }
         .btn-linea:hover { background: var(--cafe-sutil); color: var(--hueso); }
+
+        /* TIMELINE (LÍNEA DE TIEMPO) */
+        .timeline { position: relative; max-width: 300px; margin: 40px auto; padding-left: 30px; border-left: 1px solid var(--cafe-sutil); text-align: left; }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-dot { position: absolute; left: -35px; top: 5px; width: 9px; height: 9px; background: var(--oliva); border-radius: 50%; border: 2px solid var(--hueso); }
+        .timeline-icon { width: 22px; height: 22px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.5; margin-bottom: 5px; }
+        .timeline-time { font-family: 'Montserrat', sans-serif; font-size: 0.85em; letter-spacing: 2px; font-weight: 400; margin-bottom: 3px; }
+        .timeline-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; color: var(--oliva); line-height: 1.2; }
+
+        /* DRESS CODE */
+        .dress-code-icon { width: 45px; height: 45px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.5; margin-bottom: 10px; }
 
         /* FOTOS */
         .foto-horizontal { width: 100%; height: 400px; object-fit: cover; margin: 60px 0; border-radius: 5px; }
@@ -112,10 +124,11 @@
         .slider-container::-webkit-scrollbar { display: none; }
         .mensaje-card-oscuro { min-width: 85%; scroll-snap-align: center; background: rgba(255,255,255,0.03); padding: 40px 30px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; justify-content: center; }
 
-        /* MODAL GALERÍA MENSAJES */
-        #modal-mensajes { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--verde-profundo); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; }
+        /* MODALES */
+        .modal-pantalla-completa { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--verde-profundo); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; text-align: center;}
         .btn-cerrar { position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em; background: none; border: none; cursor: pointer; z-index: 10000; }
-        .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; }
+        
+        .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; text-align: center; }
         .masonry-item { background: var(--hueso); color: var(--verde-profundo); padding: 20px; margin-bottom: 15px; border-radius: 8px; break-inside: avoid; text-align: left; }
 
         /* CLIMA HORIZONTAL */
@@ -126,7 +139,7 @@
         .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
         .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; }
 
-        /* GALERÍA POLAROID ANIMADA (SIN SOBRE) */
+        /* GALERÍA POLAROID ANIMADA */
         .contenedor-polaroids { position: relative; height: 350px; width: 100%; max-width: 350px; margin: 40px auto; cursor: pointer; }
         .polaroid-flotante { 
             position: absolute; width: 110px; height: 130px; background: white; padding: 6px; padding-bottom: 25px; 
@@ -140,16 +153,9 @@
         .pol-3 { top: 20px; left: 50%; --rotacion: 10deg; animation-delay: 1s; z-index: 3; }
         .pol-4 { top: 50px; left: 65%; --rotacion: 20deg; animation-delay: 1.5s; z-index: 4; }
 
-        /* GALERÍA MODAL DE FOTOS OFICIALES */
-        #modal-galeria { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--negro-absoluto); z-index: 99999; display: none; overflow-y: auto; padding: 60px 20px; }
         .grid-modal-oficial { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 800px; margin: 0 auto; }
         .grid-modal-oficial img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; opacity: 0; animation: fadein 0.5s forwards; }
         @keyframes fadein { to { opacity: 1; } }
-
-        /* RSVP */
-        .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.4); border: none; border-bottom: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; }
-        .btn-submit-fino { background: transparent; color: var(--cafe-sutil); border: 1px solid var(--cafe-sutil); padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        .btn-submit-fino:hover { background: var(--cafe-sutil); color: var(--blanco); }
 
         /* SUBIDA DE FOTOS (GLASSMORPHISM FLOTANTE) */
         .glass-box-flotante {
@@ -157,6 +163,18 @@
             border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             padding: 60px 30px; margin: 60px auto; max-width: 600px; text-align: center;
         }
+
+        /* SUGERENCIAS DE HOSPEDAJE */
+        .hospedaje-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 20px 0; scrollbar-width: none; }
+        .hospedaje-card { min-width: 250px; scroll-snap-align: center; background: rgba(255, 255, 255, 0.5); border-radius: 10px; overflow: hidden; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: left; }
+        .hospedaje-card img { width: 100%; height: 160px; object-fit: cover; }
+        .hospedaje-info { padding: 15px; }
+
+        /* RSVP */
+        .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.4); border: none; border-bottom: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; }
+        .btn-submit-fino { background: transparent; color: var(--cafe-sutil); border: 1px solid var(--cafe-sutil); padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .btn-submit-fino:hover { background: var(--cafe-sutil); color: var(--blanco); }
+
     </style>
 </head>
 <body>
@@ -164,10 +182,11 @@
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
         <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder" onerror="this.style.opacity='0';">
-        <p class="fecha-intro">12 . 09 . 2026</p>
+        <p class="fecha-intro">19 . 12 . 2026</p>
         <button class="btn-entrar" onclick="abrirInvitacion()">Descubrir</button>
     </div>
 
+    <!-- AUDIO -->
     <audio id="audioFondo" loop><source src="cancionfondo.mp3" type="audio/mpeg"></audio>
 
     <!-- MENÚ -->
@@ -177,6 +196,7 @@
         <a href="#itinerario" onclick="toggleMenu()">Itinerario</a>
         <a href="#mensajes" onclick="toggleMenu()">Mensajes</a>
         <a href="#galeria" onclick="toggleMenu()">Galería</a>
+        <a href="#hospedaje" onclick="toggleMenu()">Hospedaje</a>
         <a href="#rsvp" onclick="toggleMenu()">Asistencia</a>
     </div>
 
@@ -189,7 +209,7 @@
         <div class="hero-overlay"></div>
         <h1 class="hero-nombres serif animar vivo-flotar">Cecilia<br><span style="font-size: 0.6em;">&</span><br>Osvaldo</h1>
         <div class="hero-bottom animar">
-            <div class="fecha-minimalista">12 | SEPTIEMBRE | 2026</div>
+            <div class="fecha-minimalista">19 | DICIEMBRE | 2026</div>
             <div class="contador-minimalista">
                 <div class="time-box"><div class="num" id="dias">00</div><div class="label">Días</div></div>
                 <div class="time-box"><div class="num" id="horas">00</div><div class="label">Hrs</div></div>
@@ -202,6 +222,7 @@
     <!-- ITINERARIO -->
     <div class="container animar" id="itinerario">
         <h2 class="serif" style="font-size: 2.5em; font-weight: 300;">Itinerario</h2>
+        
         <div class="itinerario-item animar vivo-flotar" style="animation-delay: 0.2s;">
             <svg class="icon-vector" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 0v5m-2-2h4"/></svg>
             <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
@@ -209,6 +230,7 @@
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Catedral de Campeche</p>
             <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/4G8YKVWwb3EJixfZA')">Cómo llegar</button>
         </div>
+
         <div class="itinerario-item animar vivo-flotar" style="animation-delay: 0.6s;">
             <svg class="icon-vector" viewBox="0 0 24 24"><path d="M7 2l2 10 3 10m5-20l-2 10-3 10M4 12h16"/></svg>
             <h3 class="lugar-titulo serif">Recepción</h3>
@@ -216,6 +238,41 @@
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Hacienda Xtelchel</p>
             <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/BvgqM2gukJVb9C5L9')">Cómo llegar</button>
         </div>
+
+        <!-- LÍNEA DE TIEMPO INTERNA -->
+        <div class="timeline animar vivo-flotar" style="animation-delay: 0.8s;">
+            <!-- Cóctel -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M8 22h8m-4-2v-7m7-10L12 11 5 3z"/></svg>
+                <div class="timeline-time">6:00 P.M.</div>
+                <div class="timeline-title">Cóctel de Bienvenida</div>
+            </div>
+            <!-- Ceremonia Civil -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <svg class="timeline-icon" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
+                <div class="timeline-time">7:00 P.M.</div>
+                <div class="timeline-title">Ceremonia Civil</div>
+            </div>
+            <!-- Cena -->
+            <div class="timeline-item" style="margin-bottom: 0;">
+                <div class="timeline-dot"></div>
+                <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M12 22a9 9 0 100-18 9 9 0 000 18zM8 12h8m-8-4h8m-8 8h8"/></svg>
+                <div class="timeline-time">8:00 P.M.</div>
+                <div class="timeline-title">Cena</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DRESS CODE -->
+    <div class="container animar vivo-flotar">
+        <svg class="dress-code-icon" viewBox="0 0 24 24">
+            <!-- Icono de gancho de ropa elegante -->
+            <path d="M12 7c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0 0l-9 8v4h18v-4l-9-8z"/>
+        </svg>
+        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 5px;">Dress Code</h2>
+        <p style="font-size: 1.1em; letter-spacing: 2px; font-weight: 300;">Por Definir</p>
     </div>
 
     <!-- FOTO HORIZONTAL 1 -->
@@ -242,7 +299,6 @@
             <button type="submit" class="btn-dorado">Dejar Mensaje</button>
         </form>
         
-        <!-- Aquí se cargarán los mensajes desde Firebase automáticamente -->
         <div class="slider-container animar" id="galeria-mensajes"></div>
         
         <button class="btn-dorado animar" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
@@ -252,12 +308,12 @@
     <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
         <div class="clima-seccion vivo-flotar">
             <h3 class="serif" style="font-size: 2em; font-weight: 300; margin-bottom: 5px;">Pronóstico</h3>
-            <p style="font-size: 0.8em; letter-spacing: 2px; font-weight: 200; text-transform: uppercase;">Campeche, Camp.<br><span style="font-size: 0.9em; font-weight: 400;">12 de Septiembre, 2026</span></p>
+            <p style="font-size: 0.8em; letter-spacing: 2px; font-weight: 200; text-transform: uppercase;">Campeche, Camp.<br><span style="font-size: 0.9em; font-weight: 400;">19 de Diciembre, 2026</span></p>
             <div class="clima-scroll">
-                <div class="clima-item"><p class="clima-hora-txt">14:00</p><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><p class="clima-temp">32°</p></div>
-                <div class="clima-item"><p class="clima-hora-txt">15:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">31°</p></div>
-                <div class="clima-item"><p class="clima-hora-txt">17:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">28°</p></div>
-                <div class="clima-item"><p class="clima-hora-txt">19:00</p><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><p class="clima-temp">26°</p></div>
+                <div class="clima-item"><p class="clima-hora-txt">14:00</p><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><p class="clima-temp">29°</p></div>
+                <div class="clima-item"><p class="clima-hora-txt">15:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">28°</p></div>
+                <div class="clima-item"><p class="clima-hora-txt">17:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">26°</p></div>
+                <div class="clima-item"><p class="clima-hora-txt">19:00</p><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><p class="clima-temp">23°</p></div>
             </div>
         </div>
     </div>
@@ -267,7 +323,7 @@
         <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal vivo-respirar">
     </div>
 
-    <!-- GALERÍA POLAROID ANIMADA (SIN SOBRE) -->
+    <!-- GALERÍA POLAROID ANIMADA FLOTANTE -->
     <div class="container animar" id="galeria" style="padding-top: 0; padding-bottom: 0;">
         <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 20px;">Nuestra Galería</h2>
         <div class="contenedor-polaroids" onclick="abrirGaleriaOficial()">
@@ -275,6 +331,31 @@
             <div class="polaroid-flotante pol-2"><img src="galeria_02.jpg" alt="" onerror="this.src='grid_v2.jpg'"></div>
             <div class="polaroid-flotante pol-3"><img src="galeria_03.jpg" alt="" onerror="this.src='grid_v3.jpg'"></div>
             <div class="polaroid-flotante pol-4"><img src="galeria_04.jpg" alt="" onerror="this.src='grid_v4.jpg'"></div>
+        </div>
+    </div>
+
+    <!-- SUBIDA DE FOTOS (DROPBOX - GLASSMORPHISM) -->
+    <div class="container animar" style="padding-top: 0;">
+        <div class="glass-box-flotante vivo-flotar">
+            <h2 class="serif" style="font-size: 2.5em; color: var(--cafe-sutil); margin-bottom: 15px;">Su perspectiva</h2>
+            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí de forma totalmente privada y segura.</p>
+            <!-- Sustituye aquí el enlace generado por tu "Solicitud de Archivos" de Dropbox -->
+            <a href="TU_ENLACE_DE_DROPBOX_FILE_REQUEST_AQUI" target="_blank" class="btn-linea" style="border-color: var(--cafe-sutil); color: var(--cafe-sutil); font-weight: 400;">Subir mis fotos</a>
+        </div>
+    </div>
+
+    <!-- SUGERENCIAS DE HOSPEDAJE -->
+    <div class="container animar" id="hospedaje" style="padding-top: 0;">
+        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 20px;">Sugerencias de Hospedaje</h2>
+        <div class="hospedaje-slider vivo-flotar">
+            <div class="hospedaje-card" onclick="abrirModalHospedaje('holiday-inn')">
+                <img src="https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop" alt="Hotel Holiday Inn">
+                <div class="hospedaje-info">
+                    <h3 class="serif" style="font-size: 1.5em; color: var(--oliva);">Hotel Holiday Inn</h3>
+                    <p style="font-size: 0.8em; letter-spacing: 1px;">Toca para ver detalles</p>
+                </div>
+            </div>
+            <!-- Puedes añadir más tarjetas duplicando el div 'hospedaje-card' -->
         </div>
     </div>
 
@@ -298,65 +379,70 @@
         </form>
     </div>
 
-    <!-- SUBIDA DE FOTOS (DROPBOX - GLASSMORPHISM) -->
-    <div class="container animar" style="padding-top: 0;">
-        <div class="glass-box-flotante vivo-flotar">
-            <h2 class="serif" style="font-size: 2.5em; color: var(--cafe-sutil); margin-bottom: 15px;">Su perspectiva</h2>
-            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí de forma totalmente privada y segura.</p>
-            <a href="TU_ENLACE_DE_DROPBOX_FILE_REQUEST_AQUI" target="_blank" class="btn-linea" style="border-color: var(--cafe-sutil); color: var(--cafe-sutil); font-weight: 400;">Subir mis fotos</a>
-        </div>
-    </div>
+    <!-- MODALES OCULTOS -->
 
     <!-- MODAL GALERÍA MENSAJES -->
-    <div id="modal-mensajes">
+    <div id="modal-mensajes" class="modal-pantalla-completa">
         <button class="btn-cerrar" onclick="cerrarGaleriaMensajes()">×</button>
-        <h2 class="serif" style="color: var(--hueso); text-align: center; font-size: 2.5em; margin-bottom: 30px;">Mensajes de Cariño</h2>
-        
-        <!-- Los mensajes de Firebase caerán aquí -->
+        <h2 class="serif" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 30px;">Mensajes de Cariño</h2>
         <div class="masonry-mensajes" id="contenedor-masonry"></div>
     </div>
 
     <!-- MODAL GALERÍA DE FOTOS OFICIALES -->
-    <div id="modal-galeria">
-        <button class="btn-cerrar" style="z-index: 100000;" onclick="cerrarGaleriaOficial()">×</button>
-        <h2 class="serif" style="color: var(--hueso); text-align: center; font-size: 2.5em; margin-bottom: 30px;">Memorias Inolvidables</h2>
+    <div id="modal-galeria" class="modal-pantalla-completa">
+        <button class="btn-cerrar" onclick="cerrarGaleriaOficial()">×</button>
+        <h2 class="serif" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 30px;">Memorias Inolvidables</h2>
         <div class="grid-modal-oficial" id="grid-oficial"></div>
+    </div>
+
+    <!-- MODAL HOSPEDAJE -->
+    <div id="modal-hospedaje" class="modal-pantalla-completa">
+        <button class="btn-cerrar" onclick="cerrarModalHospedaje()">×</button>
+        <div class="modal-hospedaje-content" style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <h2 class="serif" id="hospedaje-titulo" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 20px;">Holiday Inn</h2>
+            <div class="grid-modal-oficial">
+                <img src="https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop" alt="Foto 1">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Foto 2">
+            </div>
+            <div style="color: var(--hueso); margin-top: 30px; font-weight: 300; text-align: left; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                <h3 class="serif" style="font-size: 1.5em; margin-bottom: 10px;">Amenidades</h3>
+                <p>✓ Wi-Fi de alta velocidad gratuito</p>
+                <p>✓ Piscina exterior</p>
+                <p>✓ Desayuno buffet disponible</p>
+                <p>✓ A 15 min de la recepción</p>
+            </div>
+            <button class="btn-dorado" style="margin-top: 30px;" onclick="window.open('https://maps.google.com', '_blank')">Ver Ubicación en Mapa</button>
+        </div>
     </div>
 
     <!-- SCRIPTS -->
     <script>
         // ======= CONFIGURACIÓN DE FIREBASE =======
-        // Reemplaza los datos de abajo con los que te dio Firebase al crear el proyecto
-       const firebaseConfig = {
-  apiKey: "AIzaSyCCfXcBINqAJa0yGfkUtlXuImtMJA7DkAM",
-  authDomain: "boda-cecilia-osvaldo.firebaseapp.com",
-  databaseURL: "https://boda-cecilia-osvaldo-default-rtdb.firebaseio.com",
-  projectId: "boda-cecilia-osvaldo",
-  storageBucket: "boda-cecilia-osvaldo.firebasestorage.app",
-  messagingSenderId: "155630119202",
-  appId: "1:155630119202:web:e315c300c4579f9b31dd7b",
-  measurementId: "G-6ST8SD5X7F"
-};
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_PROYECTO.firebaseapp.com",
+            databaseURL: "https://TU_PROYECTO-default-rtdb.firebaseio.com",
+            projectId: "TU_PROYECTO",
+            storageBucket: "TU_PROYECTO.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
         
-        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         const mensajesRef = db.ref('mensajes_boda');
 
-        // Leer mensajes de la base de datos y mostrarlos en tiempo real
         mensajesRef.on('child_added', (snapshot) => {
             const data = snapshot.val();
             const texto = data.texto;
             const nombre = data.nombre;
 
-            // Inyectar al slider horizontal
             const sliderMensajes = document.getElementById('galeria-mensajes');
             const tarjetaSlider = document.createElement('div');
             tarjetaSlider.className = 'mensaje-card-oscuro';
             tarjetaSlider.innerHTML = `<p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"${texto}"</p><p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">${nombre}</p>`;
             sliderMensajes.prepend(tarjetaSlider);
 
-            // Inyectar a la galería modal (botón ver todos)
             const masonryMensajes = document.getElementById('contenedor-masonry');
             const tarjetaMasonry = document.createElement('div');
             tarjetaMasonry.className = 'masonry-item';
@@ -364,22 +450,14 @@
             masonryMensajes.prepend(tarjetaMasonry);
         });
 
-        // Función para guardar mensaje nuevo en Firebase
         function guardarMensaje(e) {
             e.preventDefault();
             const texto = document.getElementById('txt-mensaje').value;
             let nombre = document.getElementById('txt-nombre').value || "Anónimo";
-
-            mensajesRef.push({
-                texto: texto,
-                nombre: nombre,
-                timestamp: Date.now()
-            });
-            
+            mensajesRef.push({ texto: texto, nombre: nombre, timestamp: Date.now() });
             document.getElementById('form-visitas').reset();
             alert("¡Mensaje guardado con éxito!");
         }
-        // ======= FIN FIREBASE =======
 
         // Animaciones Scroll
         const observer = new IntersectionObserver((entries) => {
@@ -414,8 +492,8 @@
         // Mapas
         function abrirRuta(enlaceCorto) { window.open(enlaceCorto, '_blank'); }
 
-        // Contador
-        const fechaBoda = new Date("Sep 12, 2026 17:00:00").getTime();
+        // Contador - ACTUALIZADO AL 19 DIC 2026
+        const fechaBoda = new Date("Dec 19, 2026 17:00:00").getTime();
         setInterval(function() {
             const ahora = new Date().getTime();
             const distancia = fechaBoda - ahora;
@@ -427,11 +505,13 @@
             }
         }, 1000);
 
-        // Galería Mensajes Modal
-        function abrirGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'block'; document.body.style.overflow = 'hidden'; }
-        function cerrarGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'none'; document.body.style.overflow = 'auto'; }
+        // Modales - Utilidad de cierre y apertura
+        function bloquearFondo() { document.body.style.overflow = 'hidden'; }
+        function desbloquearFondo() { document.body.style.overflow = 'auto'; }
 
-        // Galería Oficial Modal (30 Fotos)
+        function abrirGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'block'; bloquearFondo(); }
+        function cerrarGaleriaMensajes() { document.getElementById('modal-mensajes').style.display = 'none'; desbloquearFondo(); }
+
         function abrirGaleriaOficial() {
             const modal = document.getElementById('modal-galeria');
             const grid = document.getElementById('grid-oficial');
@@ -441,9 +521,18 @@
                 grid.innerHTML += `<img src="galeria_${numStr}.jpg" alt="Memoria ${i}" style="animation-delay: ${i * 0.05}s;" onerror="this.style.display='none'">`;
             }
             modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            bloquearFondo();
         }
-        function cerrarGaleriaOficial() { document.getElementById('modal-galeria').style.display = 'none'; document.body.style.overflow = 'auto'; }
+        function cerrarGaleriaOficial() { document.getElementById('modal-galeria').style.display = 'none'; desbloquearFondo(); }
+
+        function abrirModalHospedaje(hotel) {
+            document.getElementById('modal-hospedaje').style.display = 'block';
+            bloquearFondo();
+        }
+        function cerrarModalHospedaje() {
+            document.getElementById('modal-hospedaje').style.display = 'none';
+            desbloquearFondo();
+        }
         
         // RSVP
         function confirmar(e) { e.preventDefault(); alert('¡Gracias por confirmar tu asistencia!'); e.target.reset(); }
