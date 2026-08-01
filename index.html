@@ -4,69 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boda Cecilia & Osvaldo</title>
-    <!-- Fuentes elegantes, modernas y súper finas -->
+    <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
     <style>
-        /* Variables de Color */
+        /* Variables */
         :root {
+            --negro-absoluto: #000000;
+            --verde-profundo: #111a14;
             --oliva: #6b705c;
             --hueso: #f4f1ea;
             --hueso-oscuro: #e8e3d5;
             --cafe-sutil: #7a6a5e;
             --blanco: #ffffff;
-            --cristal: rgba(255, 255, 255, 0.15);
-            --cristal-borde: rgba(255, 255, 255, 0.3);
         }
 
-        /* Estilos Generales y Textura Envolvente */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--hueso);
-            /* Textura de ruido sutil para elegancia */
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
             color: var(--cafe-sutil);
             overflow-x: hidden;
             font-weight: 300;
+        }
+
+        /* TEXTURA DE RUIDO DIGITAL GLOBAL */
+        body::after {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; opacity: 0.5; mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
-        /* Pantalla de Inicio para activar Música */
+        /* PANTALLA DE BIENVENIDA (Fondo Negro y Monograma Imagen) */
         #pantalla-bienvenida {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background-color: var(--hueso);
-            z-index: 9999; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; transition: opacity 1s ease;
+            background-color: var(--negro-absoluto);
+            z-index: 10000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s;
+        }
+        .monograma-placeholder {
+            width: 150px; /* Ajusta el tamaño de tu imagen aquí */
+            margin-bottom: 30px;
+        }
+        .fecha-intro {
+            color: var(--hueso); letter-spacing: 4px; font-weight: 200; font-size: 0.9em; margin-bottom: 40px;
         }
         .btn-entrar {
-            padding: 15px 40px; border: 1px solid var(--cafe-sutil);
-            background: transparent; color: var(--cafe-sutil); border-radius: 30px;
+            padding: 15px 40px; border: 1px solid var(--hueso);
+            background: transparent; color: var(--hueso); border-radius: 30px;
             font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: 1em;
-            letter-spacing: 2px; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: 0.4s;
         }
+        .btn-entrar:hover { background: var(--hueso); color: var(--negro-absoluto); }
 
-        /* Reproductor de Música Minimalista (Top Left) */
+        /* REPRODUCTOR MINI */
         .music-player-mini {
             position: absolute; top: 20px; left: 20px; z-index: 10;
             display: flex; align-items: center; justify-content: center;
             width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5);
-            border-radius: 50%; color: var(--blanco); cursor: pointer;
-            backdrop-filter: blur(5px);
+            border-radius: 50%; color: var(--blanco); cursor: pointer; backdrop-filter: blur(5px);
         }
         .music-player-mini svg { width: 15px; height: 15px; fill: var(--blanco); }
 
-        /* Menú Hamburguesa */
+        /* MENÚ HAMBURGUESA Y SIDEBAR */
         .menu-btn {
             position: fixed; top: 20px; right: 20px; z-index: 1000;
             cursor: pointer; padding: 10px;
         }
         .menu-btn div { width: 30px; height: 1px; background-color: var(--blanco); margin: 8px 0; transition: 0.3s; }
         .menu-btn.scrolled div { background-color: var(--cafe-sutil); }
-        
-        /* Hero Section */
+        .menu-btn.open div { background-color: var(--hueso); }
+        .menu-btn.open div:nth-child(1) { transform: rotate(-45deg) translate(-6px, 6px); }
+        .menu-btn.open div:nth-child(2) { opacity: 0; }
+        .menu-btn.open div:nth-child(3) { transform: rotate(45deg) translate(-6px, -6px); }
+
+        .sidebar {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+            background-color: rgba(17, 26, 20, 0.98); /* Verde profundo semi-transparente */
+            z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .sidebar.active { right: 0; }
+        .sidebar a {
+            color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2.5em;
+            text-decoration: none; margin: 15px 0; font-style: italic; opacity: 0; transform: translateY(20px); transition: 0.4s;
+        }
+        .sidebar.active a { opacity: 1; transform: translateY(0); }
+        .sidebar.active a:nth-child(1) { transition-delay: 0.2s; }
+        .sidebar.active a:nth-child(2) { transition-delay: 0.3s; }
+        .sidebar.active a:nth-child(3) { transition-delay: 0.4s; }
+
+        /* HERO */
         .hero {
             position: relative; height: 100vh;
             background-image: url('hero_vertical_bn.jpg');
@@ -76,126 +109,96 @@
         }
         .hero-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-            z-index: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)); z-index: 0;
         }
-        
         .hero-nombres {
-            position: relative; z-index: 1; color: var(--blanco);
-            font-size: 4.5em; font-weight: 300; font-style: italic;
-            line-height: 1.1; letter-spacing: 1px; text-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            margin-top: 10vh; text-align: center;
+            position: relative; z-index: 1; color: var(--blanco); font-size: 4.5em; font-weight: 300;
+            font-style: italic; line-height: 1.1; margin-top: 10vh; text-align: center;
         }
-
-        /* Fecha y Contador sobre la foto (Abajo) */
         .hero-bottom { position: relative; z-index: 1; color: var(--blanco); width: 100%; text-align: center; }
-        .fecha-minimalista {
-            font-family: 'Montserrat', sans-serif; font-weight: 200; font-size: 1.2em;
-            letter-spacing: 4px; margin-bottom: 20px;
-        }
+        .fecha-minimalista { font-weight: 200; font-size: 1.2em; letter-spacing: 4px; margin-bottom: 20px; }
         .contador-minimalista {
             display: flex; justify-content: center; gap: 20px; font-weight: 200;
-            border-top: 1px solid rgba(255,255,255,0.4);
-            border-bottom: 1px solid rgba(255,255,255,0.4);
+            border-top: 1px solid rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.4);
             padding: 15px 0; max-width: 300px; margin: 0 auto;
         }
         .time-box .num { font-family: 'Cormorant Garamond', serif; font-size: 2em; line-height: 1; }
         .time-box .label { font-size: 0.6em; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; opacity: 0.8; }
 
-        /* Itinerario (Glassmorphism) */
+        /* ITINERARIO */
         .itinerario-item {
             margin: 40px auto; padding: 40px 20px; max-width: 500px;
-            background: rgba(232, 227, 213, 0.4);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.4); border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+            background: rgba(232, 227, 213, 0.4); border: 1px solid rgba(255,255,255,0.4); border-radius: 15px;
         }
-        .icon-vector { width: 40px; height: 40px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1; margin-bottom: 15px; }
         .lugar-titulo { font-size: 2em; font-weight: 300; color: var(--oliva); margin-bottom: 5px; }
-        .hora { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 0.9em; letter-spacing: 2px; margin-bottom: 15px; }
         .btn-linea {
-            display: inline-block; padding: 10px 30px; margin-top: 15px;
-            border: 1px solid var(--cafe-sutil); color: var(--cafe-sutil);
-            text-decoration: none; border-radius: 30px; font-size: 0.8em; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
+            display: inline-block; padding: 10px 30px; margin-top: 15px; border: 1px solid var(--cafe-sutil);
+            color: var(--cafe-sutil); text-decoration: none; border-radius: 30px; font-size: 0.8em; letter-spacing: 2px;
+            text-transform: uppercase; transition: 0.3s; cursor: pointer; background: transparent;
         }
-        .btn-linea:hover { background: var(--cafe-sutil); color: var(--blanco); }
 
-        /* Fotos */
-        .foto-horizontal { width: 100%; height: 400px; object-fit: cover; margin: 60px 0; border-radius: 5px; }
-        .grid-fotos { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 40px 0; }
-        .grid-fotos img { width: 100%; height: 300px; object-fit: cover; border-radius: 5px; }
+        /* SECCIÓN MENSAJES (RADICAL E INMERSIVA) */
+        .seccion-mensajes-inmersiva {
+            background-color: var(--verde-profundo);
+            color: var(--hueso); padding: 80px 20px; text-align: center; margin: 60px 0;
+        }
+        .form-fino-oscuro input, .form-fino-oscuro textarea {
+            width: 100%; padding: 15px; margin-bottom: 20px; background: transparent;
+            border: none; border-bottom: 1px solid rgba(244, 241, 234, 0.3);
+            color: var(--hueso); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none;
+        }
+        .form-fino-oscuro input::placeholder, .form-fino-oscuro textarea::placeholder { color: rgba(244, 241, 234, 0.5); }
+        .btn-dorado {
+            background: transparent; color: var(--hueso); border: 1px solid var(--hueso);
+            padding: 15px 30px; border-radius: 30px; font-weight: 300; letter-spacing: 2px;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s; width: 100%; max-width: 300px;
+        }
+        .btn-dorado:hover { background: var(--hueso); color: var(--verde-profundo); }
 
-        /* Formulario de Mensajes (Diseño Juvenil y Fino) */
-        .form-fino input, .form-fino textarea, .form-fino select {
-            width: 100%; padding: 15px; margin-bottom: 20px;
-            background: transparent; border: none; border-bottom: 1px solid var(--cafe-sutil);
-            color: var(--cafe-sutil); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none;
-        }
-        .form-fino input::placeholder, .form-fino textarea::placeholder { color: rgba(122, 106, 94, 0.5); }
-        .btn-submit-fino {
-            background: transparent; color: var(--cafe-sutil); border: 1px solid var(--cafe-sutil);
-            padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px;
-            text-transform: uppercase; cursor: pointer; transition: 0.3s;
-        }
-        .btn-submit-fino:hover { background: var(--cafe-sutil); color: var(--blanco); }
-
-        /* Slider de Mensajes Horizontal */
-        .slider-horizontal-wrapper {
-            background-color: var(--hueso-oscuro);
-            padding: 60px 0; margin: 60px 0;
-            border-top: 1px solid rgba(122, 106, 94, 0.1); border-bottom: 1px solid rgba(122, 106, 94, 0.1);
-        }
+        /* Slider oscuro */
         .slider-container {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-            gap: 30px; padding: 0 40px; scrollbar-width: none;
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 40px 0; scrollbar-width: none;
         }
         .slider-container::-webkit-scrollbar { display: none; }
-        .mensaje-card {
-            min-width: 85%; scroll-snap-align: center;
-            background: var(--hueso); padding: 40px 30px; border-radius: 10px;
-            border: 1px solid rgba(122, 106, 94, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            text-align: center; display: flex; flex-direction: column; justify-content: center;
+        .mensaje-card-oscuro {
+            min-width: 85%; scroll-snap-align: center; background: rgba(255,255,255,0.03);
+            padding: 40px 30px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);
+            display: flex; flex-direction: column; justify-content: center;
         }
-        .msg-txt { font-size: 1.6em; font-weight: 300; font-style: italic; color: var(--cafe-sutil); margin-bottom: 20px; line-height: 1.4; }
-        .msg-aut { font-family: 'Montserrat', sans-serif; font-size: 0.8em; letter-spacing: 2px; text-transform: uppercase; color: var(--oliva); }
 
-        /* Clima Horizontal Minimalista */
-        .clima-seccion {
-            background: rgba(232, 227, 213, 0.5); padding: 40px 20px; border-radius: 15px;
-            margin: 40px 0; border: 1px solid rgba(255,255,255,0.3);
+        /* MODAL GALERÍA DE MENSAJES */
+        #modal-mensajes {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--verde-profundo);
+            z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px;
         }
-        .clima-scroll {
-            display: flex; justify-content: space-between; gap: 20px;
-            overflow-x: auto; padding-top: 20px; scrollbar-width: none;
+        .btn-cerrar {
+            position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em;
+            background: none; border: none; cursor: pointer; z-index: 10000;
         }
-        .clima-item {
-            min-width: 80px; text-align: center; display: flex; flex-direction: column; align-items: center;
+        .masonry-mensajes {
+            column-count: 2; column-gap: 15px; margin-top: 20px;
         }
-        .clima-item svg { width: 30px; height: 30px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1.2; margin: 10px 0; }
-        .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
-        .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; }
+        .masonry-item {
+            background: var(--hueso); color: var(--verde-profundo); padding: 20px;
+            margin-bottom: 15px; border-radius: 8px; break-inside: avoid; text-align: left;
+        }
 
-        /* Botón Galería */
-        .btn-galeria {
-            position: relative; width: 100%; height: 250px;
-            background-image: url('galeria_btn.jpg'); background-size: cover; background-position: center;
-            border-radius: 10px; overflow: hidden; cursor: pointer; margin: 40px 0;
-        }
-        .btn-galeria-overlay {
-            position: absolute; top:0; left:0; width:100%; height:100%;
-            background: rgba(107, 112, 92, 0.6); display: flex; justify-content: center; align-items: center;
-            color: var(--blanco); font-size: 1.5em; letter-spacing: 3px; font-weight: 300;
+        /* SUBIDA DE FOTOS (NUEVO) */
+        .upload-section {
+            padding: 60px 20px; background: rgba(232, 227, 213, 0.4); margin: 60px 20px; border-radius: 15px;
         }
 
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA (Para activar el audio) -->
+    <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
-        <h2 class="serif" style="font-size: 3em; margin-bottom: 10px; font-weight: 300;">C & O</h2>
-        <p style="letter-spacing: 2px; font-weight: 200; font-size: 0.9em; margin-bottom: 40px;">12 . 09 . 2026</p>
-        <button class="btn-entrar" onclick="abrirInvitacion()">Abrir Invitación</button>
+        <!-- Reemplaza el src con la ruta de la imagen de tu monograma -->
+        <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder">
+        
+        <p class="fecha-intro">12 . 09 . 2026</p>
+        <button class="btn-entrar" onclick="abrirInvitacion()">Descubrir</button>
     </div>
 
     <!-- AUDIO OCULTO -->
@@ -204,23 +207,26 @@
     </audio>
 
     <!-- MENÚ HAMBURGUESA -->
-    <div class="menu-btn" id="menuBtn">
+    <div class="menu-btn" id="menuBtn" onclick="toggleMenu()">
         <div></div><div></div><div></div>
+    </div>
+
+    <!-- OVERLAY SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <a href="#inicio" onclick="toggleMenu()">Inicio</a>
+        <a href="#itinerario" onclick="toggleMenu()">Itinerario</a>
+        <a href="#mensajes" onclick="toggleMenu()">Mensajes</a>
+        <a href="#fotos" onclick="toggleMenu()">Compartir Fotos</a>
     </div>
 
     <!-- HERO SECTION -->
     <section class="hero" id="inicio">
-        <!-- REPRODUCTOR MINI TOP LEFT -->
         <div class="music-player-mini" id="playBtn" onclick="toggleAudio()">
-            <!-- Icono de pausa por defecto ya que inicia reproduciendo -->
             <svg id="icon-pausa" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
             <svg id="icon-play" viewBox="0 0 24 24" style="display:none;"><polygon points="5,3 19,12 5,21"/></svg>
         </div>
-
         <div class="hero-overlay"></div>
-        
         <h1 class="hero-nombres serif">Cecilia<br><span style="font-size: 0.6em;">&</span><br>Osvaldo</h1>
-        
         <div class="hero-bottom">
             <div class="fecha-minimalista">12 | SEPTIEMBRE | 2026</div>
             <div class="contador-minimalista">
@@ -232,164 +238,93 @@
         </div>
     </section>
 
-    <div class="container">
-        
-        <!-- ITINERARIO CON GLASSMORPHISM Y VECTORES -->
-        <h2 class="serif" style="font-size: 2.5em; margin: 40px 0 20px; font-weight: 300;">Itinerario</h2>
+    <!-- ITINERARIO -->
+    <div class="container" id="itinerario">
+        <h2 class="serif" style="font-size: 2.5em; font-weight: 300;">Itinerario</h2>
         
         <div class="itinerario-item">
-            <!-- Icono Iglesia Minimalista -->
-            <svg class="icon-vector" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 0v5m-2-2h4"/></svg>
             <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
-            <p class="hora">5:00 P.M.</p>
-            <p style="font-weight: 300; font-size: 0.95em;">Catedral de Campeche</p>
-            <a href="https://maps.app.goo.gl/placeholderCatedral" target="_blank" class="btn-linea">Ver Mapa</a>
+            <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">5:00 P.M.</p>
+            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Catedral de Campeche</p>
+            <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/4G8YKVWwb3EJixfZA')">Cómo llegar</button>
         </div>
 
         <div class="itinerario-item">
-            <!-- Icono Copas Minimalista -->
-            <svg class="icon-vector" viewBox="0 0 24 24"><path d="M7 2l2 10 3 10m5-20l-2 10-3 10M4 12h16"/></svg>
             <h3 class="lugar-titulo serif">Recepción</h3>
-            <p class="hora">7:00 P.M.</p>
-            <p style="font-weight: 300; font-size: 0.95em;">Hacienda Xtelchel</p>
-            <a href="https://maps.app.goo.gl/placeholderHacienda" target="_blank" class="btn-linea">Ver Mapa</a>
-        </div>
-
-        <!-- FOTO DESCANSO HORIZONTAL -->
-        <img src="break_h1.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
-
-        <!-- GRID DE 6 FOTOS -->
-        <div class="grid-fotos">
-            <img src="grid_v1.jpg" alt="Grid 1">
-            <img src="grid_v2.jpg" alt="Grid 2">
-            <img src="grid_v3.jpg" alt="Grid 3">
-            <img src="grid_v4.jpg" alt="Grid 4">
-            <img src="grid_v5.jpg" alt="Grid 5">
-            <img src="grid_v6.jpg" alt="Grid 6">
-        </div>
-
-    </div>
-
-    <!-- FORMULARIO DE MENSAJES (JUVENIL/FINO) -->
-    <div class="container" style="padding-bottom: 0;">
-        <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 30px;">Libro de Visitas</h2>
-        <form class="form-fino" id="formMensaje" onsubmit="agregarMensaje(event)">
-            <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
-            <input type="text" id="txt-nombre" placeholder="Tu Nombre (o déjalo en blanco para anónimo)">
-            <button type="submit" class="btn-submit-fino">Enviar Mensaje</button>
-        </form>
-    </div>
-
-    <!-- SLIDER DE MENSAJES HORIZONTAL -->
-    <div class="slider-horizontal-wrapper">
-        <div class="slider-container" id="galeria-mensajes">
-            <!-- Mensajes de muestra -->
-            <div class="mensaje-card">
-                <p class="msg-txt serif">"Que esta nueva etapa esté llena de amor y complicidad. ¡Felicidades!"</p>
-                <p class="msg-aut">Familia Martínez</p>
-            </div>
-            <div class="mensaje-card">
-                <p class="msg-txt serif">"El mejor equipo dentro y fuera del hospital. Vivan los novios."</p>
-                <p class="msg-aut">Dra. Ramírez</p>
-            </div>
+            <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">7:00 P.M.</p>
+            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Hacienda Xtelchel</p>
+            <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/BvgqM2gukJVb9C5L9')">Cómo llegar</button>
         </div>
     </div>
 
-    <div class="container" style="padding-top: 0;">
+    <!-- SECCIÓN DE MENSAJES INMERSIVA (VERDE PROFUNDO) -->
+    <section class="seccion-mensajes-inmersiva" id="mensajes">
+        <h2 class="serif" style="font-size: 2.5em; margin-bottom: 30px;">Libro de Visitas</h2>
         
-        <!-- CLIMA HORIZONTAL MINIMALISTA -->
-        <div class="clima-seccion">
-            <h3 class="serif" style="font-size: 2em; font-weight: 300; margin-bottom: 5px;">Pronóstico</h3>
-            <p style="font-size: 0.8em; letter-spacing: 2px; font-weight: 200; text-transform: uppercase;">Campeche, Camp.</p>
-            
-            <div class="clima-scroll">
-                <div class="clima-item">
-                    <p class="clima-hora-txt">14:00</p>
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
-                    <p class="clima-temp">32°</p>
-                </div>
-                <div class="clima-item">
-                    <p class="clima-hora-txt">15:00</p>
-                    <svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg>
-                    <p class="clima-temp">31°</p>
-                </div>
-                <div class="clima-item">
-                    <p class="clima-hora-txt">16:00</p>
-                    <svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg>
-                    <p class="clima-temp">30°</p>
-                </div>
-                <div class="clima-item">
-                    <p class="clima-hora-txt">17:00</p>
-                    <svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg>
-                    <p class="clima-temp">28°</p>
-                </div>
-                <div class="clima-item">
-                    <p class="clima-hora-txt">19:00</p>
-                    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-                    <p class="clima-temp">26°</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- FOTO DESCANSO HORIZONTAL -->
-        <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal">
-
-        <!-- BOTÓN GALERÍA -->
-        <div class="btn-galeria" onclick="alert('Aquí se cargará la galería oficial')">
-            <div class="btn-galeria-overlay serif">NUESTRA GALERÍA</div>
-        </div>
-
-        <!-- RSVP FINO -->
-        <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-top: 60px; margin-bottom: 30px;">Asistencia</h2>
-        <form class="form-fino" style="text-align: left;" onsubmit="confirmar(event)">
-            <div style="margin-bottom: 25px; font-weight: 300;">
-                <label style="display: block; margin-bottom: 10px;"><input type="radio" name="asistencia" required> Sí, seré parte de este día</label>
-                <label style="display: block;"><input type="radio" name="asistencia"> Lo siento, no podré asistir</label>
-            </div>
-            <input type="text" placeholder="Nombre completo" required>
-            <select required>
-                <option value="" disabled selected>Número de lugares requeridos</option>
-                <option value="1">1 Lugar</option>
-                <option value="2">2 Lugares</option>
-                <option value="3">3 Lugares</option>
-            </select>
-            <input type="tel" placeholder="Teléfono de contacto" required>
-            <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
+        <form class="form-fino-oscuro" onsubmit="agregarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
+            <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
+            <input type="text" id="txt-nombre" placeholder="Tu Nombre">
+            <button type="submit" class="btn-dorado">Dejar Mensaje</button>
         </form>
 
+        <div class="slider-container" id="galeria-mensajes">
+            <div class="mensaje-card-oscuro">
+                <p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"Que esta nueva etapa esté llena de luz."</p>
+                <p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">Familia Martínez</p>
+            </div>
+        </div>
+
+        <button class="btn-dorado" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
+    </section>
+
+    <!-- MODAL GALERÍA DE MENSAJES (Mampostería) -->
+    <div id="modal-mensajes">
+        <button class="btn-cerrar" onclick="cerrarGaleriaMensajes()">×</button>
+        <h2 class="serif" style="color: var(--hueso); text-align: center; font-size: 2.5em; margin-bottom: 30px;">Mensajes de Cariño</h2>
+        <div class="masonry-mensajes" id="contenedor-masonry">
+            <!-- Los mensajes se clonan aquí por JS -->
+        </div>
+    </div>
+
+    <!-- NUEVO: SUBIDA DE FOTOS -->
+    <div class="upload-section container" id="fotos">
+        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 15px;">Su perspectiva</h2>
+        <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px;">Nos encantaría ver la boda a través de sus ojos. Después de la fiesta, compártanos las fotos y videos que capturaron.</p>
+        <!-- Aquí va el link de subida (Pixieset Guest Upload, WeTransfer, Drive, etc) -->
+        <a href="URL_DE_TU_CARPETA_COMPARTIDA" target="_blank" class="btn-linea" style="border-color: var(--oliva); color: var(--oliva);">Subir mis fotos</a>
     </div>
 
     <!-- SCRIPTS -->
     <script>
-        // 1. Ocultar bienvenida y reproducir audio
+        // 1. Bienvenida y Música
         const audio = document.getElementById('audioFondo');
-        const iconPlay = document.getElementById('icon-play');
-        const iconPausa = document.getElementById('icon-pausa');
-
         function abrirInvitacion() {
-            document.getElementById('pantalla-bienvenida').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('pantalla-bienvenida').style.display = 'none';
-            }, 1000);
-            
-            // Iniciar música
-            audio.play().catch(e => console.log("Audio bloqueado", e));
+            const pantalla = document.getElementById('pantalla-bienvenida');
+            pantalla.style.opacity = '0';
+            setTimeout(() => { pantalla.style.visibility = 'hidden'; }, 1000);
+            audio.play().catch(e => console.log("Audio bloqueado"));
         }
 
-        // 2. Control de Audio Mini
+        // 2. Play/Pause
         function toggleAudio() {
             if(audio.paused) {
                 audio.play();
-                iconPlay.style.display = 'none';
-                iconPausa.style.display = 'block';
+                document.getElementById('icon-play').style.display = 'none';
+                document.getElementById('icon-pausa').style.display = 'block';
             } else {
                 audio.pause();
-                iconPlay.style.display = 'block';
-                iconPausa.style.display = 'none';
+                document.getElementById('icon-play').style.display = 'block';
+                document.getElementById('icon-pausa').style.display = 'none';
             }
         }
 
-        // 3. Menú oscuro al hacer scroll
+        // 3. Menú Lateral Deslizable (Reparado)
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('menuBtn').classList.toggle('open');
+        }
+
+        // Cambio de color del botón menú al hacer scroll
         window.addEventListener('scroll', () => {
             const btn = document.getElementById('menuBtn');
             if(window.scrollY > window.innerHeight - 50) {
@@ -399,65 +334,73 @@
             }
         });
 
-        // 4. Contador Reparado (12 Sept 2026 17:00:00)
+        // 4. Lógica Inteligente de Mapas (iOS vs Android)
+        function abrirRuta(enlaceCorto) {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+            
+            // Si tuvieras coordenadas exactas, el código ideal para iOS sería:
+            // if(isIOS) { window.location.href = "maps://?q=19.8282,-90.5350"; return; }
+            
+            // Como usamos enlaces cortos de Google, forzamos abrir en pestaña nueva
+            // para que Safari maneje la redirección a la App de Google Maps.
+            window.open(enlaceCorto, '_blank');
+        }
+
+        // 5. Contador
         const fechaBoda = new Date("Sep 12, 2026 17:00:00").getTime();
-        
         setInterval(function() {
             const ahora = new Date().getTime();
             const distancia = fechaBoda - ahora;
-
-            if (distancia < 0) {
-                document.getElementById("dias").innerHTML = "00";
-                document.getElementById("horas").innerHTML = "00";
-                document.getElementById("mins").innerHTML = "00";
-                document.getElementById("segs").innerHTML = "00";
-                return;
+            if (distancia > 0) {
+                document.getElementById("dias").innerHTML = String(Math.floor(distancia / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                document.getElementById("horas").innerHTML = String(Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                document.getElementById("mins").innerHTML = String(Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                document.getElementById("segs").innerHTML = String(Math.floor((distancia % (1000 * 60)) / 1000)).padStart(2, '0');
             }
-
-            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
-
-            document.getElementById("dias").innerHTML = dias < 10 ? '0'+dias : dias;
-            document.getElementById("horas").innerHTML = horas < 10 ? '0'+horas : horas;
-            document.getElementById("mins").innerHTML = minutos < 10 ? '0'+minutos : minutos;
-            document.getElementById("segs").innerHTML = segundos < 10 ? '0'+segundos : segundos;
         }, 1000);
 
-        // 5. Lógica del Libro de Visitas Dinámico
+        // 6. Mensajes Inmersivos y Galería Grid
+        const sliderMensajes = document.getElementById('galeria-mensajes');
+        const masonryMensajes = document.getElementById('contenedor-masonry');
+
         function agregarMensaje(e) {
             e.preventDefault();
-            
-            // Obtener valores
             const texto = document.getElementById('txt-mensaje').value;
-            let nombre = document.getElementById('txt-nombre').value;
-            if(!nombre.trim()) nombre = "Anónimo";
+            let nombre = document.getElementById('txt-nombre').value || "Anónimo";
 
-            // Crear nueva tarjeta HTML
-            const slider = document.getElementById('galeria-mensajes');
-            const nuevaTarjeta = document.createElement('div');
-            nuevaTarjeta.className = 'mensaje-card';
-            nuevaTarjeta.innerHTML = `
-                <p class="msg-txt serif">"${texto}"</p>
-                <p class="msg-aut">${nombre}</p>
-            `;
+            // Crear para el Slider
+            const tarjetaSlider = document.createElement('div');
+            tarjetaSlider.className = 'mensaje-card-oscuro';
+            tarjetaSlider.innerHTML = `<p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"${texto}"</p><p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">${nombre}</p>`;
+            sliderMensajes.prepend(tarjetaSlider);
+            sliderMensajes.scrollTo({ left: 0, behavior: 'smooth' });
 
-            // Insertar al inicio del slider
-            slider.prepend(nuevaTarjeta);
+            // Crear para el Modal (Masonry)
+            const tarjetaMasonry = document.createElement('div');
+            tarjetaMasonry.className = 'masonry-item';
+            tarjetaMasonry.innerHTML = `<p class="serif" style="font-size: 1.2em; font-style: italic; margin-bottom: 10px;">"${texto}"</p><p style="font-size: 0.7em; font-weight: 400; text-transform: uppercase;">— ${nombre}</p>`;
+            masonryMensajes.prepend(tarjetaMasonry);
 
-            // Hacer scroll hacia el nuevo mensaje suavemente
-            slider.scrollTo({ left: 0, behavior: 'smooth' });
-
-            // Limpiar formulario
             e.target.reset();
         }
 
-        // 6. Confirmación
-        function confirmar(e) {
-            e.preventDefault();
-            alert('¡Gracias por confirmar tu asistencia!');
-            e.target.reset();
+        // Duplicar el mensaje inicial al modal de albañilería (masonry) al cargar
+        window.onload = () => {
+            const initialCard = document.createElement('div');
+            initialCard.className = 'masonry-item';
+            initialCard.innerHTML = `<p class="serif" style="font-size: 1.2em; font-style: italic; margin-bottom: 10px;">"Que esta nueva etapa esté llena de luz."</p><p style="font-size: 0.7em; font-weight: 400; text-transform: uppercase;">— Familia Martínez</p>`;
+            masonryMensajes.appendChild(initialCard);
+        };
+
+        function abrirGaleriaMensajes() {
+            document.getElementById('modal-mensajes').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Evitar scroll de fondo
+        }
+        
+        function cerrarGaleriaMensajes() {
+            document.getElementById('modal-mensajes').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
     </script>
 </body>
