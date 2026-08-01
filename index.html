@@ -34,7 +34,6 @@
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
 
-        /* Ocultar ícono de error de imagen y dar espacio al monograma */
         .monograma-placeholder {
             width: 150px;
             min-height: 150px;
@@ -44,7 +43,7 @@
         
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
-        /* ANIMACIONES VIVAS (NUEVO) */
+        /* ANIMACIONES VIVAS */
         @keyframes flotar {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-12px); }
@@ -54,6 +53,12 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.03); }
             100% { transform: scale(1); }
+        }
+        /* Nueva animación levitación marcada para las Polaroids */
+        @keyframes levitacion-marcada {
+            0% { transform: translateY(0) rotate(var(--rotacion)); }
+            50% { transform: translateY(-25px) rotate(calc(var(--rotacion) + 5deg)) scale(1.05); }
+            100% { transform: translateY(0) rotate(var(--rotacion)); }
         }
         
         .vivo-flotar { animation: flotar 6s ease-in-out infinite; }
@@ -114,10 +119,12 @@
         .time-box .num { font-family: 'Cormorant Garamond', serif; font-size: 2em; line-height: 1; }
         .time-box .label { font-size: 0.6em; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; opacity: 0.8; }
 
-        /* ITINERARIO */
+        /* ITINERARIO CON ICONOS */
         .itinerario-item { margin: 40px auto; padding: 40px 20px; max-width: 500px; background: rgba(232, 227, 213, 0.4); border: 1px solid rgba(255,255,255,0.4); border-radius: 15px; backdrop-filter: blur(5px); }
+        .icon-vector { width: 40px; height: 40px; stroke: var(--cafe-sutil); fill: none; stroke-width: 1; margin-bottom: 15px; }
         .lugar-titulo { font-size: 2em; font-weight: 300; color: var(--oliva); margin-bottom: 5px; }
         .btn-linea { display: inline-block; padding: 10px 30px; margin-top: 15px; border: 1px solid var(--cafe-sutil); color: var(--cafe-sutil); text-decoration: none; border-radius: 30px; font-size: 0.8em; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; cursor: pointer; background: transparent; }
+        .btn-linea:hover { background: var(--cafe-sutil); color: var(--hueso); }
 
         /* FOTOS */
         .foto-horizontal { width: 100%; height: 400px; object-fit: cover; margin: 60px 0; border-radius: 5px; }
@@ -134,6 +141,12 @@
         .slider-container::-webkit-scrollbar { display: none; }
         .mensaje-card-oscuro { min-width: 85%; scroll-snap-align: center; background: rgba(255,255,255,0.03); padding: 40px 30px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; justify-content: center; }
 
+        /* MODAL GALERÍA MENSAJES */
+        #modal-mensajes { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--verde-profundo); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; }
+        .btn-cerrar { position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em; background: none; border: none; cursor: pointer; z-index: 10000; }
+        .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; }
+        .masonry-item { background: var(--hueso); color: var(--verde-profundo); padding: 20px; margin-bottom: 15px; border-radius: 8px; break-inside: avoid; text-align: left; }
+
         /* CLIMA HORIZONTAL */
         .clima-seccion { background: rgba(232, 227, 213, 0.5); padding: 40px 20px; border-radius: 15px; margin: 40px auto; max-width: 800px; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px); }
         .clima-scroll { display: flex; justify-content: space-between; gap: 20px; overflow-x: auto; padding-top: 20px; scrollbar-width: none; }
@@ -142,26 +155,19 @@
         .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
         .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; }
 
-        /* SOBRE REALISTA Y COMPLETO */
-        .sobre-container { position: relative; width: 300px; height: 200px; margin: 80px auto; cursor: pointer; perspective: 1200px; }
-        .sobre-atras { position: absolute; bottom: 0; width: 100%; height: 140px; background: #cfcaba; border-radius: 5px; z-index: 1; }
-        .polaroid-wrapper { position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: center; z-index: 2; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .polaroid { position: absolute; width: 80px; height: 100px; background: white; padding: 5px; padding-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #eee; }
-        .polaroid img { width: 100%; height: 70px; object-fit: cover; background: #e0e0e0; }
-        .pol-1 { transform: rotate(-10deg) translate(-20px, 10px); }
-        .pol-2 { transform: rotate(5deg) translate(0px, 0px); }
-        .pol-3 { transform: rotate(15deg) translate(20px, 15px); }
-        /* Frente del sobre con clip-path para simular los dobleces */
-        .sobre-frente { position: absolute; bottom: 0; width: 100%; height: 140px; background: #e8e3d5; border-radius: 5px; z-index: 3; clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%); box-shadow: inset 0 0 15px rgba(0,0,0,0.05); }
-        .sobre-frente-abajo { position: absolute; bottom: 0; width: 100%; height: 70px; background: #dfdad0; z-index: 4; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
-        /* Solapa semi-abierta por defecto */
-        .sobre-solapa { position: absolute; top: 18px; width: 100%; height: 100px; background: #d4cfc0; clip-path: polygon(0 0, 100% 0, 50% 100%); z-index: 5; transform-origin: top; transform: rotateX(130deg); transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        /* Hover Effects */
-        .sobre-container:hover .sobre-solapa { transform: rotateX(180deg); z-index: 0; }
-        .sobre-container:hover .polaroid-wrapper { transform: translateY(-40px); }
-        .sobre-container:hover .pol-1 { transform: rotate(-25deg) translate(-40px, 0); }
-        .sobre-container:hover .pol-2 { transform: rotate(0deg) translate(0px, -20px); }
-        .sobre-container:hover .pol-3 { transform: rotate(25deg) translate(40px, 0); }
+        /* GALERÍA POLAROID ANIMADA (NUEVO DISEÑO) */
+        .contenedor-polaroids { position: relative; height: 350px; width: 100%; max-width: 350px; margin: 40px auto; cursor: pointer; }
+        .polaroid-flotante { 
+            position: absolute; width: 110px; height: 130px; background: white; padding: 6px; padding-bottom: 25px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: all 0.3s;
+            animation: levitacion-marcada 3.5s infinite ease-in-out alternate;
+        }
+        .polaroid-flotante img { width: 100%; height: 100%; object-fit: cover; background: #e0e0e0; }
+        .polaroid-flotante:hover { z-index: 10 !important; filter: brightness(1.1); }
+        .pol-1 { top: 30px; left: 10%; --rotacion: -15deg; animation-delay: 0s; z-index: 1; }
+        .pol-2 { top: 60px; left: 30%; --rotacion: -5deg; animation-delay: 0.5s; z-index: 2; }
+        .pol-3 { top: 20px; left: 50%; --rotacion: 10deg; animation-delay: 1s; z-index: 3; }
+        .pol-4 { top: 50px; left: 65%; --rotacion: 20deg; animation-delay: 1.5s; z-index: 4; }
 
         /* GALERÍA MODAL DE FOTOS OFICIALES */
         #modal-galeria { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--negro-absoluto); z-index: 99999; display: none; overflow-y: auto; padding: 60px 20px; }
@@ -176,10 +182,8 @@
 
         /* SUBIDA DE FOTOS (GLASSMORPHISM FLOTANTE) */
         .glass-box-flotante {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             padding: 60px 30px; margin: 60px auto; max-width: 600px; text-align: center;
         }
     </style>
@@ -188,8 +192,8 @@
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
-        <!-- Espacio del monograma (oculta el ícono si no se encuentra la imagen) -->
-        <h2 class="serif" style="font-size: 4em; margin-bottom: 10px; font-weight: 300; color: var(--hueso);">C & O</h2>
+        <!-- Espacio reservado para tu archivo de imagen monograma -->
+        <img src="monograma.png" alt="Monograma de los novios" class="monograma-placeholder" onerror="this.style.opacity='0';">
         <p class="fecha-intro">12 . 09 . 2026</p>
         <button class="btn-entrar" onclick="abrirInvitacion()">Descubrir</button>
     </div>
@@ -230,14 +234,18 @@
     <div class="container animar" id="itinerario">
         <h2 class="serif" style="font-size: 2.5em; font-weight: 300;">Itinerario</h2>
         
-        <div class="itinerario-item animar vivo-flotar" style="animation-delay: 0.5s;">
+        <div class="itinerario-item animar vivo-flotar" style="animation-delay: 0.2s;">
+            <!-- Ícono de Iglesia -->
+            <svg class="icon-vector" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 0v5m-2-2h4"/></svg>
             <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
             <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">5:00 P.M.</p>
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Catedral de Campeche</p>
             <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/4G8YKVWwb3EJixfZA')">Cómo llegar</button>
         </div>
 
-        <div class="itinerario-item animar vivo-flotar" style="animation-delay: 1s;">
+        <div class="itinerario-item animar vivo-flotar" style="animation-delay: 0.6s;">
+            <!-- Ícono de Copas -->
+            <svg class="icon-vector" viewBox="0 0 24 24"><path d="M7 2l2 10 3 10m5-20l-2 10-3 10M4 12h16"/></svg>
             <h3 class="lugar-titulo serif">Recepción</h3>
             <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">7:00 P.M.</p>
             <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Hacienda Xtelchel</p>
@@ -296,19 +304,14 @@
         <img src="break_h2.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal vivo-respirar">
     </div>
 
-    <!-- SOBRE DE GALERÍA REALISTA -->
+    <!-- GALERÍA POLAROID ANIMADA (SIN SOBRE) -->
     <div class="container animar" id="galeria" style="padding-top: 0; padding-bottom: 0;">
-        <div class="sobre-container vivo-flotar" onclick="abrirGaleriaOficial()">
-            <div class="sobre-atras"></div>
-            <div class="polaroid-wrapper">
-                <div class="polaroid pol-1"><img src="galeria_01.jpg" alt="" onerror="this.src='grid_v1.jpg'"></div>
-                <div class="polaroid pol-2"><img src="galeria_02.jpg" alt="" onerror="this.src='grid_v2.jpg'"></div>
-                <div class="polaroid pol-3"><img src="galeria_03.jpg" alt="" onerror="this.src='grid_v3.jpg'"></div>
-            </div>
-            <div class="sobre-frente"></div>
-            <div class="sobre-frente-abajo"></div>
-            <div class="sobre-solapa"></div>
-            <h3 class="serif" style="position: absolute; bottom: 20px; width: 100%; text-align: center; color: var(--oliva); font-size: 1.5em; z-index: 10;">Nuestra Galería</h3>
+        <h2 class="serif" style="font-size: 2.5em; color: var(--oliva); margin-bottom: 20px;">Nuestra Galería</h2>
+        <div class="contenedor-polaroids" onclick="abrirGaleriaOficial()">
+            <div class="polaroid-flotante pol-1"><img src="galeria_01.jpg" alt="" onerror="this.src='grid_v1.jpg'"></div>
+            <div class="polaroid-flotante pol-2"><img src="galeria_02.jpg" alt="" onerror="this.src='grid_v2.jpg'"></div>
+            <div class="polaroid-flotante pol-3"><img src="galeria_03.jpg" alt="" onerror="this.src='grid_v3.jpg'"></div>
+            <div class="polaroid-flotante pol-4"><img src="galeria_04.jpg" alt="" onerror="this.src='grid_v4.jpg'"></div>
         </div>
     </div>
 
@@ -332,12 +335,13 @@
         </form>
     </div>
 
-    <!-- SUBIDA DE FOTOS (GLASSMORPHISM FLOTANTE) -->
+    <!-- SUBIDA DE FOTOS (DROPBOX - GLASSMORPHISM) -->
     <div class="container animar" style="padding-top: 0;">
         <div class="glass-box-flotante vivo-flotar">
             <h2 class="serif" style="font-size: 2.5em; color: var(--cafe-sutil); margin-bottom: 15px;">Su perspectiva</h2>
-            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí.</p>
-            <a href="TU_ENLACE_DE_GOOGLE_PHOTOS_AQUI" target="_blank" class="btn-linea" style="border-color: var(--cafe-sutil); color: var(--cafe-sutil); font-weight: 400;">Subir a Google Photos</a>
+            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí de forma totalmente privada y segura.</p>
+            <!-- Sustituye aquí el enlace generado por tu "Solicitud de Archivos" de Dropbox -->
+            <a href="https://www.dropbox.com/request/dyl16jib6v5zpfozt7o2" target="_blank" class="btn-linea" style="border-color: var(--cafe-sutil); color: var(--cafe-sutil); font-weight: 400;">Subir mis fotos</a>
         </div>
     </div>
 
@@ -467,12 +471,10 @@
         function abrirGaleriaOficial() {
             const modal = document.getElementById('modal-galeria');
             const grid = document.getElementById('grid-oficial');
-            grid.innerHTML = ''; // Limpiar galería
+            grid.innerHTML = '';
             
-            // Ciclo para crear hasta 30 fotos (galeria_01.jpg a galeria_30.jpg)
             for(let i = 1; i <= 30; i++) {
                 let numStr = i < 10 ? '0' + i : i;
-                // onerror permite que si solo hay 10 fotos, no muestre las otras 20 rotas
                 grid.innerHTML += `<img src="galeria_${numStr}.jpg" alt="Memoria ${i}" style="animation-delay: ${i * 0.05}s;" onerror="this.style.display='none'">`;
             }
 
