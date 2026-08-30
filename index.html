@@ -16,12 +16,12 @@
            ========================================== */
         :root {
             --negro-absoluto: #000000;
-            --verde-profundo: #4b533d; /* Verde Oscuro */
-            --oliva: #7a7956;          /* Verde Olivo Medio */
-            --taupe: #a38e81;          /* Topo / Greige */
-            --hueso-oscuro: #cebbaf;   /* Arena Suave */
-            --hueso: #f5f6ed;          /* Crema / Off-White */
-            --cafe-sutil: #5c5249;     /* Topo oscurecido para textos */
+            --verde-profundo: #4b533d; 
+            --oliva: #7a7956;          
+            --taupe: #a38e81;          
+            --hueso-oscuro: #cebbaf;   
+            --hueso: #f5f6ed;          
+            --cafe-sutil: #5c5249;     
             --blanco: #ffffff;
         }
 
@@ -40,14 +40,13 @@
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
         /* ==========================================
-           FONDO PERSONALIZADO (FIJO Y SIN CORTES)
+           FONDO PERSONALIZADO (SIN ZOOM, TAMAÑO REAL)
            ========================================== */
         .contenido-resto {
             position: relative;
             background-image: url('fondo_invitacion.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+            background-size: 100% auto; /* Mantiene el ancho real sin hacer zoom */
+            background-repeat: repeat;  /* Se repite hacia abajo naturalmente */
         }
 
         /* EFECTO VIDRIO ESMERILADO (GLASSMORPHISM) */
@@ -102,7 +101,7 @@
         .wax-seal-img { 
             position: absolute; top: 75px; left: 50%; transform: translateX(-50%); 
             width: 85px; height: 85px; z-index: 5; object-fit: contain; 
-            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4)); /* Sombra para que se vea realista */
+            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4)); 
             transition: opacity 0.5s; 
         }
 
@@ -175,17 +174,17 @@
         .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
         .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; color: var(--verde-profundo); }
 
-        /* GALERÍA POLAROID (Ajuste de altura para reducir el espacio vacío) */
-        .contenedor-polaroids { position: relative; height: 220px; width: 100%; max-width: 350px; margin: 20px auto 10px auto; cursor: pointer; }
+        /* GALERÍA POLAROID */
+        .contenedor-polaroids { position: relative; height: 350px; width: 100%; max-width: 350px; margin: 40px auto; cursor: pointer; }
         .polaroid-flotante { position: absolute; width: 110px; height: 130px; background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); padding: 6px; padding-bottom: 25px; box-shadow: 0 15px 35px rgba(75, 83, 61, 0.2); border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; transition: all 0.3s; animation: levitacion-marcada 3.5s infinite ease-in-out alternate; }
         .polaroid-flotante img { width: 100%; height: 100%; object-fit: cover; background: var(--hueso-oscuro); }
-        .pol-1 { top: 10px; left: 10%; --rotacion: -15deg; animation-delay: 0s; z-index: 1; }
-        .pol-2 { top: 40px; left: 30%; --rotacion: -5deg; animation-delay: 0.5s; z-index: 2; }
-        .pol-3 { top: 0px; left: 50%; --rotacion: 10deg; animation-delay: 1s; z-index: 3; }
-        .pol-4 { top: 30px; left: 65%; --rotacion: 20deg; animation-delay: 1.5s; z-index: 4; }
+        .pol-1 { top: 30px; left: 10%; --rotacion: -15deg; animation-delay: 0s; z-index: 1; }
+        .pol-2 { top: 60px; left: 30%; --rotacion: -5deg; animation-delay: 0.5s; z-index: 2; }
+        .pol-3 { top: 20px; left: 50%; --rotacion: 10deg; animation-delay: 1s; z-index: 3; }
+        .pol-4 { top: 50px; left: 65%; --rotacion: 20deg; animation-delay: 1.5s; z-index: 4; }
 
         /* CARRUSEL 3D (HOSPEDAJE Y RESTAURANTES) */
-        .carousel-3d-container { position: relative; height: 320px; perspective: 1000px; margin: 20px 0 40px 0; display: flex; justify-content: center; align-items: center; cursor: grab; }
+        .carousel-3d-container { position: relative; height: 320px; perspective: 1000px; margin: 40px 0; display: flex; justify-content: center; align-items: center; cursor: grab; }
         .carousel-3d-container:active { cursor: grabbing; }
         .carousel-3d-card { position: absolute; width: 220px; height: 280px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); border-radius: 15px; box-shadow: 0 15px 35px rgba(75, 83, 61, 0.2); overflow: hidden; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; opacity: 0; }
         .carousel-3d-card img { width: 100%; height: 140px; object-fit: cover; }
@@ -195,15 +194,6 @@
         .c-pos-0 { transform: translateX(0) scale(1) translateZ(0); z-index: 3; opacity: 1; pointer-events: auto; }
         .c-pos-1 { transform: translateX(100px) scale(0.85) translateZ(-50px); z-index: 2; opacity: 1; }
         .c-pos-m1 { transform: translateX(-100px) scale(0.85) translateZ(-50px); z-index: 2; opacity: 1; }
-        
-        /* Píldora de Cristal para los textos de "Desliza" */
-        .pildora-desliza {
-            font-size: 0.8em; margin-bottom: 25px; color: var(--hueso); 
-            background: rgba(75,83,61,0.7); backdrop-filter: blur(5px); 
-            display: inline-block; padding: 6px 18px; border-radius: 20px; 
-            letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
 
         /* MODALES */
         .modal-pantalla-completa { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(75, 83, 61, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; text-align: center;}
@@ -275,7 +265,7 @@
         </div>
     </section>
 
-    <!-- CONTENIDO CON FONDO PERSONALIZADO FIJO -->
+    <!-- CONTENIDO CON FONDO PERSONALIZADO 100% AUTO -->
     <main class="contenido-resto">
         
         <!-- ITINERARIO -->
@@ -352,7 +342,7 @@
 
         <!-- GALERÍA POLAROID ANIMADA FLOTANTE -->
         <div class="container animar" id="galeria" style="padding-top: 0; padding-bottom: 0;">
-            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Nuestra Galería</h2>
+            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 20px;">Nuestra Galería</h2>
             <div class="contenedor-polaroids" onclick="abrirGaleriaOficial()">
                 <div class="polaroid-flotante pol-1"><img src="galeria_01.jpg" alt="" onerror="this.src='grid_v1.jpg'"></div>
                 <div class="polaroid-flotante pol-2"><img src="galeria_02.jpg" alt="" onerror="this.src='grid_v2.jpg'"></div>
@@ -361,12 +351,10 @@
             </div>
         </div>
 
-        <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES (CARRUSELES 3D CON SWIPE) -->
-        <div class="container animar" id="sugerencias" style="padding-top: 10px;">
-            <!-- Hospedaje -->
-            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 5px;">Hospedaje</h2>
-            <p class="pildora-desliza">Desliza para ver más opciones</p>
-            
+        <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES -->
+        <div class="container animar" id="sugerencias">
+            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Hospedaje</h2>
+            <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
             <div class="carousel-3d-container vivo-flotar" id="car-hospedaje">
                 <div class="carousel-3d-card" onclick="abrirModalSugerencia('holiday-inn')">
                     <img src="hotel_holiday_portada.jpg" alt="Holiday Inn" onerror="this.src='https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop'">
@@ -391,10 +379,8 @@
                 </div>
             </div>
 
-            <!-- Restaurantes -->
-            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 60px; margin-bottom: 5px;">Gastronomía</h2>
-            <p class="pildora-desliza">Desliza para ver más opciones</p>
-            
+            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 60px; margin-bottom: 10px;">Gastronomía</h2>
+            <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
             <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
                 <div class="carousel-3d-card" onclick="abrirModalSugerencia('calle-59')">
                     <img src="rest_calle59_portada.jpg" alt="Calle 59" onerror="this.src='https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400&h=300&fit=crop'">
@@ -444,7 +430,7 @@
             </div>
         </div>
 
-        <!-- RSVP (DISEÑO ACTUALIZADO CON PASES ASIGNADOS) -->
+        <!-- RSVP (DISEÑO ACTUALIZADO) -->
         <div class="container animar" id="rsvp">
             <div class="glass-box-flotante glass-panel" style="margin-top: 0;">
                 <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 10px; color: var(--verde-profundo);">Asistencia</h2>
@@ -470,15 +456,13 @@
                         </label>
                     </div>
                     
-                    <!-- TEXTO DEL CAJÓN ACTUALIZADO -->
                     <textarea placeholder="¿Algún comentario o felicitación para los novios?" rows="2"></textarea>
-                    
                     <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
                 </form>
             </div>
         </div>
         
-    </main> <!-- FIN DEL CONTENEDOR CON FONDO FIJO -->
+    </main> <!-- FIN DEL CONTENEDOR CON FONDO 100% AUTO -->
 
     <!-- ================== MODALES ================== -->
 
@@ -503,7 +487,7 @@
         <img id="lightbox-img" src="" alt="Ampliación">
     </div>
 
-    <!-- MODAL DINÁMICO DE SUGERENCIAS (Hoteles y Restaurantes) -->
+    <!-- MODAL DINÁMICO DE SUGERENCIAS -->
     <div id="modal-sugerencia" class="modal-pantalla-completa">
         <button class="btn-cerrar" onclick="cerrarModalSugerencia()">×</button>
         <div style="max-width: 600px; margin: 0 auto; text-align: center;">
@@ -717,7 +701,7 @@
         }, { threshold: 0.1 }); 
         document.querySelectorAll('.animar').forEach(el => observer.observe(el));
 
-        // Bienvenida (Animación Sobre Realista)
+        // Bienvenida (Animación de Sobre) y Música
         const audio = document.getElementById('audioFondo');
         function abrirInvitacion() {
             const wrapper = document.querySelector('.envelope-wrapper');
