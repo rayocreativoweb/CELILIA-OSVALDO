@@ -32,18 +32,35 @@
             color: var(--cafe-sutil);
             overflow-x: hidden;
             font-weight: 300;
-            
-            /* FONDO DE IMAGEN DEL USUARIO RESTAURADO */
-            background-image: url('fondo_invitacion.jpg');
-            background-size: 100% auto;
-            background-repeat: repeat;
-            background-attachment: fixed;
-            background-color: var(--hueso);
+            background-color: var(--hueso); /* Color base */
         }
         
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
+
+        /* ==========================================
+           CONTENEDOR DEL FONDO CON DEGRADADO (EMPATE)
+           ========================================== */
+        .contenido-resto {
+            position: relative;
+            background-image: url('fondo_invitacion.jpg');
+            background-size: 100% auto;
+            background-repeat: repeat;
+        }
+
+        /* Este es el degradado que hace la transición suave desde la foto principal */
+        .contenido-resto::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 250px;
+            background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, transparent 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Asegura que el contenido esté por encima del degradado */
+        .contenido-resto > * { position: relative; z-index: 1; }
 
         /* ==========================================
            EFECTO VIDRIO ESMERILADO (GLASSMORPHISM)
@@ -92,9 +109,9 @@
         .sidebar a { color: var(--hueso); font-family: 'Cormorant Garamond', serif; font-size: 2em; text-decoration: none; margin: 15px 0; font-style: italic; opacity: 0; transform: translateY(20px); transition: 0.4s; }
         .sidebar.active a { opacity: 1; transform: translateY(0); }
 
-        /* HERO */
+        /* HERO (Con degradado a negro puro en la parte inferior para empatar) */
         .hero { position: relative; height: 100vh; background-image: url('hero_vertical_bn.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 80px 20px 40px 20px; overflow: hidden; }
-        .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(75,83,61,0.2), rgba(0,0,0,0.7)); z-index: 0; }
+        .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(75,83,61,0.2) 0%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,1) 100%); z-index: 0; }
         .hero-nombres { position: relative; z-index: 1; color: var(--hueso); font-size: 4.5em; font-weight: 300; font-style: italic; line-height: 1.1; margin-top: 10vh; text-align: center; }
         .hero-bottom { position: relative; z-index: 1; color: var(--hueso); width: 100%; text-align: center; }
         .fecha-minimalista { font-weight: 200; font-size: 1.2em; letter-spacing: 4px; margin-bottom: 20px; }
@@ -121,7 +138,7 @@
         .grid-fotos { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 40px auto; max-width: 800px; padding: 0 20px;}
         .grid-fotos img { width: 100%; height: 300px; object-fit: cover; border-radius: 5px; box-shadow: 0 10px 20px rgba(75, 83, 61, 0.1); }
 
-        /* SECCIÓN MENSAJES (Ahora con Dark Glassmorphism para que se vea el fondo) */
+        /* SECCIÓN MENSAJES (Dark Glassmorphism) */
         .seccion-mensajes-inmersiva { background: rgba(75, 83, 61, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(--hueso); padding: 80px 20px; text-align: center; margin: 60px 0; border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); }
         .form-fino-oscuro input, .form-fino-oscuro textarea { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; color: var(--hueso); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; }
         .form-fino-oscuro input::placeholder, .form-fino-oscuro textarea::placeholder { color: rgba(245, 246, 237, 0.6); }
@@ -175,8 +192,8 @@
         .btn-cerrar-lightbox { position: absolute; top: 20px; right: 20px; font-size: 2.5em; color: white; background: none; border: none; cursor: pointer; padding: 10px; }
 
         /* RSVP */
-        .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.5); color: var(--verde-profundo); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; border-radius: 8px; backdrop-filter: blur(5px); }
-        .btn-submit-fino { background: rgba(122, 121, 86, 0.8); backdrop-filter: blur(5px); color: var(--hueso); border: 1px solid rgba(255,255,255,0.3); padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.5); border: none; border-bottom: 1px solid var(--oliva); color: var(--verde-profundo); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; border-radius: 5px 5px 0 0; }
+        .btn-submit-fino { background: var(--oliva); color: var(--hueso); border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .btn-submit-fino:hover { background: var(--verde-profundo); color: var(--blanco); }
 
     </style>
@@ -185,13 +202,11 @@
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div id="pantalla-bienvenida">
-        <!-- Iniciales elegantes en texto -->
         <h2 class="serif" style="font-size: 4.5em; margin-bottom: 10px; font-weight: 300; color: var(--hueso);">C & O</h2>
         <p class="fecha-intro">17 . 12 . 2026</p>
         <button class="btn-entrar" onclick="abrirInvitacion()">Descubrir</button>
     </div>
 
-    <!-- AUDIO -->
     <audio id="audioFondo" loop><source src="cancionfondo.mp3" type="audio/mpeg"></audio>
 
     <!-- MENÚ -->
@@ -205,7 +220,7 @@
         <a href="#rsvp" onclick="toggleMenu()">Asistencia</a>
     </div>
 
-    <!-- HERO -->
+    <!-- HERO (Foto Principal con Empate) -->
     <section class="hero" id="inicio">
         <div class="music-player-mini" id="playBtn" onclick="toggleAudio()">
             <svg id="icon-pausa" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
@@ -224,191 +239,196 @@
         </div>
     </section>
 
-    <!-- ITINERARIO -->
-    <div class="container animar" id="itinerario">
-        <h2 class="serif" style="font-size: 2.5em; font-weight: 300; color: var(--verde-profundo);">Itinerario</h2>
+    <!-- INICIO DE CONTENIDO CON EL FONDO PERSONALIZADO -->
+    <main class="contenido-resto">
         
-        <div class="itinerario-item glass-panel animar vivo-flotar" style="animation-delay: 0.2s;">
-            <svg class="icon-vector" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 0v5m-2-2h4"/></svg>
-            <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
-            <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">5:00 P.M.</p>
-            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Catedral de Campeche</p>
-            <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/4G8YKVWwb3EJixfZA')">Cómo llegar</button>
-        </div>
-
-        <div class="itinerario-item glass-panel animar vivo-flotar" style="animation-delay: 0.6s;">
-            <svg class="icon-vector" viewBox="0 0 24 24"><path d="M7 2l2 10 3 10m5-20l-2 10-3 10M4 12h16"/></svg>
-            <h3 class="lugar-titulo serif">Recepción</h3>
-            <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">7:00 P.M.</p>
-            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Hacienda Xtelchel</p>
-            <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/BvgqM2gukJVb9C5L9')">Cómo llegar</button>
-        </div>
-
-        <div class="timeline animar vivo-flotar" style="animation-delay: 0.8s;">
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M8 22h8m-4-2v-7m7-10L12 11 5 3z"/></svg>
-                <div class="timeline-time">6:00 P.M.</div>
-                <div class="timeline-title">Cóctel de Bienvenida</div>
+        <!-- ITINERARIO -->
+        <div class="container animar" id="itinerario">
+            <h2 class="serif" style="font-size: 2.5em; font-weight: 300; color: var(--verde-profundo);">Itinerario</h2>
+            
+            <div class="itinerario-item glass-panel animar vivo-flotar" style="animation-delay: 0.2s;">
+                <svg class="icon-vector" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 0v5m-2-2h4"/></svg>
+                <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
+                <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">5:00 P.M.</p>
+                <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Catedral de Campeche</p>
+                <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/4G8YKVWwb3EJixfZA')">Cómo llegar</button>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <svg class="timeline-icon" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
-                <div class="timeline-time">7:00 P.M.</div>
-                <div class="timeline-title">Ceremonia Civil</div>
+
+            <div class="itinerario-item glass-panel animar vivo-flotar" style="animation-delay: 0.6s;">
+                <svg class="icon-vector" viewBox="0 0 24 24"><path d="M7 2l2 10 3 10m5-20l-2 10-3 10M4 12h16"/></svg>
+                <h3 class="lugar-titulo serif">Recepción</h3>
+                <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">7:00 P.M.</p>
+                <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Hacienda Xtelchel</p>
+                <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/BvgqM2gukJVb9C5L9')">Cómo llegar</button>
             </div>
-            <div class="timeline-item" style="margin-bottom: 0;">
-                <div class="timeline-dot"></div>
-                <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M12 22a9 9 0 100-18 9 9 0 000 18zM8 12h8m-8-4h8m-8 8h8"/></svg>
-                <div class="timeline-time">8:00 P.M.</div>
-                <div class="timeline-title">Cena</div>
-            </div>
-        </div>
-    </div>
 
-    <!-- DRESS CODE (GLASSMORPHISM) -->
-    <div class="container animar" style="padding-top: 0;">
-        <div class="glass-box-flotante glass-panel vivo-flotar">
-            <svg style="width: 45px; height: 45px; stroke: var(--oliva); fill: none; stroke-width: 1.5; margin-bottom: 10px;" viewBox="0 0 24 24">
-                <path d="M12 7c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0 0l-9 8v4h18v-4l-9-8z"/>
-            </svg>
-            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 5px;">Dress Code</h2>
-            <p style="font-size: 1.1em; letter-spacing: 2px; font-weight: 400; color: var(--taupe);">Por Definir</p>
-        </div>
-    </div>
-
-    <!-- FOTO HORIZONTAL 1 -->
-    <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
-        <img src="break_h1.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal vivo-respirar">
-    </div>
-
-    <!-- CLIMA (GLASSMORPHISM) -->
-    <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
-        <div class="clima-seccion glass-panel vivo-flotar">
-            <h3 class="serif" style="font-size: 2em; font-weight: 300; margin-bottom: 5px; color: var(--verde-profundo);">Pronóstico</h3>
-            <p style="font-size: 0.8em; letter-spacing: 2px; font-weight: 400; text-transform: uppercase; color: var(--taupe);">Campeche, Camp.<br><span style="font-size: 0.9em; font-weight: 400;">17 de Diciembre, 2026</span></p>
-            <div class="clima-scroll">
-                <div class="clima-item"><p class="clima-hora-txt">14:00</p><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><p class="clima-temp">29°</p></div>
-                <div class="clima-item"><p class="clima-hora-txt">15:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">28°</p></div>
-                <div class="clima-item"><p class="clima-hora-txt">17:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">26°</p></div>
-                <div class="clima-item"><p class="clima-hora-txt">19:00</p><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><p class="clima-temp">23°</p></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- GALERÍA POLAROID ANIMADA FLOTANTE -->
-    <div class="container animar" id="galeria" style="padding-top: 0; padding-bottom: 0;">
-        <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 20px;">Nuestra Galería</h2>
-        <div class="contenedor-polaroids" onclick="abrirGaleriaOficial()">
-            <div class="polaroid-flotante pol-1"><img src="galeria_01.jpg" alt="" onerror="this.src='grid_v1.jpg'"></div>
-            <div class="polaroid-flotante pol-2"><img src="galeria_02.jpg" alt="" onerror="this.src='grid_v2.jpg'"></div>
-            <div class="polaroid-flotante pol-3"><img src="galeria_03.jpg" alt="" onerror="this.src='grid_v3.jpg'"></div>
-            <div class="polaroid-flotante pol-4"><img src="galeria_04.jpg" alt="" onerror="this.src='grid_v4.jpg'"></div>
-        </div>
-    </div>
-
-    <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES (CARRUSELES 3D CON SWIPE) -->
-    <div class="container animar" id="sugerencias">
-        <!-- Hospedaje -->
-        <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Hospedaje</h2>
-        <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
-        <div class="carousel-3d-container vivo-flotar" id="car-hospedaje">
-            <div class="carousel-3d-card" onclick="abrirModalSugerencia('holiday-inn')">
-                <img src="hotel_holiday_portada.jpg" alt="Holiday Inn" onerror="this.src='https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop'">
-                <div class="c-info">
-                    <h3>Holiday Inn</h3>
-                    <p>Comodidad y excelencia. Toca para ver detalles.</p>
+            <div class="timeline animar vivo-flotar" style="animation-delay: 0.8s;">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M8 22h8m-4-2v-7m7-10L12 11 5 3z"/></svg>
+                    <div class="timeline-time">6:00 P.M.</div>
+                    <div class="timeline-title">Cóctel de Bienvenida</div>
                 </div>
-            </div>
-            <div class="carousel-3d-card" onclick="abrirModalSugerencia('ocean-view')">
-                <img src="hotel_ocean_portada.jpg" alt="Ocean View" onerror="this.src='https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=400&h=300&fit=crop'">
-                <div class="c-info">
-                    <h3>Ocean View</h3>
-                    <p>Hermosas vistas frente al mar. Toca para ver detalles.</p>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <svg class="timeline-icon" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
+                    <div class="timeline-time">7:00 P.M.</div>
+                    <div class="timeline-title">Ceremonia Civil</div>
                 </div>
-            </div>
-            <div class="carousel-3d-card" onclick="abrirModalSugerencia('city-express')">
-                <img src="hotel_city_portada.jpg" alt="City Express" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop'">
-                <div class="c-info">
-                    <h3>City Express</h3>
-                    <p>Práctico y excelente ubicación. Toca para ver detalles.</p>
+                <div class="timeline-item" style="margin-bottom: 0;">
+                    <div class="timeline-dot"></div>
+                    <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M12 22a9 9 0 100-18 9 9 0 000 18zM8 12h8m-8-4h8m-8 8h8"/></svg>
+                    <div class="timeline-time">8:00 P.M.</div>
+                    <div class="timeline-title">Cena</div>
                 </div>
             </div>
         </div>
 
-        <!-- Restaurantes -->
-        <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 60px; margin-bottom: 10px;">Gastronomía</h2>
-        <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
-        <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
-            <div class="carousel-3d-card" onclick="abrirModalSugerencia('calle-59')">
-                <img src="rest_calle59_portada.jpg" alt="Calle 59" onerror="this.src='https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400&h=300&fit=crop'">
-                <div class="c-info">
-                    <h3>Calle 59</h3>
-                    <p style="color: var(--oliva); font-weight: 400;">¡Variedad de Snacks, Cafés y vibrantes Bares!</p>
-                </div>
+        <!-- DRESS CODE -->
+        <div class="container animar" style="padding-top: 0;">
+            <div class="glass-box-flotante glass-panel vivo-flotar">
+                <svg style="width: 45px; height: 45px; stroke: var(--oliva); fill: none; stroke-width: 1.5; margin-bottom: 10px;" viewBox="0 0 24 24">
+                    <path d="M12 7c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0 0l-9 8v4h18v-4l-9-8z"/>
+                </svg>
+                <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 5px;">Dress Code</h2>
+                <p style="font-size: 1.1em; letter-spacing: 2px; font-weight: 400; color: var(--taupe);">Por Definir</p>
             </div>
-            <div class="carousel-3d-card" onclick="abrirModalSugerencia('marganzo')">
-                <img src="rest_marganzo_portada.jpg" alt="Marganzo" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop'">
-                <div class="c-info">
-                    <h3>Marganzo</h3>
-                    <p>Tradición y sabor campechano en cada platillo.</p>
-                </div>
-            </div>
-            <div class="carousel-3d-card" onclick="abrirModalSugerencia('la-pigua')">
-                <img src="rest_pigua_portada.jpg" alt="La Pigua" onerror="this.src='https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400&h=300&fit=crop'">
-                <div class="c-info">
-                    <h3>La Pigua</h3>
-                    <p>Exquisita comida del mar, un clásico imperdible.</p>
+        </div>
+
+        <!-- FOTO HORIZONTAL 1 -->
+        <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
+            <img src="break_h1.jpg" alt="Cecilia y Osvaldo" class="foto-horizontal vivo-respirar">
+        </div>
+
+        <!-- CLIMA -->
+        <div class="container animar" style="padding-top: 0; padding-bottom: 0;">
+            <div class="clima-seccion glass-panel vivo-flotar">
+                <h3 class="serif" style="font-size: 2em; font-weight: 300; margin-bottom: 5px; color: var(--verde-profundo);">Pronóstico</h3>
+                <p style="font-size: 0.8em; letter-spacing: 2px; font-weight: 400; text-transform: uppercase; color: var(--taupe);">Campeche, Camp.<br><span style="font-size: 0.9em; font-weight: 400;">17 de Diciembre, 2026</span></p>
+                <div class="clima-scroll">
+                    <div class="clima-item"><p class="clima-hora-txt">14:00</p><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg><p class="clima-temp">29°</p></div>
+                    <div class="clima-item"><p class="clima-hora-txt">15:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">28°</p></div>
+                    <div class="clima-item"><p class="clima-hora-txt">17:00</p><svg viewBox="0 0 24 24"><path d="M17.5 19C19.99 19 22 16.99 22 14.5c0-2.3-1.74-4.2-3.95-4.46C17.3 7.6 14.86 6 12 6c-3.31 0-6 2.69-6 6 0 .21.03.41.07.61C4.3 12.87 3 14.28 3 16c0 1.66 1.34 3 3 3h11.5z"/></svg><p class="clima-temp">26°</p></div>
+                    <div class="clima-item"><p class="clima-hora-txt">19:00</p><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><p class="clima-temp">23°</p></div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- MENSAJES INMERSIVOS CON DARK GLASSMORPHISM -->
-    <section class="seccion-mensajes-inmersiva animar" id="mensajes">
-        <h2 class="serif animar" style="font-size: 2.5em; margin-bottom: 10px;">Libro de Visitas</h2>
-        <p style="font-size: 0.85em; font-weight: 300; margin-bottom: 30px; opacity: 0.8; max-width: 400px; margin-left: auto; margin-right: auto;">Déjanos tus mejores deseos. Si prefieres no escribir tu nombre, déjalo en blanco y el mensaje aparecerá como Anónimo.</p>
-        
-        <form class="form-fino-oscuro animar" id="form-visitas" onsubmit="guardarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
-            <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
-            <input type="text" id="txt-nombre" placeholder="Tu Nombre">
-            <button type="submit" class="btn-dorado">Dejar Mensaje</button>
-        </form>
-        
-        <div class="slider-container animar" id="galeria-mensajes"></div>
-        <button class="btn-dorado animar" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
-    </section>
-
-    <!-- SUBIDA DE FOTOS (GLASSMORPHISM FLOTANTE) -->
-    <div class="container animar" style="padding-top: 0;">
-        <div class="glass-box-flotante glass-panel vivo-flotar">
-            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 15px;">Su perspectiva</h2>
-            <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí de forma totalmente privada y segura.</p>
-            <a href="TU_ENLACE_DE_DROPBOX_FILE_REQUEST_AQUI" target="_blank" class="btn-linea">Subir mis fotos</a>
+        <!-- GALERÍA POLAROID ANIMADA FLOTANTE -->
+        <div class="container animar" id="galeria" style="padding-top: 0; padding-bottom: 0;">
+            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 20px;">Nuestra Galería</h2>
+            <div class="contenedor-polaroids" onclick="abrirGaleriaOficial()">
+                <div class="polaroid-flotante pol-1"><img src="galeria_01.jpg" alt="" onerror="this.src='grid_v1.jpg'"></div>
+                <div class="polaroid-flotante pol-2"><img src="galeria_02.jpg" alt="" onerror="this.src='grid_v2.jpg'"></div>
+                <div class="polaroid-flotante pol-3"><img src="galeria_03.jpg" alt="" onerror="this.src='grid_v3.jpg'"></div>
+                <div class="polaroid-flotante pol-4"><img src="galeria_04.jpg" alt="" onerror="this.src='grid_v4.jpg'"></div>
+            </div>
         </div>
-    </div>
 
-    <!-- RSVP (GLASSMORPHISM) -->
-    <div class="container animar" id="rsvp">
-        <div class="glass-box-flotante glass-panel" style="margin-top: 0;">
-            <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 30px; color: var(--verde-profundo);">Asistencia</h2>
-            <form class="form-fino animar" style="text-align: left;" onsubmit="confirmar(event)">
-                <div style="margin-bottom: 25px; font-weight: 300; color: var(--cafe-sutil);">
-                    <label style="display: block; margin-bottom: 10px;"><input type="radio" name="asistencia" required> Sí, seré parte de este día</label>
-                    <label style="display: block;"><input type="radio" name="asistencia"> Lo siento, no podré asistir</label>
+        <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES (CARRUSELES 3D CON SWIPE) -->
+        <div class="container animar" id="sugerencias">
+            <!-- Hospedaje -->
+            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Hospedaje</h2>
+            <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
+            <div class="carousel-3d-container vivo-flotar" id="car-hospedaje">
+                <div class="carousel-3d-card" onclick="abrirModalSugerencia('holiday-inn')">
+                    <img src="hotel_holiday_portada.jpg" alt="Holiday Inn" onerror="this.src='https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop'">
+                    <div class="c-info">
+                        <h3>Holiday Inn</h3>
+                        <p>Comodidad y excelencia. Toca para ver detalles.</p>
+                    </div>
                 </div>
-                <input type="text" placeholder="Nombre completo" required>
-                <select required>
-                    <option value="" disabled selected>Número de lugares requeridos</option>
-                    <option value="1">1 Lugar</option>
-                    <option value="2">2 Lugares</option>
-                    <option value="3">3 Lugares</option>
-                </select>
-                <input type="tel" placeholder="Teléfono de contacto" required>
-                <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
+                <div class="carousel-3d-card" onclick="abrirModalSugerencia('ocean-view')">
+                    <img src="hotel_ocean_portada.jpg" alt="Ocean View" onerror="this.src='https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=400&h=300&fit=crop'">
+                    <div class="c-info">
+                        <h3>Ocean View</h3>
+                        <p>Hermosas vistas frente al mar. Toca para ver detalles.</p>
+                    </div>
+                </div>
+                <div class="carousel-3d-card" onclick="abrirModalSugerencia('city-express')">
+                    <img src="hotel_city_portada.jpg" alt="City Express" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop'">
+                    <div class="c-info">
+                        <h3>City Express</h3>
+                        <p>Práctico y excelente ubicación. Toca para ver detalles.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurantes -->
+            <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 60px; margin-bottom: 10px;">Gastronomía</h2>
+            <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
+            <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
+                <div class="carousel-3d-card" onclick="abrirModalSugerencia('calle-59')">
+                    <img src="rest_calle59_portada.jpg" alt="Calle 59" onerror="this.src='https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400&h=300&fit=crop'">
+                    <div class="c-info">
+                        <h3>Calle 59</h3>
+                        <p style="color: var(--oliva); font-weight: 400;">¡Variedad de Snacks, Cafés y vibrantes Bares!</p>
+                    </div>
+                </div>
+                <div class="carousel-3d-card" onclick="abrirModalSugerencia('marganzo')">
+                    <img src="rest_marganzo_portada.jpg" alt="Marganzo" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop'">
+                    <div class="c-info">
+                        <h3>Marganzo</h3>
+                        <p>Tradición y sabor campechano en cada platillo.</p>
+                    </div>
+                </div>
+                <div class="carousel-3d-card" onclick="abrirModalSugerencia('la-pigua')">
+                    <img src="rest_pigua_portada.jpg" alt="La Pigua" onerror="this.src='https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400&h=300&fit=crop'">
+                    <div class="c-info">
+                        <h3>La Pigua</h3>
+                        <p>Exquisita comida del mar, un clásico imperdible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENSAJES INMERSIVOS -->
+        <section class="seccion-mensajes-inmersiva animar" id="mensajes">
+            <h2 class="serif animar" style="font-size: 2.5em; margin-bottom: 10px;">Libro de Visitas</h2>
+            <p style="font-size: 0.85em; font-weight: 300; margin-bottom: 30px; opacity: 0.8; max-width: 400px; margin-left: auto; margin-right: auto;">Déjanos tus mejores deseos. Si prefieres no escribir tu nombre, déjalo en blanco y el mensaje aparecerá como Anónimo.</p>
+            
+            <form class="form-fino-oscuro animar" id="form-visitas" onsubmit="guardarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
+                <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
+                <input type="text" id="txt-nombre" placeholder="Tu Nombre">
+                <button type="submit" class="btn-dorado">Dejar Mensaje</button>
             </form>
+            
+            <div class="slider-container animar" id="galeria-mensajes"></div>
+            <button class="btn-dorado animar" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
+        </section>
+
+        <!-- SUBIDA DE FOTOS -->
+        <div class="container animar" style="padding-top: 0;">
+            <div class="glass-box-flotante glass-panel vivo-flotar">
+                <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 15px;">Su perspectiva</h2>
+                <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría ver la boda a través de sus ojos. Comparte las memorias de esta noche aquí de forma totalmente privada y segura.</p>
+                <a href="TU_ENLACE_DE_DROPBOX_FILE_REQUEST_AQUI" target="_blank" class="btn-linea">Subir mis fotos</a>
+            </div>
         </div>
-    </div>
+
+        <!-- RSVP -->
+        <div class="container animar" id="rsvp">
+            <div class="glass-box-flotante glass-panel" style="margin-top: 0;">
+                <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 30px; color: var(--verde-profundo);">Asistencia</h2>
+                <form class="form-fino animar" style="text-align: left;" onsubmit="confirmar(event)">
+                    <div style="margin-bottom: 25px; font-weight: 300; color: var(--cafe-sutil);">
+                        <label style="display: block; margin-bottom: 10px;"><input type="radio" name="asistencia" required> Sí, seré parte de este día</label>
+                        <label style="display: block;"><input type="radio" name="asistencia"> Lo siento, no podré asistir</label>
+                    </div>
+                    <input type="text" placeholder="Nombre completo" required>
+                    <select required>
+                        <option value="" disabled selected>Número de lugares requeridos</option>
+                        <option value="1">1 Lugar</option>
+                        <option value="2">2 Lugares</option>
+                        <option value="3">3 Lugares</option>
+                    </select>
+                    <input type="tel" placeholder="Teléfono de contacto" required>
+                    <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
+                </form>
+            </div>
+        </div>
+        
+    </main> <!-- FIN DEL CONTENEDOR CON FONDO -->
 
     <!-- ================== MODALES ================== -->
 
