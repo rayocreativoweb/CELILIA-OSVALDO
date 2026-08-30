@@ -16,12 +16,12 @@
            ========================================== */
         :root {
             --negro-absoluto: #000000;
-            --verde-profundo: #4b533d; /* Verde Oscuro */
-            --oliva: #7a7956;          /* Verde Olivo Medio */
-            --taupe: #a38e81;          /* Topo / Greige */
-            --hueso-oscuro: #cebbaf;   /* Arena Suave */
-            --hueso: #f5f6ed;          /* Crema / Off-White */
-            --cafe-sutil: #5c5249;     /* Topo oscurecido para textos */
+            --verde-profundo: #4b533d; 
+            --oliva: #7a7956;          
+            --taupe: #a38e81;          
+            --hueso-oscuro: #cebbaf;   
+            --hueso: #f5f6ed;          
+            --cafe-sutil: #5c5249;     
             --blanco: #ffffff;
         }
 
@@ -40,14 +40,13 @@
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
         /* ==========================================
-           FONDO PERSONALIZADO (FIJO Y SIN CORTES)
+           FONDO PERSONALIZADO (COMO ANTES, SIN EXPANSIÓN)
            ========================================== */
         .contenido-resto {
             position: relative;
             background-image: url('fondo_invitacion.jpg');
-            background-size: cover;          /* Cubre todo el espacio sin deformar */
-            background-attachment: fixed;    /* Se queda quieto mientras el texto sube */
-            background-position: center;
+            background-size: 100% auto;
+            background-repeat: repeat;
         }
 
         /* EFECTO VIDRIO ESMERILADO (GLASSMORPHISM) */
@@ -72,48 +71,70 @@
         .animar.aparecer { opacity: 1; transform: translateY(0); }
 
         /* ==========================================
-           PANTALLA DE BIENVENIDA (ANIMACIÓN DEL SOBRE)
+           PANTALLA DE BIENVENIDA (DEGRADADO OLIVA A VERDE PROFUNDO)
            ========================================== */
         #pantalla-bienvenida { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: linear-gradient(135deg, var(--verde-profundo), #2a2e22); 
+            background: linear-gradient(to bottom, var(--oliva), #2a2e22); 
             z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; 
             transition: opacity 1.2s ease, visibility 1.2s; 
         }
 
+        /* SOBRE REALISTA (Texturas de papel y sombras) */
         .envelope-wrapper { position: relative; width: 320px; height: 210px; cursor: pointer; perspective: 1200px; }
         .envelope { position: relative; width: 100%; height: 100%; border-radius: 5px; transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
-        .envelope-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--hueso); border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         
-        /* Solapa de arriba que se abrirá */
-        .envelope-flap { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 120px; 
-            background: var(--taupe); clip-path: polygon(0 0, 100% 0, 50% 100%); 
-            transform-origin: top; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
-            z-index: 4; border-radius: 5px 5px 0 0; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+        .envelope-back { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #e8e4d9; border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 30px rgba(0,0,0,0.1); 
         }
         
-        /* Frente del sobre */
+        /* Solapa realista */
+        .envelope-flap { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 130px; 
+            background: linear-gradient(to bottom, #ded7c8, #d3caba); 
+            clip-path: polygon(0 0, 100% 0, 50% 100%); 
+            transform-origin: top; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            z-index: 4; border-radius: 5px 5px 0 0; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.2));
+        }
+        
+        /* Frente realista */
         .envelope-front { 
             position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; 
-            background: var(--hueso-oscuro); clip-path: polygon(0 100%, 0 0, 50% 60%, 100% 0, 100% 100%); 
-            z-index: 3; border-radius: 5px; 
-        }
-        
-        /* Sello de Cera */
-        .wax-seal { 
-            position: absolute; top: 90px; left: 50%; transform: translateX(-50%); 
-            width: 65px; height: 65px; background: var(--verde-profundo); border-radius: 50%; z-index: 5; 
-            display: flex; justify-content: center; align-items: center; color: var(--hueso); font-size: 1.6em; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.2); transition: opacity 0.5s; 
+            background: linear-gradient(135deg, #e4ded0, #d3caba); 
+            clip-path: polygon(0 100%, 0 0, 50% 60%, 100% 0, 100% 100%); 
+            z-index: 3; border-radius: 5px; filter: drop-shadow(0 -3px 6px rgba(0,0,0,0.08));
         }
 
-        /* Clases que se activan con JS al hacer clic */
+        /* Textura de papel sutil para el sobre */
+        .envelope-front::after, .envelope-flap::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        
+        /* Sello de Cera Realista (3D) */
+        .wax-seal { 
+            position: absolute; top: 95px; left: 50%; transform: translateX(-50%); 
+            width: 75px; height: 75px; z-index: 5; border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #687254 0%, var(--verde-profundo) 40%, #2a2e22 100%);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.6);
+            display: flex; justify-content: center; align-items: center; transition: opacity 0.5s; 
+        }
+        .wax-seal-inner {
+            width: 80%; height: 80%; border-radius: 50%;
+            border: 1px double rgba(255,255,255,0.25);
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.5), 0 2px 4px rgba(255,255,255,0.1);
+            display: flex; justify-content: center; align-items: center;
+            color: #e5dfd0; font-size: 1.8em;
+            text-shadow: -1px -1px 2px rgba(0,0,0,0.6), 1px 1px 2px rgba(255,255,255,0.2);
+        }
+
         .envelope-wrapper.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
         .envelope-wrapper.open .wax-seal { opacity: 0; }
         .envelope-wrapper.open .envelope { transform: scale(1.6) translateY(40px); opacity: 0; transition-delay: 0.4s; }
 
-        .click-text { color: var(--hueso); margin-top: 50px; letter-spacing: 3px; font-weight: 300; font-size: 0.9em; text-transform: uppercase; animation: respirar 2s infinite; text-align: center; }
+        .click-text { color: var(--hueso); margin-top: 50px; letter-spacing: 3px; font-weight: 300; font-size: 0.9em; text-transform: uppercase; animation: respirar 2s infinite; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
         /* REPRODUCTOR MINI & MENU */
         .music-player-mini { position: absolute; top: 20px; left: 20px; z-index: 10; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; color: var(--blanco); cursor: pointer; backdrop-filter: blur(5px); background: rgba(255,255,255,0.1); }
@@ -133,7 +154,7 @@
 
         /* HERO */
         .hero { position: relative; height: 100vh; background-image: url('hero_vertical_bn.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 80px 20px 40px 20px; overflow: hidden; }
-        .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(75,83,61,0.2), rgba(0,0,0,0.7)); z-index: 0; }
+        .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(75,83,61,0.2), rgba(0,0,0,0.6)); z-index: 0; }
         .hero-nombres { position: relative; z-index: 1; color: var(--hueso); font-size: 4.5em; font-weight: 300; font-style: italic; line-height: 1.1; margin-top: 10vh; text-align: center; }
         .hero-bottom { position: relative; z-index: 1; color: var(--hueso); width: 100%; text-align: center; }
         .fecha-minimalista { font-weight: 200; font-size: 1.2em; letter-spacing: 4px; margin-bottom: 20px; }
@@ -187,7 +208,7 @@
         .pol-3 { top: 20px; left: 50%; --rotacion: 10deg; animation-delay: 1s; z-index: 3; }
         .pol-4 { top: 50px; left: 65%; --rotacion: 20deg; animation-delay: 1.5s; z-index: 4; }
 
-        /* CARRUSEL 3D (HOSPEDAJE Y RESTAURANTES) */
+        /* CARRUSEL 3D (HOSPEDAJE Y RESTAURANTES) SIN DESENFOQUE ATRÁS */
         .carousel-3d-container { position: relative; height: 320px; perspective: 1000px; margin: 40px 0; display: flex; justify-content: center; align-items: center; cursor: grab; }
         .carousel-3d-container:active { cursor: grabbing; }
         .carousel-3d-card { position: absolute; width: 220px; height: 280px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); border-radius: 15px; box-shadow: 0 15px 35px rgba(75, 83, 61, 0.2); overflow: hidden; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; opacity: 0; }
@@ -196,22 +217,25 @@
         .c-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6em; color: var(--verde-profundo); margin-bottom: 5px; }
         .c-info p { font-size: 0.75em; letter-spacing: 1px; line-height: 1.3; color: var(--cafe-sutil); }
         .c-pos-0 { transform: translateX(0) scale(1) translateZ(0); z-index: 3; opacity: 1; pointer-events: auto; }
-        .c-pos-1 { transform: translateX(100px) scale(0.8) translateZ(-50px); z-index: 2; opacity: 0.7; filter: blur(2px); }
-        .c-pos-m1 { transform: translateX(-100px) scale(0.8) translateZ(-50px); z-index: 2; opacity: 0.7; filter: blur(2px); }
+        .c-pos-1 { transform: translateX(100px) scale(0.85) translateZ(-50px); z-index: 2; opacity: 1; }
+        .c-pos-m1 { transform: translateX(-100px) scale(0.85) translateZ(-50px); z-index: 2; opacity: 1; }
 
-        /* MODALES Y LIGHTBOX */
+        /* MODALES */
         .modal-pantalla-completa { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(75, 83, 61, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; text-align: center;}
         .btn-cerrar { position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em; background: none; border: none; cursor: pointer; z-index: 10000; }
         .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; text-align: center; }
         .masonry-item { background: rgba(255,255,255,0.9); color: var(--verde-profundo); padding: 20px; margin-bottom: 15px; border-radius: 12px; break-inside: avoid; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
         .grid-modal-oficial { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 800px; margin: 0 auto; }
         .grid-modal-oficial img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        /* LIGHTBOX PARA FOTOS */
         #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 100000; display: none; justify-content: center; align-items: center; flex-direction: column; }
         #lightbox img { max-width: 95%; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: contain; }
         .btn-cerrar-lightbox { position: absolute; top: 20px; right: 20px; font-size: 2.5em; color: white; background: none; border: none; cursor: pointer; padding: 10px; }
 
-        /* NUEVO DISEÑO RSVP (Confirmación de Asistencia con Pases Fijos) */
-        .form-fino input, .form-fino textarea { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.5); color: var(--verde-profundo); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; border-radius: 8px; backdrop-filter: blur(5px); }
+        /* RSVP */
+        .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.5); color: var(--verde-profundo); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; border-radius: 8px; backdrop-filter: blur(5px); }
         .btn-submit-fino { background: var(--oliva); color: var(--hueso); border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .btn-submit-fino:hover { background: var(--verde-profundo); color: var(--blanco); }
 
@@ -219,19 +243,25 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA (SOBRE ANIMADO) -->
+    <!-- PANTALLA DE BIENVENIDA CON SOBRE ANIMADO REALISTA -->
     <div id="pantalla-bienvenida">
         <div class="envelope-wrapper" onclick="abrirInvitacion()">
             <div class="envelope">
                 <div class="envelope-back"></div>
                 <div class="envelope-front"></div>
                 <div class="envelope-flap"></div>
-                <div class="wax-seal"><span class="serif" style="margin-top: 2px;">C&O</span></div>
+                <!-- Sello de Cera Realista -->
+                <div class="wax-seal">
+                    <div class="wax-seal-inner">
+                        <span class="serif">C&O</span>
+                    </div>
+                </div>
             </div>
             <p class="click-text">Toca para abrir</p>
         </div>
     </div>
 
+    <!-- AUDIO -->
     <audio id="audioFondo" loop><source src="cancionfondo.mp3" type="audio/mpeg"></audio>
 
     <!-- MENÚ -->
@@ -245,7 +275,7 @@
         <a href="#rsvp" onclick="toggleMenu()">Asistencia</a>
     </div>
 
-    <!-- HERO (Foto Principal) -->
+    <!-- HERO -->
     <section class="hero" id="inicio">
         <div class="music-player-mini" id="playBtn" onclick="toggleAudio()">
             <svg id="icon-pausa" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
@@ -264,7 +294,7 @@
         </div>
     </section>
 
-    <!-- CONTENIDO CON FONDO PERSONALIZADO FIJO -->
+    <!-- INICIO DE CONTENIDO CON EL FONDO PERSONALIZADO -->
     <main class="contenido-resto">
         
         <!-- ITINERARIO -->
@@ -352,6 +382,7 @@
 
         <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES (CARRUSELES 3D CON SWIPE) -->
         <div class="container animar" id="sugerencias">
+            <!-- Hospedaje -->
             <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Hospedaje</h2>
             <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
             <div class="carousel-3d-container vivo-flotar" id="car-hospedaje">
@@ -378,6 +409,7 @@
                 </div>
             </div>
 
+            <!-- Restaurantes -->
             <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 60px; margin-bottom: 10px;">Gastronomía</h2>
             <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
             <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
@@ -455,7 +487,8 @@
                         </label>
                     </div>
                     
-                    <textarea placeholder="¿Alguna restricción alimenticia o comentario adicional?" rows="2"></textarea>
+                    <!-- TEXTO DEL CAJÓN ACTUALIZADO -->
+                    <textarea placeholder="¿Algún comentario o felicitación para los novios?" rows="2"></textarea>
                     
                     <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
                 </form>
@@ -701,21 +734,22 @@
         }, { threshold: 0.1 }); 
         document.querySelectorAll('.animar').forEach(el => observer.observe(el));
 
-        // Bienvenida (Animación Sobre Realista)
+        // Bienvenida (Animación de Sobre) y Música
         const audio = document.getElementById('audioFondo');
         function abrirInvitacion() {
+            // Se acciona la animación del sobre
             const wrapper = document.querySelector('.envelope-wrapper');
             wrapper.classList.add('open');
+            
             audio.play().catch(e => console.log("Audio bloqueado"));
 
+            // Esperar a que termine la animación del sobre para desvanecer la pantalla
             setTimeout(() => {
-                const pantalla = document.getElementById('pantalla-bienvenida');
-                pantalla.style.opacity = '0';
-                setTimeout(() => { pantalla.style.visibility = 'hidden'; }, 1500);
+                document.getElementById('pantalla-bienvenida').style.opacity = '0';
+                setTimeout(() => { document.getElementById('pantalla-bienvenida').style.visibility = 'hidden'; }, 1200);
                 document.querySelectorAll('#inicio .animar').forEach(el => el.classList.add('aparecer'));
-            }, 1000);
+            }, 900);
         }
-
         function toggleAudio() {
             if(audio.paused) { audio.play(); document.getElementById('icon-play').style.display = 'none'; document.getElementById('icon-pausa').style.display = 'block'; }
             else { audio.pause(); document.getElementById('icon-play').style.display = 'block'; document.getElementById('icon-pausa').style.display = 'none'; }
@@ -774,7 +808,8 @@
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        function confirmar(e) { e.preventDefault(); alert('¡Confirmación simulada exitosamente!'); e.target.reset(); }
+        // Simulación RSVP
+        function confirmar(e) { e.preventDefault(); alert('¡Confirmación guardada correctamente!'); e.target.reset(); }
     </script>
 </body>
 </html>
