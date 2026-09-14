@@ -40,14 +40,14 @@
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
         /* ==========================================
-           FONDO PERSONALIZADO (FIJO Y SIN CORTES)
+           FONDO PERSONALIZADO (SIN ZOOM, TAMAÑO REAL)
            ========================================== */
         .contenido-resto {
             position: relative;
             background-image: url('fondo_invitacion.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+            background-size: 100% auto;      /* Ancho al 100%, altura proporcional SIN ZOOM */
+            background-repeat: repeat;       /* Se repite hacia abajo si el contenido es más largo */
+            background-position: top center; /* Inicia justo debajo de la foto principal */
         }
 
         /* EFECTO VIDRIO ESMERILADO (GLASSMORPHISM) */
@@ -269,7 +269,7 @@
         </div>
     </section>
 
-    <!-- CONTENIDO CON FONDO PERSONALIZADO FIJO -->
+    <!-- CONTENIDO CON FONDO PERSONALIZADO 100% AUTO -->
     <main class="contenido-resto">
         
         <!-- ITINERARIO -->
@@ -475,7 +475,6 @@
                         </label>
                     </div>
                     
-                    <!-- TEXTO DEL CAJÓN ACTUALIZADO -->
                     <textarea placeholder="¿Algún comentario o felicitación para los novios?" rows="2"></textarea>
                     
                     <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
@@ -722,7 +721,7 @@
         }, { threshold: 0.1 }); 
         document.querySelectorAll('.animar').forEach(el => observer.observe(el));
 
-        // Bienvenida (Animación Sobre Realista)
+        // Bienvenida (Animación de Sobre) y Música
         const audio = document.getElementById('audioFondo');
         function abrirInvitacion() {
             const wrapper = document.querySelector('.envelope-wrapper');
