@@ -40,13 +40,14 @@
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
 
         /* ==========================================
-           FONDO PERSONALIZADO (SIN ZOOM, TAMAÑO REAL)
+           FONDO PERSONALIZADO (FIJO Y SIN CORTES)
            ========================================== */
         .contenido-resto {
             position: relative;
             background-image: url('fondo_invitacion.jpg');
-            background-size: 100% auto; /* Mantiene el ancho real sin hacer zoom */
-            background-repeat: repeat;  /* Se repite hacia abajo naturalmente */
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
 
         /* EFECTO VIDRIO ESMERILADO (GLASSMORPHISM) */
@@ -194,6 +195,8 @@
         .c-pos-0 { transform: translateX(0) scale(1) translateZ(0); z-index: 3; opacity: 1; pointer-events: auto; }
         .c-pos-1 { transform: translateX(100px) scale(0.85) translateZ(-50px); z-index: 2; opacity: 1; }
         .c-pos-m1 { transform: translateX(-100px) scale(0.85) translateZ(-50px); z-index: 2; opacity: 1; }
+        
+        .pildora-desliza { font-size: 0.8em; margin-bottom: 25px; color: var(--hueso); background: rgba(75,83,61,0.7); backdrop-filter: blur(5px); display: inline-block; padding: 6px 18px; border-radius: 20px; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
         /* MODALES */
         .modal-pantalla-completa { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(75, 83, 61, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 9999; display: none; overflow-y: auto; padding: 60px 20px; text-align: center;}
@@ -243,10 +246,11 @@
         <a href="#mensajes" onclick="toggleMenu()">Mensajes</a>
         <a href="#galeria" onclick="toggleMenu()">Galería</a>
         <a href="#sugerencias" onclick="toggleMenu()">Recomendaciones</a>
+        <a href="#regalos" onclick="toggleMenu()">Mesa de Regalos</a>
         <a href="#rsvp" onclick="toggleMenu()">Asistencia</a>
     </div>
 
-    <!-- HERO (Foto Principal) -->
+    <!-- HERO -->
     <section class="hero" id="inicio">
         <div class="music-player-mini" id="playBtn" onclick="toggleAudio()">
             <svg id="icon-pausa" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
@@ -265,7 +269,7 @@
         </div>
     </section>
 
-    <!-- CONTENIDO CON FONDO PERSONALIZADO 100% AUTO -->
+    <!-- CONTENIDO CON FONDO PERSONALIZADO FIJO -->
     <main class="contenido-resto">
         
         <!-- ITINERARIO -->
@@ -351,10 +355,11 @@
             </div>
         </div>
 
-        <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES -->
+        <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES (CARRUSELES 3D CON SWIPE) -->
         <div class="container animar" id="sugerencias">
+            <!-- Hospedaje -->
             <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Hospedaje</h2>
-            <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
+            <p class="pildora-desliza">Desliza para ver más opciones</p>
             <div class="carousel-3d-container vivo-flotar" id="car-hospedaje">
                 <div class="carousel-3d-card" onclick="abrirModalSugerencia('holiday-inn')">
                     <img src="hotel_holiday_portada.jpg" alt="Holiday Inn" onerror="this.src='https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop'">
@@ -379,8 +384,9 @@
                 </div>
             </div>
 
+            <!-- Restaurantes -->
             <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 60px; margin-bottom: 10px;">Gastronomía</h2>
-            <p style="font-size: 0.8em; margin-bottom: 20px; color: var(--taupe);">Desliza para ver más opciones</p>
+            <p class="pildora-desliza">Desliza para ver más opciones</p>
             <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
                 <div class="carousel-3d-card" onclick="abrirModalSugerencia('calle-59')">
                     <img src="rest_calle59_portada.jpg" alt="Calle 59" onerror="this.src='https://images.unsplash.com/photo-1525610553991-2bede1a236e2?w=400&h=300&fit=crop'">
@@ -430,7 +436,20 @@
             </div>
         </div>
 
-        <!-- RSVP (DISEÑO ACTUALIZADO) -->
+        <!-- MESA DE REGALOS (GLASSMORPHISM) -->
+        <div class="container animar" id="regalos" style="padding-top: 0;">
+            <div class="glass-box-flotante glass-panel vivo-flotar" style="animation-delay: 0.5s;">
+                <svg style="width: 45px; height: 45px; stroke: var(--oliva); fill: none; stroke-width: 1.5; margin-bottom: 10px;" viewBox="0 0 24 24">
+                    <path d="M20 12v10H4V12M22 7H2v5h20V7zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zm0 0h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                </svg>
+                <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Mesa de Regalos</h2>
+                <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px; color: var(--cafe-sutil);">El mejor regalo es su presencia, pero si desean tener un detalle con nosotros, pueden hacerlo a través de nuestra mesa de regalos en Liverpool.</p>
+                <p style="font-family: 'Montserrat', sans-serif; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe); margin-bottom: 30px;">Evento: 60034213</p>
+                <a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/60034213" target="_blank" class="btn-linea" style="border-color: var(--oliva); color: var(--verde-profundo);">Ver Mesa de Regalos</a>
+            </div>
+        </div>
+
+        <!-- RSVP (DISEÑO ACTUALIZADO CON PASES ASIGNADOS) -->
         <div class="container animar" id="rsvp">
             <div class="glass-box-flotante glass-panel" style="margin-top: 0;">
                 <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 10px; color: var(--verde-profundo);">Asistencia</h2>
@@ -456,13 +475,15 @@
                         </label>
                     </div>
                     
+                    <!-- TEXTO DEL CAJÓN ACTUALIZADO -->
                     <textarea placeholder="¿Algún comentario o felicitación para los novios?" rows="2"></textarea>
+                    
                     <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
                 </form>
             </div>
         </div>
         
-    </main> <!-- FIN DEL CONTENEDOR CON FONDO 100% AUTO -->
+    </main> <!-- FIN DEL CONTENEDOR CON FONDO FIJO -->
 
     <!-- ================== MODALES ================== -->
 
@@ -701,7 +722,7 @@
         }, { threshold: 0.1 }); 
         document.querySelectorAll('.animar').forEach(el => observer.observe(el));
 
-        // Bienvenida (Animación de Sobre) y Música
+        // Bienvenida (Animación Sobre Realista)
         const audio = document.getElementById('audioFondo');
         function abrirInvitacion() {
             const wrapper = document.querySelector('.envelope-wrapper');
