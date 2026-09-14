@@ -45,9 +45,9 @@
         .contenido-resto {
             position: relative;
             background-image: url('fondo_invitacion.jpg');
-            background-size: 100% auto;      /* Ancho al 100%, altura proporcional SIN ZOOM */
-            background-repeat: repeat;       /* Se repite hacia abajo si el contenido es más largo */
-            background-position: top center; /* Inicia justo debajo de la foto principal */
+            background-size: 100% auto;
+            background-repeat: repeat;
+            background-position: top center;
         }
 
         /* EFECTO VIDRIO ESMERILADO (GLASSMORPHISM) */
@@ -98,7 +98,6 @@
             z-index: 3; border-radius: 5px; 
         }
         
-        /* SELLO DE CERA PERSONALIZADO (IMAGEN) */
         .wax-seal-img { 
             position: absolute; top: 75px; left: 50%; transform: translateX(-50%); 
             width: 85px; height: 85px; z-index: 5; object-fit: contain; 
@@ -175,17 +174,17 @@
         .clima-hora-txt { font-size: 0.8em; letter-spacing: 1px; font-weight: 300; }
         .clima-temp { font-family: 'Cormorant Garamond', serif; font-size: 1.5em; color: var(--verde-profundo); }
 
-        /* GALERÍA POLAROID */
-        .contenedor-polaroids { position: relative; height: 350px; width: 100%; max-width: 350px; margin: 40px auto; cursor: pointer; }
+        /* GALERÍA POLAROID (Ajuste de altura para reducir el espacio vacío) */
+        .contenedor-polaroids { position: relative; height: 180px; width: 100%; max-width: 350px; margin: 20px auto 0 auto; cursor: pointer; }
         .polaroid-flotante { position: absolute; width: 110px; height: 130px; background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); padding: 6px; padding-bottom: 25px; box-shadow: 0 15px 35px rgba(75, 83, 61, 0.2); border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; transition: all 0.3s; animation: levitacion-marcada 3.5s infinite ease-in-out alternate; }
         .polaroid-flotante img { width: 100%; height: 100%; object-fit: cover; background: var(--hueso-oscuro); }
-        .pol-1 { top: 30px; left: 10%; --rotacion: -15deg; animation-delay: 0s; z-index: 1; }
-        .pol-2 { top: 60px; left: 30%; --rotacion: -5deg; animation-delay: 0.5s; z-index: 2; }
-        .pol-3 { top: 20px; left: 50%; --rotacion: 10deg; animation-delay: 1s; z-index: 3; }
-        .pol-4 { top: 50px; left: 65%; --rotacion: 20deg; animation-delay: 1.5s; z-index: 4; }
+        .pol-1 { top: 10px; left: 10%; --rotacion: -15deg; animation-delay: 0s; z-index: 1; }
+        .pol-2 { top: 40px; left: 30%; --rotacion: -5deg; animation-delay: 0.5s; z-index: 2; }
+        .pol-3 { top: 0px; left: 50%; --rotacion: 10deg; animation-delay: 1s; z-index: 3; }
+        .pol-4 { top: 30px; left: 65%; --rotacion: 20deg; animation-delay: 1.5s; z-index: 4; }
 
         /* CARRUSEL 3D (HOSPEDAJE Y RESTAURANTES) */
-        .carousel-3d-container { position: relative; height: 320px; perspective: 1000px; margin: 40px 0; display: flex; justify-content: center; align-items: center; cursor: grab; }
+        .carousel-3d-container { position: relative; height: 320px; perspective: 1000px; margin: 20px 0 40px 0; display: flex; justify-content: center; align-items: center; cursor: grab; }
         .carousel-3d-container:active { cursor: grabbing; }
         .carousel-3d-card { position: absolute; width: 220px; height: 280px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); border-radius: 15px; box-shadow: 0 15px 35px rgba(75, 83, 61, 0.2); overflow: hidden; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; opacity: 0; }
         .carousel-3d-card img { width: 100%; height: 140px; object-fit: cover; }
@@ -355,8 +354,8 @@
             </div>
         </div>
 
-        <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES (CARRUSELES 3D CON SWIPE) -->
-        <div class="container animar" id="sugerencias">
+        <!-- SUGERENCIAS HOSPEDAJE Y RESTAURANTES -->
+        <div class="container animar" id="sugerencias" style="padding-top: 0;">
             <!-- Hospedaje -->
             <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Hospedaje</h2>
             <p class="pildora-desliza">Desliza para ver más opciones</p>
@@ -412,7 +411,7 @@
             </div>
         </div>
 
-        <!-- MENSAJES INMERSIVOS -->
+        <!-- MENSAJES INMERSIVOS (CONEXIÓN FIREBASE) -->
         <section class="seccion-mensajes-inmersiva animar" id="mensajes">
             <h2 class="serif animar" style="font-size: 2.5em; margin-bottom: 10px;">Libro de Visitas</h2>
             <p style="font-size: 0.85em; font-weight: 300; margin-bottom: 30px; opacity: 0.8; max-width: 400px; margin-left: auto; margin-right: auto;">Déjanos tus mejores deseos. Si prefieres no escribir tu nombre, déjalo en blanco y el mensaje aparecerá como Anónimo.</p>
@@ -420,7 +419,7 @@
             <form class="form-fino-oscuro animar" id="form-visitas" onsubmit="guardarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
                 <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
                 <input type="text" id="txt-nombre" placeholder="Tu Nombre">
-                <button type="submit" class="btn-dorado">Dejar Mensaje</button>
+                <button type="submit" id="btn-enviar-mensaje" class="btn-dorado">Dejar Mensaje</button>
             </form>
             
             <div class="slider-container animar" id="galeria-mensajes"></div>
@@ -436,7 +435,7 @@
             </div>
         </div>
 
-        <!-- MESA DE REGALOS (GLASSMORPHISM) -->
+        <!-- MESA DE REGALOS -->
         <div class="container animar" id="regalos" style="padding-top: 0;">
             <div class="glass-box-flotante glass-panel vivo-flotar" style="animation-delay: 0.5s;">
                 <svg style="width: 45px; height: 45px; stroke: var(--oliva); fill: none; stroke-width: 1.5; margin-bottom: 10px;" viewBox="0 0 24 24">
@@ -449,13 +448,12 @@
             </div>
         </div>
 
-        <!-- RSVP (DISEÑO ACTUALIZADO CON PASES ASIGNADOS) -->
+        <!-- RSVP (DISEÑO ACTUALIZADO) -->
         <div class="container animar" id="rsvp">
             <div class="glass-box-flotante glass-panel" style="margin-top: 0;">
                 <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 10px; color: var(--verde-profundo);">Asistencia</h2>
                 <p style="font-size: 0.9em; margin-bottom: 30px; color: var(--cafe-sutil);">Nos encantaría contar con tu presencia.</p>
                 
-                <!-- Cuadro de Pases (Visual) -->
                 <div style="background: rgba(255,255,255,0.5); border: 1px solid var(--oliva); border-radius: 10px; padding: 15px; margin-bottom: 25px;">
                     <p style="font-family: 'Montserrat', sans-serif; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe);">Pases asignados</p>
                     <p class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 5px;">4</p>
@@ -482,18 +480,15 @@
             </div>
         </div>
         
-    </main> <!-- FIN DEL CONTENEDOR CON FONDO FIJO -->
+    </main>
 
-    <!-- ================== MODALES ================== -->
-
-    <!-- MODAL GALERÍA MENSAJES -->
+    <!-- MODALES -->
     <div id="modal-mensajes" class="modal-pantalla-completa">
         <button class="btn-cerrar" onclick="cerrarGaleriaMensajes()">×</button>
         <h2 class="serif" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 30px;">Mensajes de Cariño</h2>
         <div class="masonry-mensajes" id="contenedor-masonry"></div>
     </div>
 
-    <!-- MODAL GALERÍA OFICIAL DE FOTOS -->
     <div id="modal-galeria" class="modal-pantalla-completa">
         <button class="btn-cerrar" style="z-index: 100000;" onclick="cerrarGaleriaOficial()">×</button>
         <h2 class="serif" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 30px;">Memorias Inolvidables</h2>
@@ -501,23 +496,18 @@
         <div class="grid-modal-oficial" id="grid-oficial"></div>
     </div>
 
-    <!-- LIGHTBOX (PARA AMPLIAR FOTOS INDIVIDUALES) -->
     <div id="lightbox">
         <button class="btn-cerrar-lightbox" onclick="cerrarLightbox()">×</button>
         <img id="lightbox-img" src="" alt="Ampliación">
     </div>
 
-    <!-- MODAL DINÁMICO DE SUGERENCIAS -->
     <div id="modal-sugerencia" class="modal-pantalla-completa">
         <button class="btn-cerrar" onclick="cerrarModalSugerencia()">×</button>
         <div style="max-width: 600px; margin: 0 auto; text-align: center;">
             <h2 class="serif" id="sug-titulo" style="color: var(--hueso); font-size: 2.5em; margin-bottom: 20px;">Título</h2>
-            
             <div class="grid-modal-oficial" id="sug-galeria"></div>
-            
             <div style="color: var(--hueso); margin-top: 30px; font-weight: 300; text-align: left; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
                 <p id="sug-desc" style="line-height: 1.6; font-size: 0.9em;"></p>
-                
                 <div id="sug-fb-container" style="margin-top: 25px; display: none;">
                     <a id="sug-fb" href="#" target="_blank" style="background-color: #1877F2; color: #ffffff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 30px; padding: 12px 20px; font-weight: 400; width: 100%; box-shadow: 0 4px 15px rgba(24,119,242,0.3); transition: 0.3s;">
                         <svg style="width: 22px; height: 22px; fill: currentColor;" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
@@ -525,14 +515,13 @@
                     </a>
                 </div>
             </div>
-            
             <button class="btn-dorado" style="margin-top: 25px; width: 100%;" id="sug-mapa">Ver Ubicación en Mapa</button>
         </div>
     </div>
 
     <!-- SCRIPTS -->
     <script>
-        // ======= CONFIGURACIÓN DE FIREBASE =======
+        // ======= CONFIGURACIÓN DE FIREBASE (CON PROTECCIÓN Y REINTENTOS) =======
         const firebaseConfig = {
             apiKey: "AIzaSyCCfXcBINqAJa0yGfkUtlXuImtMJA7DkAM",
             authDomain: "boda-cecilia-osvaldo.firebaseapp.com",
@@ -544,38 +533,78 @@
             measurementId: "G-6ST8SD5X7F"
         };
         
-        firebase.initializeApp(firebaseConfig);
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+        } catch (e) {
+            console.error("Error inicializando Firebase:", e);
+        }
+
         const db = firebase.database();
         const mensajesRef = db.ref('mensajes_boda');
 
-        // Escuchar Firebase
+        function escaparTexto(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
         mensajesRef.on('child_added', (snapshot) => {
             const data = snapshot.val();
-            const texto = data.texto;
-            const nombre = data.nombre;
+            if (!data) return;
+            
+            const texto = escaparTexto(data.texto || "");
+            const nombre = escaparTexto(data.nombre || "Anónimo");
 
-            // Slider horizontal
             const sliderMensajes = document.getElementById('galeria-mensajes');
             const tarjetaSlider = document.createElement('div');
             tarjetaSlider.className = 'mensaje-card-oscuro';
             tarjetaSlider.innerHTML = `<p class="serif" style="font-size: 1.5em; font-style: italic; margin-bottom: 15px;">"${texto}"</p><p style="font-size: 0.7em; letter-spacing: 2px; text-transform: uppercase;">${nombre}</p>`;
             sliderMensajes.prepend(tarjetaSlider);
 
-            // Galería Modal
             const masonryMensajes = document.getElementById('contenedor-masonry');
             const tarjetaMasonry = document.createElement('div');
             tarjetaMasonry.className = 'masonry-item';
             tarjetaMasonry.innerHTML = `<p class="serif" style="font-size: 1.2em; font-style: italic; margin-bottom: 10px;">"${texto}"</p><p style="font-size: 0.7em; font-weight: 400; text-transform: uppercase;">— ${nombre}</p>`;
             masonryMensajes.prepend(tarjetaMasonry);
+        }, (error) => {
+            console.error("Error al leer mensajes de Firebase:", error);
+            if (error.code === "PERMISSION_DENIED") {
+                console.warn("⚠️ Las reglas de Firebase Realtime Database han expirado. Cambia .read y .write a true en la consola de Firebase.");
+            }
         });
 
         function guardarMensaje(e) {
             e.preventDefault();
-            const texto = document.getElementById('txt-mensaje').value;
-            let nombre = document.getElementById('txt-nombre').value || "Anónimo";
-            mensajesRef.push({ texto: texto, nombre: nombre, timestamp: Date.now() });
-            document.getElementById('form-visitas').reset();
-            alert("¡Mensaje guardado con éxito!");
+            const btn = document.getElementById('btn-enviar-mensaje');
+            const texto = document.getElementById('txt-mensaje').value.trim();
+            let nombre = document.getElementById('txt-nombre').value.trim() || "Anónimo";
+
+            if (!texto) return;
+
+            btn.disabled = true;
+            btn.innerText = "Guardando...";
+
+            mensajesRef.push({
+                texto: texto,
+                nombre: nombre,
+                timestamp: firebase.database.ServerValue.TIMESTAMP || Date.now()
+            }).then(() => {
+                document.getElementById('form-visitas').reset();
+                btn.disabled = false;
+                btn.innerText = "Dejar Mensaje";
+                alert("¡Muchas gracias! Tu mensaje ha sido publicado.");
+            }).catch((err) => {
+                btn.disabled = false;
+                btn.innerText = "Dejar Mensaje";
+                console.error("Detalle del error en Firebase:", err);
+                if (err.code === "PERMISSION_DENIED") {
+                    alert("Aviso: Las reglas de prueba de Firebase caducaron. Entra a Firebase Console > Realtime Database > Reglas y cambia .read y .write a true.");
+                } else {
+                    alert("No se pudo guardar el mensaje (" + (err.message || err.code) + "). Revisa tu conexión.");
+                }
+            });
         }
 
         // ====== BASE DE DATOS LOCAL DE SUGERENCIAS ======
