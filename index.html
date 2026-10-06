@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boda Cecilia & Osvaldo</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
-    
+
     <!-- CONECTORES DE FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -26,7 +26,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+
         body {
             font-family: 'Montserrat', sans-serif;
             color: var(--cafe-sutil);
@@ -34,7 +34,7 @@
             font-weight: 300;
             background-color: var(--hueso); 
         }
-        
+
         .serif { font-family: 'Cormorant Garamond', serif; }
         img { max-width: 100%; display: block; }
         .container { max-width: 800px; margin: 0 auto; padding: 50px 20px; text-align: center; }
@@ -65,7 +65,7 @@
         @keyframes flotar { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
         @keyframes respirar { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
         @keyframes levitacion-marcada { 0% { transform: translateY(0) rotate(var(--rotacion)); } 50% { transform: translateY(-25px) rotate(calc(var(--rotacion) + 5deg)) scale(1.05); } 100% { transform: translateY(0) rotate(var(--rotacion)); } }
-        
+
         .vivo-flotar { animation: flotar 6s ease-in-out infinite; }
         .vivo-respirar { animation: respirar 8s ease-in-out infinite; }
         .animar { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1); }
@@ -84,20 +84,20 @@
         .envelope-wrapper { position: relative; width: 320px; height: 210px; cursor: pointer; perspective: 1200px; }
         .envelope { position: relative; width: 100%; height: 100%; border-radius: 5px; transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
         .envelope-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--hueso); border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        
+
         .envelope-flap { 
             position: absolute; top: 0; left: 0; width: 100%; height: 120px; 
             background: var(--taupe); clip-path: polygon(0 0, 100% 0, 50% 100%); 
             transform-origin: top; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
             z-index: 4; border-radius: 5px 5px 0 0; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
         }
-        
+
         .envelope-front { 
             position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; 
             background: var(--hueso-oscuro); clip-path: polygon(0 100%, 0 0, 50% 60%, 100% 0, 100% 100%); 
             z-index: 3; border-radius: 5px; 
         }
-        
+
         .wax-seal-img { 
             position: absolute; top: 75px; left: 50%; transform: translateX(-50%); 
             width: 85px; height: 85px; z-index: 5; object-fit: contain; 
@@ -203,7 +203,7 @@
         .c-pos-0 { transform: translateX(0) scale(1) translateZ(0); z-index: 3; opacity: 1; pointer-events: auto; }
         .c-pos-1 { transform: translateX(100px) scale(0.85) translateZ(-50px); z-index: 2; opacity: 1; }
         .c-pos-m1 { transform: translateX(-100px) scale(0.85) translateZ(-50px); z-index: 2; opacity: 1; }
-        
+
         .pildora-desliza { font-size: 0.8em; margin-bottom: 25px; color: var(--hueso); background: rgba(75,83,61,0.7); backdrop-filter: blur(5px); display: inline-block; padding: 6px 18px; border-radius: 20px; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
         /* MODALES */
@@ -211,7 +211,7 @@
         .btn-cerrar { position: fixed; top: 20px; right: 20px; color: var(--hueso); font-size: 2em; background: none; border: none; cursor: pointer; z-index: 10000; }
         .masonry-mensajes { column-count: 2; column-gap: 15px; margin-top: 20px; text-align: center; }
         .masonry-item { background: rgba(255,255,255,0.9); color: var(--verde-profundo); padding: 20px; margin-bottom: 15px; border-radius: 12px; break-inside: avoid; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        
+
         .grid-modal-oficial { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 800px; margin: 0 auto; }
         .grid-modal-oficial img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
@@ -280,11 +280,11 @@
 
     <!-- CONTENIDO CON FONDO PERSONALIZADO -->
     <main class="contenido-resto">
-        
+
         <!-- ITINERARIO -->
         <div class="container animar" id="itinerario">
             <h2 class="serif" style="font-size: 2.5em; font-weight: 300; color: var(--verde-profundo);">Itinerario</h2>
-            
+
             <div class="itinerario-item glass-panel animar vivo-flotar" style="animation-delay: 0.2s;">
                 <svg class="icon-vector" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 0v5m-2-2h4"/></svg>
                 <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
@@ -331,22 +331,36 @@
                 </svg>
                 <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 10px;">Dress Code</h2>
                 <p style="font-size: 0.9em; margin-bottom: 25px; color: var(--cafe-sutil); line-height: 1.5;">Agradecemos que nos acompañen vistiendo dentro de nuestra paleta de colores.</p>
-                
+
                 <!-- Paleta de Colores Interactiva -->
                 <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 25px;">
                     <div class="color-circulo animar" style="background-color: #2F241D; animation-delay: 0.1s;" title="Chocolate Oscuro"></div>
                     <div class="color-circulo animar" style="background-color: #574136; animation-delay: 0.2s;" title="Café Tostado"></div>
                     <div class="color-circulo animar" style="background-color: #B8A48B; animation-delay: 0.3s;" title="Taupe Arenoso"></div>
                     <div class="color-circulo animar" style="background-color: #C8A99D; animation-delay: 0.4s;" title="Rosa Nude Empolvado"></div>
-                    <div class="color-circulo animar" style="background-color: #C7B292; animation-delay: 0.5s;" title="Camel Claro"></div>
-                    <div class="color-circulo animar" style="background-color: #B7C5A6; animation-delay: 0.6s;" title="Verde Salvia"></div>
-                    <div class="color-circulo animar" style="background-color: #5C6846; animation-delay: 0.7s;" title="Verde Oliva"></div>
+                    <div class="color-circulo animar" style="background-color: #B7C5A6; animation-delay: 0.5s;" title="Verde Salvia"></div>
+                    <div class="color-circulo animar" style="background-color: #5C6846; animation-delay: 0.6s;" title="Verde Oliva"></div>
                 </div>
 
                 <p style="font-size: 0.8em; font-weight: 400; color: #8b3a3a; letter-spacing: 1px; margin-bottom: 25px; text-transform: uppercase;">Evitar blanco, marfil, crema y tonos extremadamente claros.</p>
 
-                <!-- Imagen Flotante del Dress Code -->
-                <img src="image_87f364.jpg" alt="Guía de Vestimenta" class="vivo-respirar animar" style="border-radius: 12px; width: 100%; box-shadow: 0 10px 20px rgba(0,0,0,0.15); border: 2px solid rgba(255,255,255,0.5);" onerror="this.style.display='none'">
+                <!-- NUEVO CARRUSEL DRESS CODE PARA PAREJAS EN PNG -->
+                <p class="pildora-desliza" style="margin-bottom: 10px; background: rgba(122,121,86,0.7);">Desliza para ver ejemplos</p>
+                <div class="carousel-3d-container vivo-flotar" id="car-dresscode" style="height: 280px; margin-top: 10px;">
+                    <div class="carousel-3d-card" style="background: transparent; backdrop-filter: none; border: none; box-shadow: none;">
+                        <img src="Pareja-1.png" alt="Ejemplo 1" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'">
+                    </div>
+                    <div class="carousel-3d-card" style="background: transparent; backdrop-filter: none; border: none; box-shadow: none;">
+                        <img src="Pareja-2.png" alt="Ejemplo 2" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'">
+                    </div>
+                    <div class="carousel-3d-card" style="background: transparent; backdrop-filter: none; border: none; box-shadow: none;">
+                        <img src="Pareja-3.png" alt="Ejemplo 3" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'">
+                    </div>
+                    <div class="carousel-3d-card" style="background: transparent; backdrop-filter: none; border: none; box-shadow: none;">
+                        <img src="Pareja-4.png" alt="Ejemplo 4" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'">
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -385,7 +399,7 @@
             <!-- Hospedaje -->
             <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-bottom: 5px;">Hospedaje</h2>
             <p class="pildora-desliza">Desliza para ver más opciones</p>
-            
+
             <div class="carousel-3d-container vivo-flotar" id="car-hospedaje">
                 <div class="carousel-3d-card" onclick="abrirModalSugerencia('holiday-inn')">
                     <img src="hotel_holiday_portada.jpg" alt="Holiday Inn" onerror="this.src='https://images.unsplash.com/photo-1551882547-ff40eb0d1556?w=400&h=300&fit=crop'">
@@ -413,7 +427,7 @@
             <!-- Restaurantes -->
             <h2 class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 60px; margin-bottom: 5px;">Gastronomía</h2>
             <p class="pildora-desliza">Desliza para ver más opciones</p>
-            
+
             <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
                 <!-- Se agregó el 4to Restaurante (Briiz) -->
                 <div class="carousel-3d-card" onclick="abrirModalSugerencia('briiz')">
@@ -451,13 +465,13 @@
         <section class="seccion-mensajes-inmersiva animar" id="mensajes">
             <h2 class="serif animar" style="font-size: 2.5em; margin-bottom: 10px;">Libro de Visitas</h2>
             <p style="font-size: 0.85em; font-weight: 300; margin-bottom: 30px; opacity: 0.8; max-width: 400px; margin-left: auto; margin-right: auto;">Déjanos tus mejores deseos. Si prefieres no escribir tu nombre, déjalo en blanco y el mensaje aparecerá como Anónimo.</p>
-            
+
             <form class="form-fino-oscuro animar" id="form-visitas" onsubmit="guardarMensaje(event)" style="max-width: 500px; margin: 0 auto;">
                 <textarea id="txt-mensaje" rows="2" placeholder="Escribe un lindo mensaje para los novios..." required></textarea>
                 <input type="text" id="txt-nombre" placeholder="Tu Nombre">
                 <button type="submit" id="btn-enviar-mensaje" class="btn-dorado">Dejar Mensaje</button>
             </form>
-            
+
             <div class="slider-container animar" id="galeria-mensajes"></div>
             <button class="btn-dorado animar" onclick="abrirGaleriaMensajes()" style="margin-top: 20px;">Ver todos los mensajes</button>
         </section>
@@ -489,7 +503,7 @@
             <div class="glass-box-flotante glass-panel" style="margin-top: 0;">
                 <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 10px; color: var(--verde-profundo);">Asistencia</h2>
                 <p id="rsvp-saludo" style="font-size: 1.1em; font-weight: 400; margin-bottom: 25px; color: var(--verde-profundo);">Nos encantaría contar con tu presencia.</p>
-                
+
                 <div style="background: rgba(255,255,255,0.5); border: 1px solid var(--oliva); border-radius: 10px; padding: 15px; margin-bottom: 25px;">
                     <p style="font-family: 'Montserrat', sans-serif; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe);">Pases asignados</p>
                     <p id="rsvp-pases" class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 5px;">Por Definir</p>
@@ -498,7 +512,7 @@
                 <form class="form-fino animar" style="text-align: left;" onsubmit="confirmar(event)">
                     <input type="hidden" id="txt-nombre-familia" name="familia" value="">
                     <input type="hidden" id="txt-pases-familia" name="pases" value="">
-                    
+
                     <div style="margin-bottom: 25px; font-weight: 300; color: var(--cafe-sutil); display: flex; flex-direction: column; gap: 15px; padding-left: 5px;">
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <input type="radio" name="asistencia" value="si" required style="width: auto; margin: 0; transform: scale(1.2);"> 
@@ -509,13 +523,13 @@
                             <span style="font-size: 1.1em;">Lo siento, no podremos asistir</span>
                         </label>
                     </div>
-                    
+
                     <textarea placeholder="¿Algún comentario o felicitación para los novios?" rows="2"></textarea>
                     <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
                 </form>
             </div>
         </div>
-        
+
     </main>
 
     <!-- MODALES -->
@@ -584,7 +598,7 @@
             appId: "1:155630119202:web:e315c300c4579f9b31dd7b",
             measurementId: "G-6ST8SD5X7F"
         };
-        
+
         try { if (!firebase.apps.length) firebase.initializeApp(firebaseConfig); } 
         catch (e) { console.error("Error inicializando Firebase:", e); }
 
@@ -600,7 +614,7 @@
         mensajesRef.on('child_added', (snapshot) => {
             const data = snapshot.val();
             if (!data) return;
-            
+
             const texto = escaparTexto(data.texto || "");
             const nombre = escaparTexto(data.nombre || "Anónimo");
 
@@ -701,13 +715,13 @@
 
         function abrirModalSugerencia(key) {
             if (window.isSwiping) return; 
-            
+
             const data = sugerenciasData[key];
             if(!data) return;
 
             document.getElementById('sug-titulo').innerText = data.titulo;
             document.getElementById('sug-desc').innerText = data.descripcion;
-            
+
             const galeria = document.getElementById('sug-galeria');
             galeria.innerHTML = '';
             data.imagenes.forEach(img => {
@@ -758,19 +772,19 @@
                 startX = e.touches[0].clientX; 
                 window.isSwiping = false; 
             }, {passive: true});
-            
+
             container.addEventListener('touchmove', e => { 
                 if (Math.abs(e.touches[0].clientX - startX) > 15) {
                     window.isSwiping = true; 
                 }
             }, {passive: true});
-            
+
             container.addEventListener('touchend', e => {
                 if (!window.isSwiping) return; 
-                
+
                 let endX = e.changedTouches[0].clientX;
                 let diff = startX - endX;
-                
+
                 if (diff > 30) { 
                     currentIndex = (currentIndex + 1) % cards.length; 
                     updateCards(); 
@@ -778,15 +792,16 @@
                     currentIndex = (currentIndex - 1 + cards.length) % cards.length; 
                     updateCards(); 
                 }
-                
+
                 setTimeout(() => window.isSwiping = false, 100);
             });
 
             updateCards();
         }
-        
+
         initCarousel3D('car-hospedaje');
         initCarousel3D('car-restaurantes');
+        initCarousel3D('car-dresscode'); // <--- INICIADOR DEL NUEVO CARRUSEL AÑADIDO
 
         // Animaciones Scroll
         const observer = new IntersectionObserver((entries) => {
@@ -799,7 +814,7 @@
         function abrirInvitacion() {
             const wrapper = document.querySelector('.envelope-wrapper');
             wrapper.classList.add('open');
-            
+
             audio.play().catch(e => console.log("Audio bloqueado"));
 
             setTimeout(() => {
