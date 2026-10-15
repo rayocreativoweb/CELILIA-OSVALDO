@@ -82,7 +82,7 @@
         }
 
         .envelope-wrapper { position: relative; width: 320px; height: 210px; cursor: pointer; perspective: 1200px; }
-        .envelope { position: relative; width: 100%; height: 100%; border-radius: 5px; transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .envelope { position: relative; width: 100%; height: 100%; border-radius: 5px; transform-style: preserve-3d; transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
         .envelope-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--hueso); border-radius: 5px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
         .envelope-flap { 
@@ -99,14 +99,32 @@
         }
 
         .wax-seal-img { 
-            position: absolute; top: 75px; left: 50%; transform: translateX(-50%); 
-            width: 85px; height: 85px; z-index: 5; object-fit: contain; 
+            position: absolute; top: 75px; left: 50%; 
+            transform: translateX(-50%) translateZ(10px); 
+            width: 85px; height: 85px; z-index: 10; object-fit: contain; 
             filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4)); 
             transition: opacity 0.5s; 
         }
 
+        .wax-seal-fallback {
+            position: absolute; top: 75px; left: 50%; 
+            transform: translateX(-50%) translateZ(10px); 
+            width: 82px; height: 82px; z-index: 9;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #b8a48b, #8c7355 65%, #5c4932 100%);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.45), 0 6px 12px rgba(0,0,0,0.45);
+            border: 2px solid rgba(245, 246, 237, 0.5);
+            display: none;
+            align-items: center; justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--hueso); font-size: 1.4em; font-style: italic; font-weight: 400;
+            letter-spacing: 1px;
+            transition: opacity 0.5s;
+        }
+
         .envelope-wrapper.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
-        .envelope-wrapper.open .wax-seal-img { opacity: 0; }
+        .envelope-wrapper.open .wax-seal-img,
+        .envelope-wrapper.open .wax-seal-fallback { opacity: 0; pointer-events: none; }
         .envelope-wrapper.open .envelope { transform: scale(1.6) translateY(40px); opacity: 0; transition-delay: 0.4s; }
 
         .click-text { color: var(--hueso); margin-top: 50px; letter-spacing: 3px; font-weight: 300; font-size: 0.9em; text-transform: uppercase; animation: respirar 2s infinite; text-align: center; }
@@ -229,15 +247,16 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA CON SOBRE ANIMADO REALISTA -->
+    <!-- PANTALLA DE BIENVENIDA CON SOBRE ANIMADO REALISTA Y SELLO DE CERA -->
     <div id="pantalla-bienvenida">
         <div class="envelope-wrapper" onclick="abrirInvitacion()">
             <div class="envelope">
                 <div class="envelope-back"></div>
                 <div class="envelope-front"></div>
                 <div class="envelope-flap"></div>
-                <!-- Sello de Cera (Usa tu imagen sello_cera.png) -->
-                <img src="sello_cera.png" alt="Sello de Cera" class="wax-seal-img" onerror="this.style.display='none'">
+                <!-- Sello de Cera (Carga sello_cera.png y tiene respaldo automático si cambia el nombre) -->
+                <img src="sello_cera.png" alt="Sello de Cera" class="wax-seal-img" onerror="if(!this.dataset.intento){this.dataset.intento='1';this.src='Sello_cera.png';}else{this.style.display='none';document.getElementById('sello-respaldo').style.display='flex';}">
+                <div id="sello-respaldo" class="wax-seal-fallback">C &amp; O</div>
             </div>
             <p class="click-text">Toca para abrir</p>
         </div>
@@ -307,6 +326,12 @@
                     <svg class="timeline-icon" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
                     <div class="timeline-time">8:00 P.M.</div>
                     <div class="timeline-title">Ceremonia Civil</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M8 22h8m-4-2v-7m7-10L12 11 5 3z"/></svg>
+                    <div class="timeline-time">8:30 P.M.</div>
+                    <div class="timeline-title">Cóctel de Bienvenida</div>
                 </div>
                 <div class="timeline-item" style="margin-bottom: 0;">
                     <div class="timeline-dot"></div>
