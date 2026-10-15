@@ -221,7 +221,7 @@
         .btn-cerrar-lightbox { position: absolute; top: 20px; right: 20px; font-size: 2.5em; color: white; background: none; border: none; cursor: pointer; padding: 10px; }
 
         /* RSVP */
-        .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.5); color: var(--verde-profundo); font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1em; outline: none; border-radius: 8px; backdrop-filter: blur(5px); }
+        .form-fino input, .form-fino textarea, .form-fino select { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(255,255,255,0.65); border: 1px solid rgba(122, 121, 86, 0.4); color: var(--verde-profundo); font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 0.95em; outline: none; border-radius: 8px; backdrop-filter: blur(5px); }
         .btn-submit-fino { background: var(--oliva); color: var(--hueso); border: none; padding: 15px; width: 100%; border-radius: 30px; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .btn-submit-fino:hover { background: var(--verde-profundo); color: var(--blanco); }
 
@@ -281,13 +281,13 @@
     <!-- CONTENIDO CON FONDO PERSONALIZADO -->
     <main class="contenido-resto">
 
-        <!-- ITINERARIO -->
+        <!-- ITINERARIO ACTUALIZADO -->
         <div class="container animar" id="itinerario">
             <h2 class="serif" style="font-size: 2.5em; font-weight: 300; color: var(--verde-profundo);">Itinerario</h2>
 
             <div class="itinerario-item glass-panel animar vivo-flotar" style="animation-delay: 0.2s;">
                 <svg class="icon-vector" viewBox="0 0 24 24"><path d="M12 2L2 12h3v10h14V12h3L12 2zm0 0v5m-2-2h4"/></svg>
-                <h3 class="lugar-titulo serif">Ceremonia Religiosa</h3>
+                <h3 class="lugar-titulo serif">Misa / Ceremonia Religiosa</h3>
                 <p style="font-weight: 400; margin-bottom: 10px; letter-spacing: 1px;">5:00 P.M.</p>
                 <p style="font-weight: 300; font-size: 0.9em; margin-bottom: 20px;">Catedral de Campeche</p>
                 <button class="btn-linea" onclick="abrirRuta('https://maps.app.goo.gl/4G8YKVWwb3EJixfZA')">Cómo llegar</button>
@@ -304,15 +304,15 @@
             <div class="timeline animar vivo-flotar" style="animation-delay: 0.8s;">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M8 22h8m-4-2v-7m7-10L12 11 5 3z"/></svg>
-                    <div class="timeline-time">7:30 P.M.</div>
-                    <div class="timeline-title">Cóctel de Bienvenida</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
                     <svg class="timeline-icon" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/></svg>
                     <div class="timeline-time">8:00 P.M.</div>
                     <div class="timeline-title">Ceremonia Civil</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <svg class="timeline-icon" viewBox="0 0 24 24"><path d="M8 22h8m-4-2v-7m7-10L12 11 5 3z"/></svg>
+                    <div class="timeline-time">8:30 P.M.</div>
+                    <div class="timeline-title">Cóctel de Bienvenida</div>
                 </div>
                 <div class="timeline-item" style="margin-bottom: 0;">
                     <div class="timeline-dot"></div>
@@ -323,7 +323,7 @@
             </div>
         </div>
 
-        <!-- DRESS CODE (NUEVO DISEÑO INTERACTIVO) -->
+        <!-- DRESS CODE CON IMAGEN PEDIDA.PNG -->
         <div class="container animar" id="dresscode" style="padding-top: 0;">
             <div class="glass-box-flotante glass-panel vivo-flotar">
                 <svg style="width: 45px; height: 45px; stroke: var(--oliva); fill: none; stroke-width: 1.5; margin-bottom: 10px;" viewBox="0 0 24 24">
@@ -342,25 +342,10 @@
                     <div class="color-circulo animar" style="background-color: #5C6846; animation-delay: 0.6s;" title="Verde Oliva"></div>
                 </div>
 
-                <p style="font-size: 0.8em; font-weight: 400; color: #8b3a3a; letter-spacing: 1px; margin-bottom: 25px; text-transform: uppercase;">Evitar blanco, marfil, crema y tonos extremadamente claros.</p>
+                <p style="font-size: 0.8em; font-weight: 400; color: #8b3a3a; letter-spacing: 1px; margin-bottom: 20px; text-transform: uppercase;">Evitar blanco, marfil, crema y tonos extremadamente claros.</p>
 
-                <!-- NUEVO CARRUSEL DRESS CODE PARA PAREJAS EN PNG -->
-                <p class="pildora-desliza" style="margin-bottom: 10px; background: rgba(122,121,86,0.7);"></p>
-                <div class="carousel-3d-container vivo-flotar" id="car-dresscode" style="height: 280px; margin-top: 10px;">
-                    <div class="carousel-3d-card" style="background: transparent; backdrop-filter: none; border: none; box-shadow: none;">
-                        <img src="Pareja-1.png" alt="Ejemplo 1" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'">
-                    </div>
-                    <div class="carousel-3d-card" style="background: transparent; backdrop-filter: none; border: none; box-shadow: none;">
-                        <img src="Pareja-2.png" alt="Ejemplo 2" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'">
-                    </div>
-                    <div class="carousel-3d-card" style="background: transparent; backdrop-filter: none; border: none; box-shadow: none;">
-                        <img src="Pareja-3.png" alt="Ejemplo 3" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'">
-                    </div>
-                    <div class="carousel-3d-card" style="background: transparent; backdrop-filter: none; border: none; box-shadow: none;">
-                        <img src="Pareja-4.png" alt="Ejemplo 4" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'">
-                    </div>
-                </div>
-
+                <!-- Imagen pedida.png ajustada al contenedor esmerilado -->
+                <img src="pedida.png" alt="Dress Code" class="vivo-respirar animar" style="width: 100%; height: auto; margin: 10px auto 0 auto; border-radius: 12px; object-fit: contain;" onerror="this.style.display='none'">
             </div>
         </div>
 
@@ -429,7 +414,6 @@
             <p class="pildora-desliza">Desliza para ver más opciones</p>
 
             <div class="carousel-3d-container vivo-flotar" style="animation-delay: 1s;" id="car-restaurantes">
-                <!-- Se agregó el 4to Restaurante (Briiz) -->
                 <div class="carousel-3d-card" onclick="abrirModalSugerencia('briiz')">
                     <img src="rest_briiz_portada.jpg" alt="Briiz" onerror="this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop'">
                     <div class="c-info">
@@ -498,34 +482,51 @@
             </div>
         </div>
 
-        <!-- RSVP -->
+        <!-- RSVP PERSONALIZADO Y CONECTADO A WHATSAPP DE WEDDING PLANNER -->
         <div class="container animar" id="rsvp">
             <div class="glass-box-flotante glass-panel" style="margin-top: 0;">
-                <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 10px; color: var(--verde-profundo);">Asistencia</h2>
-                <p id="rsvp-saludo" style="font-size: 1.1em; font-weight: 400; margin-bottom: 25px; color: var(--verde-profundo);">Nos encantaría contar con tu presencia.</p>
+                <h2 class="serif" style="font-size: 2.5em; font-weight: 300; margin-bottom: 10px; color: var(--verde-profundo);">Confirmación de Asistencia</h2>
+                <p id="rsvp-saludo" style="font-size: 1.15em; font-weight: 400; margin-bottom: 20px; color: var(--verde-profundo);">Nos encantaría contar con tu presencia en este día tan especial.</p>
 
                 <div style="background: rgba(255,255,255,0.5); border: 1px solid var(--oliva); border-radius: 10px; padding: 15px; margin-bottom: 25px;">
-                    <p style="font-family: 'Montserrat', sans-serif; font-size: 0.85em; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe);">Pases asignados</p>
-                    <p id="rsvp-pases" class="serif" style="font-size: 2.5em; color: var(--verde-profundo); margin-top: 5px;">Por Definir</p>
+                    <p style="font-family: 'Montserrat', sans-serif; font-size: 0.8em; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe);">Invitación personalizada para</p>
+                    <p id="rsvp-nombre-Mostrado" class="serif" style="font-size: 1.8em; color: var(--verde-profundo); margin-top: 4px; font-weight: 400;">Invitado Especial</p>
+                    <hr style="border: none; border-top: 1px solid rgba(122,121,86,0.3); margin: 12px auto; width: 60%;">
+                    <p style="font-family: 'Montserrat', sans-serif; font-size: 0.8em; text-transform: uppercase; letter-spacing: 2px; color: var(--taupe);">Pases asignados</p>
+                    <p id="rsvp-pases" class="serif" style="font-size: 2.3em; color: var(--verde-profundo); margin-top: 2px;">2 Pases</p>
                 </div>
 
-                <form class="form-fino animar" style="text-align: left;" onsubmit="confirmar(event)">
-                    <input type="hidden" id="txt-nombre-familia" name="familia" value="">
-                    <input type="hidden" id="txt-pases-familia" name="pases" value="">
+                <form class="form-fino animar" style="text-align: left;" onsubmit="confirmarWhatsApp(event)">
+                    <!-- Campo visible solo si el link no trae nombre personalizado -->
+                    <div id="contenedor-nombre-manual" style="display: none;">
+                        <label style="font-size: 0.85em; color: var(--verde-profundo); font-weight: 400; display: block; margin-bottom: 6px;">Tu Nombre o Familia:</label>
+                        <input type="text" id="input-nombre-manual" placeholder="Ej. Familia Pérez / Juan y María">
+                    </div>
 
-                    <div style="margin-bottom: 25px; font-weight: 300; color: var(--cafe-sutil); display: flex; flex-direction: column; gap: 15px; padding-left: 5px;">
+                    <p style="font-size: 0.9em; color: var(--verde-profundo); font-weight: 400; margin-bottom: 12px;">¿Podrás acompañarnos?</p>
+                    <div style="margin-bottom: 22px; font-weight: 300; color: var(--cafe-sutil); display: flex; flex-direction: column; gap: 14px; padding-left: 5px;">
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <input type="radio" name="asistencia" value="si" required style="width: auto; margin: 0; transform: scale(1.2);"> 
-                            <span style="font-size: 1.1em;">¡Sí, asistiremos!</span>
+                            <input type="radio" name="asistencia" value="si" required checked onchange="cambiarEstadoAsistencia()" style="width: auto; margin: 0; transform: scale(1.2);"> 
+                            <span style="font-size: 1.05em; font-weight: 400; color: var(--verde-profundo);">¡Sí, ahí estaremos!</span>
                         </label>
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <input type="radio" name="asistencia" value="no" style="width: auto; margin: 0; transform: scale(1.2);"> 
-                            <span style="font-size: 1.1em;">Lo siento, no podremos asistir</span>
+                            <input type="radio" name="asistencia" value="no" onchange="cambiarEstadoAsistencia()" style="width: auto; margin: 0; transform: scale(1.2);"> 
+                            <span style="font-size: 1.05em;">Lo siento, no podremos asistir</span>
                         </label>
                     </div>
 
-                    <textarea placeholder="¿Algún comentario o felicitación para los novios?" rows="2"></textarea>
-                    <button type="submit" class="btn-submit-fino">Confirmar Asistencia</button>
+                    <!-- Selector dinámico de cantidad de pases a confirmar -->
+                    <div id="contenedor-selector-pases" style="margin-bottom: 10px; transition: 0.3s;">
+                        <label for="select-pases-confirmados" style="font-size: 0.85em; color: var(--verde-profundo); font-weight: 400; display: block; margin-bottom: 8px;">Selecciona cuántos pases utilizarán:</label>
+                        <select id="select-pases-confirmados">
+                            <option value="2">Confirmar los 2 pases asignados</option>
+                            <option value="1">Solo asistirá 1 persona</option>
+                        </select>
+                    </div>
+
+                    <textarea id="rsvp-comentario" placeholder="¿Algún mensaje o comentario adicional? (Opcional)" rows="2"></textarea>
+                    <button type="submit" class="btn-submit-fino">Confirmar por WhatsApp</button>
+                    <p style="font-size: 0.72em; text-align: center; margin-top: 12px; color: var(--cafe-sutil); opacity: 0.85;">Tu confirmación será recibida directamente por nuestra Wedding Planner.</p>
                 </form>
             </div>
         </div>
@@ -571,21 +572,95 @@
 
     <!-- SCRIPTS -->
     <script>
-        // ======= LECTURA DE URL PARA RSVP =======
+        // ======= VARIABLES GLOBALES DE INVITACIÓN PERSONALIZADA =======
+        let invitadoNombreGlobal = "";
+        let pasesAsignadosGlobal = 2;
+
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const familia = params.get('familia');
-            const pases = params.get('pases');
+            // Acepta ?familia=..., ?nombre=... o ?invitado=...
+            const familiaParam = params.get('familia') || params.get('nombre') || params.get('invitado');
+            const pasesParam = parseInt(params.get('pases'), 10);
 
-            if(familia && pases) {
-                document.getElementById('rsvp-saludo').innerText = `¡Bienvenidos, ${familia}! Nos encantaría contar con su presencia.`;
-                document.getElementById('rsvp-pases').innerText = pases;
-                document.getElementById('txt-nombre-familia').value = familia;
-                document.getElementById('txt-pases-familia').value = pases;
+            if (familiaParam) {
+                invitadoNombreGlobal = familiaParam.trim();
+                document.getElementById('rsvp-saludo').innerText = `¡Hola, ${invitadoNombreGlobal}! Nos encantaría contar con su presencia.`;
+                document.getElementById('rsvp-nombre-Mostrado').innerText = invitadoNombreGlobal;
+                document.getElementById('contenedor-nombre-manual').style.display = 'none';
             } else {
-                document.getElementById('rsvp-pases').innerText = "Ingresa tu código en la entrada";
+                document.getElementById('rsvp-nombre-Mostrado').innerText = "Apreciable Invitado";
+                document.getElementById('contenedor-nombre-manual').style.display = 'block';
+                document.getElementById('input-nombre-manual').required = true;
+            }
+
+            if (!isNaN(pasesParam) && pasesParam > 0) {
+                pasesAsignadosGlobal = pasesParam;
+            } else {
+                pasesAsignadosGlobal = 2; // Valor por defecto si no se especifica en el link
+            }
+
+            document.getElementById('rsvp-pases').innerText = pasesAsignadosGlobal === 1 ? "1 Pase" : `${pasesAsignadosGlobal} Pases`;
+
+            // Llenar dinámicamente el desplegable desde el máximo de pases hasta 1
+            const selectPases = document.getElementById('select-pases-confirmados');
+            selectPases.innerHTML = '';
+            for (let i = pasesAsignadosGlobal; i >= 1; i--) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                if (i === pasesAsignadosGlobal) {
+                    opt.text = i === 1 ? `Confirmar mi pase (1 persona)` : `¡Ahí estaremos! Confirmar los ${i} pases`;
+                } else {
+                    opt.text = i === 1 ? `Solo asistirá 1 persona (de ${pasesAsignadosGlobal})` : `Asistiremos ${i} personas (de ${pasesAsignadosGlobal})`;
+                }
+                selectPases.appendChild(opt);
             }
         });
+
+        function cambiarEstadoAsistencia() {
+            const seleccion = document.querySelector('input[name="asistencia"]:checked').value;
+            const contenedorSelector = document.getElementById('contenedor-selector-pases');
+            if (seleccion === 'si') {
+                contenedorSelector.style.display = 'block';
+            } else {
+                contenedorSelector.style.display = 'none';
+            }
+        }
+
+        function confirmarWhatsApp(e) {
+            e.preventDefault();
+            const numeroWeddingPlanner = "529821078341";
+            const asistencia = document.querySelector('input[name="asistencia"]:checked').value;
+            const pasesConfirmados = parseInt(document.getElementById('select-pases-confirmados').value, 10);
+            const comentario = document.getElementById('rsvp-comentario').value.trim();
+
+            let nombreFinal = invitadoNombreGlobal;
+            if (!nombreFinal) {
+                nombreFinal = document.getElementById('input-nombre-manual').value.trim() || "Invitado";
+            }
+
+            let mensaje = "";
+            if (asistencia === 'si') {
+                if (pasesConfirmados === pasesAsignadosGlobal) {
+                    if (pasesConfirmados === 1) {
+                        mensaje = `¡Hola! Me comunico para confirmar mi asistencia a la boda de *Cecilia & Osvaldo*. Soy *${nombreFinal}* y ¡ahí estaré! Confirmo mi pase asignado (1 persona).`;
+                    } else {
+                        mensaje = `¡Hola! Me comunico para confirmar nuestra asistencia a la boda de *Cecilia & Osvaldo*. Somos *${nombreFinal}* y ¡ahí estaremos! Confirmamos nuestros *${pasesConfirmados} pases* asignados.`;
+                    }
+                } else {
+                    const txtPersonas = pasesConfirmados === 1 ? "1 persona" : `${pasesConfirmados} personas`;
+                    mensaje = `¡Hola! Me comunico para confirmar nuestra asistencia a la boda de *Cecilia & Osvaldo*. De la invitación para *${nombreFinal}* (${pasesAsignadosGlobal} pases asignados), confirmamos que asistiremos *${txtPersonas}*.`;
+                }
+            } else {
+                mensaje = `¡Hola! Me comunico respecto a la invitación de la boda de *Cecilia & Osvaldo* para *${nombreFinal}*. Lamentablemente no podremos acompañarlos en esta ocasión, pero agradecemos de corazón la invitación y les enviamos nuestros mejores deseos.`;
+            }
+
+            if (comentario) {
+                mensaje += `\n\n*Nota adicional:* "${comentario}"`;
+            }
+
+            const urlWhatsApp = `https://wa.me/${numeroWeddingPlanner}?text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWhatsApp, '_blank');
+        }
 
         // ======= CONFIGURACIÓN DE FIREBASE =======
         const firebaseConfig = {
@@ -801,7 +876,6 @@
 
         initCarousel3D('car-hospedaje');
         initCarousel3D('car-restaurantes');
-        initCarousel3D('car-dresscode'); // <--- INICIADOR DEL NUEVO CARRUSEL AÑADIDO
 
         // Animaciones Scroll
         const observer = new IntersectionObserver((entries) => {
@@ -880,8 +954,6 @@
         function cerrarLightbox() {
             document.getElementById('lightbox').style.display = 'none';
         }
-
-        function confirmar(e) { e.preventDefault(); alert('¡Confirmación simulada exitosamente para la lista VIP!'); e.target.reset(); }
     </script>
 </body>
 </html>
